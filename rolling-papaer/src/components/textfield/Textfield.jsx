@@ -50,18 +50,15 @@ const Container = styled.div`
 `;
 
 const SelectBox = styled.div`
-  max-width: 32rem;
+  max-width: 20rem;
 
   label {
     position: relative;
     display: block;
-    width: 32rem;
-    padding: 1.2rem 1.6rem;
-    border-radius: 0.8rem;
-    border: ${({ $error }) =>
-      $error
-        ? `1px solid ${THEME_LIGHT_COLOR.error}`
-        : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
+    width: 20rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid ${THEME_LIGHT_COLOR.gray3};
     color: ${THEME_LIGHT_COLOR.gray5};
     cursor: pointer;
 
@@ -70,46 +67,31 @@ const SelectBox = styled.div`
       display: block;
       position: absolute;
       top: 50%;
-      right: 1.7rem;
+      right: 1rem;
       transform: translateY(-50%)
-        ${({ rotateToggle }) =>
-          rotateToggle ? "rotate(-180deg)" : "rotate(0)"};
-      width: 1.6rem;
-      height: 1.6rem;
+        ${({ $toggle }) => ($toggle ? "rotate(-180deg)" : "rotate(0)")};
+      width: 1rem;
+      height: 1rem;
       transition: transform 0.5s;
       background: url(${open}) no-repeat center;
     }
 
-    &:focus {
-      color: ${THEME_LIGHT_COLOR.gray9};
-      border: 2px solid ${THEME_LIGHT_COLOR.gray5};
-    }
-
-    &:active {
-      color: ${THEME_LIGHT_COLOR.gray9};
-      border: 2px solid ${THEME_LIGHT_COLOR.gray7};
+    &.error,
+    &.error:hover {
+      border: 1px solid ${THEME_LIGHT_COLOR.error};
     }
 
     &:hover {
       color: ${THEME_LIGHT_COLOR.gray5};
-      border: ${({ $error }) =>
-        $error
-          ? `1px solid ${THEME_LIGHT_COLOR.error}`
-          : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
-    }
-
-    &:disabled {
-      color: ${THEME_LIGHT_COLOR.gray9};
       border: 1px solid ${THEME_LIGHT_COLOR.gray3};
-      background-color: ${THEME_LIGHT_COLOR.gray1};
     }
   }
 
   p {
-    margin: 0.4rem 0 0;
-    color: ${THEME_LIGHT_COLOR.error};
-    ${FONTS.FONT_12_REGULAR};
-  }
+      margin: 0;
+      color: ${THEME_LIGHT_COLOR.error};
+      ${FONTS.FONT_12_REGULAR};
+    }
 
   ul {
     overflow: hidden;
@@ -117,16 +99,16 @@ const SelectBox = styled.div`
     list-style-type: none;
     margin: 0.8rem 0 0;
     padding: 0;
-    width: 35rem;
-    height: ${({ $toggle }) => ($toggle ? "22rem" : "0")};
-    border-radius: 0.8rem;
+    width: 22rem;
+    height: ${({ $toggle }) => ($toggle ? "13.75rem" : "0")};
+    border-radius: 0.5rem;
     border: 1px solid ${THEME_LIGHT_COLOR.gray3};
     transition: visibility 0.5s, height 0.5s;
     box-shadow: 0 2px 12px 0 #00000014;
 
     li {
       color: ${THEME_LIGHT_COLOR.gray9};
-      padding: 1.2rem 1.6rem;
+      padding: 0.75rem 1rem;
       cursor: pointer;
 
       &:hover {
@@ -146,14 +128,39 @@ const SelectBox = styled.div`
 
 function Textfield() {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [selectErrorMessage, setSelectErrorMessage] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const [focusout, setFocusout] = useState("");
-  // const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(false);
   const [values, setValues] = useState({
     text: "",
     placeholder: "",
     type: "",
   });
+  const [selectValues, setSelectValues] = useState("");
+
+  const optionList = [
+    {
+      id: "Text1",
+      list: "TextTextText",
+    },
+    {
+      id: "Text2",
+      list: "TextTextText",
+    },
+    {
+      id: "Text3",
+      list: "TextTextText",
+    },
+    {
+      id: "Text4",
+      list: "TextTextText",
+    },
+    {
+      id: "Text5",
+      list: "TextTextText",
+    },
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -163,37 +170,20 @@ function Textfield() {
       [name]: value,
     }));
   };
-  // const [rotateToggle, setRotateToggle] = useState(false);
 
-  // const optionList = [
-  //   {
-  //     id: "Text1",
-  //     list: "TextTextText",
-  //   },
-  //   {
-  //     id: "Text2",
-  //     list: "TextTextText",
-  //   },
-  //   {
-  //     id: "Text3",
-  //     list: "TextTextText",
-  //   },
-  //   {
-  //     id: "Text4",
-  //     list: "TextTextText",
-  //   },
-  // ];
+  const handleClick = (e) => {
+    setToggle(!toggle);
 
-  // const handleClick = () => {
-  //   setToggle(!toggle);
-  //   setRotateToggle(!rotateToggle);
-  // };
+    if (e.target.value === "") {
+      e.target.classList.add("error");
+      setSelectErrorMessage("Error Massage");
+    } else {
+      e.target.classList.remove("error");
+      setSelectErrorMessage("");
+    }
+  }
 
-  // const handleClickRemove = () => setToggle(false);
-
-  // const handleClickOption = (e) => setValue(e.target.textContent);
-
-  // const handleClickOptionRemove = (e) => e.prventDefault();
+  const handleClickOption = (e) => setSelectValues(e.target.textContent);
 
   const handleFocusout = (e) => {
     setFocusout(e.target.value);
@@ -201,7 +191,7 @@ function Textfield() {
     if (e.target.value === "") {
       e.target.classList.add("error");
       setErrorMessage("Error Massage");
-    }else{
+    } else {
       e.target.classList.remove("error");
       setErrorMessage("");
     }
@@ -211,14 +201,14 @@ function Textfield() {
     setDisabled(true);
   }, []);
 
-  // function Options({ onClick }) {
-  //   const list = optionList.map((item) => (
-  //     <li key={item.id} onClick={onClick}>
-  //       {item.list}
-  //     </li>
-  //   ));
-  //   return list;
-  // }
+  function Options({ onClick }) {
+    const list = optionList.map((item) => (
+      <li key={item.id} onClick={onClick}>
+        {item.list}
+      </li>
+    ));
+    return list;
+  }
 
   return (
     <>
@@ -238,57 +228,21 @@ function Textfield() {
       <Container>
         <input
           type="text"
-          value={null}
+          value={undefined}
           placeholder="placeholder"
           onChange={handleChange}
           name="text"
           disabled={disabled}
         />
       </Container>
-      {/* <InputContainer>
-        {values.text !== '' ?
-        <input
-          type="text"
-          value={values.text}
-          placeholder="placeholder"
-          onChange={handleChange}
-          name="text"
-        />:<input
-        type="text"
-        value={values.text}
-        placeholder="placeholder"
-        onChange={handleChange}
-        name="text"
-      />
-        }
-        {isError && <p>{errorMessage}</p>}
-      </InputContainer> */}
       <p>Dropdown</p>
-      {/* <SelectBox
-          isHas={true}
-          $toggle={toggle}
-          rotateToggle={rotateToggle}
-          onClick={handleClick}
-        >
-          <label>{value ? value : "Placeholder"}</label>
-          <ul>
-            <Options onClick={handleClickOption} />
-          </ul>
-          {isHas && <p>{errorMessage}</p>}
-        </SelectBox>
-
-      <SelectBox
-          $error={error}
-          $toggle={toggle}
-          rotateToggle={rotateToggle}
-          onClick={handleClickRemove}
-        >
-          <label>{value ? "Placeholder" : "Placeholder"}</label>
-          <ul>
-            <Options onClick={handleClickOptionRemove} />
-          </ul>
-          
-        </SelectBox> */}
+      <SelectBox $toggle={toggle} onClick={handleClick}>
+        <label>{selectValues ? selectValues : "placeholder"}</label>
+        <ul>
+          <Options onClick={handleClickOption} />
+        </ul>
+        {selectErrorMessage && <p>{selectErrorMessage}</p>}
+      </SelectBox>
     </>
   );
 }
