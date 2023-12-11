@@ -1,4 +1,4 @@
-const FONTS = {
+export const FONTS = {
   FONT_28_BOLD: `
 	  font-family: Pretendard;
 	  font-size: 1.75rem;
