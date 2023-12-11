@@ -2,76 +2,294 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
 import { FONTS } from "../../theme/font";
+import open from "../../static/arrow-open.png";
 
 const Container = styled.div`
   input {
     outline: none;
     display: block;
+    width: 20rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid ${THEME_LIGHT_COLOR.gray3};
+    color: ${THEME_LIGHT_COLOR.gray5};
+
+    &.error,
+    &.error:hover,
+    &.error:focus {
+      border: 1px solid ${THEME_LIGHT_COLOR.error};
+    }
+
+    &:focus {
+      color: ${THEME_LIGHT_COLOR.gray9};
+      border: 2px solid ${THEME_LIGHT_COLOR.gray5};
+    }
+
+    &:active {
+      color: ${THEME_LIGHT_COLOR.gray9};
+      border: 2px solid ${THEME_LIGHT_COLOR.gray7};
+    }
+
+    &:hover {
+      color: ${THEME_LIGHT_COLOR.gray5};
+      border: 1px solid ${THEME_LIGHT_COLOR.gray5};
+    }
+
+    &:disabled {
+      color: ${THEME_LIGHT_COLOR.gray9};
+      border: 1px solid ${THEME_LIGHT_COLOR.gray3};
+      background-color: ${THEME_LIGHT_COLOR.gray1};
+    }
+  }
+
+  p {
+    margin: 0.25rem 0 0;
+    color: ${THEME_LIGHT_COLOR.error};
+    ${FONTS.FONT_12_REGULAR};
+  }
+`;
+
+const SelectBox = styled.div`
+  max-width: 32rem;
+
+  label {
+    position: relative;
+    display: block;
     width: 32rem;
-    margin: 1rem 0 0;
     padding: 1.2rem 1.6rem;
     border-radius: 0.8rem;
-  }
-`;
-
-const Default = styled.input`
-  border: 1px solid ${THEME_LIGHT_COLOR.gray3};
-  color: ${THEME_LIGHT_COLOR.gray5};
-
-  &:focus {
-    color: ${THEME_LIGHT_COLOR.gray9};
-    border: 2px solid ${THEME_LIGHT_COLOR.gray5};
-  }
-
-  &:active {
-    color: ${THEME_LIGHT_COLOR.gray9};
-    border: 2px solid ${THEME_LIGHT_COLOR.gray7};
-  }
-
-  &:hover {
+    border: ${({ $error }) =>
+      $error
+        ? `1px solid ${THEME_LIGHT_COLOR.error}`
+        : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
     color: ${THEME_LIGHT_COLOR.gray5};
-    border: 1px solid ${THEME_LIGHT_COLOR.gray5};
-  }
+    cursor: pointer;
 
-  &:disabled {
-    color: ${THEME_LIGHT_COLOR.gray9};
-    border: 1px solid ${THEME_LIGHT_COLOR.gray3};
-    background-color: ${THEME_LIGHT_COLOR.gray1};
-  }
-`;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 1.7rem;
+      transform: translateY(-50%)
+        ${({ rotateToggle }) =>
+          rotateToggle ? "rotate(-180deg)" : "rotate(0)"};
+      width: 1.6rem;
+      height: 1.6rem;
+      transition: transform 0.5s;
+      background: url(${open}) no-repeat center;
+    }
 
-const Error = styled.div`
-  input {
-    border: ${({ error }) => error ? `1px solid ${THEME_LIGHT_COLOR.error}` : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
+    &:focus {
+      color: ${THEME_LIGHT_COLOR.gray9};
+      border: 2px solid ${THEME_LIGHT_COLOR.gray5};
+    }
+
+    &:active {
+      color: ${THEME_LIGHT_COLOR.gray9};
+      border: 2px solid ${THEME_LIGHT_COLOR.gray7};
+    }
+
+    &:hover {
+      color: ${THEME_LIGHT_COLOR.gray5};
+      border: ${({ $error }) =>
+        $error
+          ? `1px solid ${THEME_LIGHT_COLOR.error}`
+          : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
+    }
+
+    &:disabled {
+      color: ${THEME_LIGHT_COLOR.gray9};
+      border: 1px solid ${THEME_LIGHT_COLOR.gray3};
+      background-color: ${THEME_LIGHT_COLOR.gray1};
+    }
   }
 
   p {
     margin: 0.4rem 0 0;
     color: ${THEME_LIGHT_COLOR.error};
-    font-size: ${FONTS.FONT_12_REGULAR};
+    ${FONTS.FONT_12_REGULAR};
+  }
+
+  ul {
+    overflow: hidden;
+    visibility: ${({ $toggle }) => ($toggle ? "visible" : "hidden")};
+    list-style-type: none;
+    margin: 0.8rem 0 0;
+    padding: 0;
+    width: 35rem;
+    height: ${({ $toggle }) => ($toggle ? "22rem" : "0")};
+    border-radius: 0.8rem;
+    border: 1px solid ${THEME_LIGHT_COLOR.gray3};
+    transition: visibility 0.5s, height 0.5s;
+    box-shadow: 0 2px 12px 0 #00000014;
+
+    li {
+      color: ${THEME_LIGHT_COLOR.gray9};
+      padding: 1.2rem 1.6rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: ${THEME_LIGHT_COLOR.gray1};
+      }
+
+      &:first-child {
+        border-radius: 0.8rem 0.8rem 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 0 0.8rem 0.8rem;
+      }
+    }
   }
 `;
 
 function Textfield() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [disabled, setDisabled] = useState(false);
-  const [error, setError] = useState(false);
+  const [focusout, setFocusout] = useState("");
+  // const [toggle, setToggle] = useState(false);
+  const [values, setValues] = useState({
+    text: "",
+    placeholder: "",
+    type: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+  // const [rotateToggle, setRotateToggle] = useState(false);
+
+  // const optionList = [
+  //   {
+  //     id: "Text1",
+  //     list: "TextTextText",
+  //   },
+  //   {
+  //     id: "Text2",
+  //     list: "TextTextText",
+  //   },
+  //   {
+  //     id: "Text3",
+  //     list: "TextTextText",
+  //   },
+  //   {
+  //     id: "Text4",
+  //     list: "TextTextText",
+  //   },
+  // ];
+
+  // const handleClick = () => {
+  //   setToggle(!toggle);
+  //   setRotateToggle(!rotateToggle);
+  // };
+
+  // const handleClickRemove = () => setToggle(false);
+
+  // const handleClickOption = (e) => setValue(e.target.textContent);
+
+  // const handleClickOptionRemove = (e) => e.prventDefault();
+
+  const handleFocusout = (e) => {
+    setFocusout(e.target.value);
+
+    if (e.target.value === "") {
+      e.target.classList.add("error");
+      setErrorMessage("Error Massage");
+    }else{
+      e.target.classList.remove("error");
+      setErrorMessage("");
+    }
+  };
 
   useEffect(() => {
-    setErrorMessage("Error Massage");
     setDisabled(true);
-    setError(true);
   }, []);
 
+  // function Options({ onClick }) {
+  //   const list = optionList.map((item) => (
+  //     <li key={item.id} onClick={onClick}>
+  //       {item.list}
+  //     </li>
+  //   ));
+  //   return list;
+  // }
+
   return (
-    <Container>
-      <Default type="text" placeholder="Placeholder" />
-      <Default type="text" placeholder="Placeholder" disabled={disabled} />
-      <Error error={error}>
-        <input type="text" placeholder="Placeholder"/>
+    <>
+      <p>Input</p>
+      <Container>
+        <input
+          type="text"
+          value={values.text}
+          placeholder="placeholder"
+          onChange={handleChange}
+          name="text"
+          onBlur={handleFocusout}
+          focusout={focusout}
+        />
         {errorMessage && <p>{errorMessage}</p>}
-      </Error>
-    </Container>
+      </Container>
+      <Container>
+        <input
+          type="text"
+          value={null}
+          placeholder="placeholder"
+          onChange={handleChange}
+          name="text"
+          disabled={disabled}
+        />
+      </Container>
+      {/* <InputContainer>
+        {values.text !== '' ?
+        <input
+          type="text"
+          value={values.text}
+          placeholder="placeholder"
+          onChange={handleChange}
+          name="text"
+        />:<input
+        type="text"
+        value={values.text}
+        placeholder="placeholder"
+        onChange={handleChange}
+        name="text"
+      />
+        }
+        {isError && <p>{errorMessage}</p>}
+      </InputContainer> */}
+      <p>Dropdown</p>
+      {/* <SelectBox
+          isHas={true}
+          $toggle={toggle}
+          rotateToggle={rotateToggle}
+          onClick={handleClick}
+        >
+          <label>{value ? value : "Placeholder"}</label>
+          <ul>
+            <Options onClick={handleClickOption} />
+          </ul>
+          {isHas && <p>{errorMessage}</p>}
+        </SelectBox>
+
+      <SelectBox
+          $error={error}
+          $toggle={toggle}
+          rotateToggle={rotateToggle}
+          onClick={handleClickRemove}
+        >
+          <label>{value ? "Placeholder" : "Placeholder"}</label>
+          <ul>
+            <Options onClick={handleClickOptionRemove} />
+          </ul>
+          
+        </SelectBox> */}
+    </>
   );
 }
 
