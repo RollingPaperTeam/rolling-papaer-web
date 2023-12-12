@@ -53,10 +53,6 @@ const Container = styled.div`
 const SelectBox = styled.div`
   max-width: 32rem;
 
-  /* .focus {
-    border: 1px solid ${THEME_LIGHT_COLOR.gray5};
-  } */
-
   label {
     position: relative;
     display: block;
@@ -67,6 +63,7 @@ const SelectBox = styled.div`
     color: ${THEME_LIGHT_COLOR.gray5};
     ${FONTS.FONT_16_REGULAR};
     cursor: pointer;
+    background-color: ${({ disabled }) => (disabled ? `${THEME_LIGHT_COLOR.gray1}` : `${THEME_LIGHT_COLOR.white}`)};
 
     &::before {
       content: "";
@@ -186,6 +183,8 @@ function Textfield() {
     }
   }
 
+  const handleClickDisabled = (e) => e.preventDefault(); 
+
   const handleClickOption = (e) => setSelectValues(e.target.textContent);
 
   const handleFocusout = (e) => {
@@ -215,7 +214,7 @@ function Textfield() {
 
   return (
     <>
-      <p>Input</p>
+      <p style={{ fontSize: "2rem"}}>Input</p>
       <Container>
         <input
           type="text"
@@ -238,13 +237,19 @@ function Textfield() {
           disabled={disabled}
         />
       </Container>
-      <p>Dropdown</p>
+      <p style={{ fontSize: "2rem"}}>Dropdown</p>
       <SelectBox $toggle={toggle} onClick={handleClick}>
         <label>{selectValues ? selectValues : "placeholder"}</label>
         <ul>
           <Options onClick={handleClickOption}/>
         </ul>
         {selectErrorMessage && <p>{selectErrorMessage}</p>}
+      </SelectBox>
+      <SelectBox $toggle={false} onClick={handleClickDisabled} disabled={disabled}>
+        <label>placeholder</label>
+        <ul>
+          <Options onClick={handleClickOption}/>
+        </ul>
       </SelectBox>
     </>
   );
