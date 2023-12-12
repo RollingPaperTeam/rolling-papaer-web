@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
 import { FONTS } from "../../theme/font";
 import open from "../../static/arrow-open.png";
@@ -53,13 +53,17 @@ const Container = styled.div`
 const SelectBox = styled.div`
   max-width: 32rem;
 
+  /* .focus {
+    border: 1px solid ${THEME_LIGHT_COLOR.gray5};
+  } */
+
   label {
     position: relative;
     display: block;
     width: 32rem;
     padding: 1.2rem 1.6rem;
     border-radius: 0.8rem;
-    border: 1px solid ${THEME_LIGHT_COLOR.gray3};
+    border: ${({ $toggle }) => ($toggle ? `1px solid ${THEME_LIGHT_COLOR.gray5}` : `1px solid ${THEME_LIGHT_COLOR.gray3}`)};
     color: ${THEME_LIGHT_COLOR.gray5};
     ${FONTS.FONT_16_REGULAR};
     cursor: pointer;
@@ -135,12 +139,12 @@ function Textfield() {
   const [disabled, setDisabled] = useState(false);
   const [focusout, setFocusout] = useState("");
   const [toggle, setToggle] = useState(false);
+  const [selectValues, setSelectValues] = useState("");
   const [values, setValues] = useState({
     text: "",
     placeholder: "",
     type: "",
   });
-  const [selectValues, setSelectValues] = useState("");
 
   const optionList = [
     {
@@ -160,7 +164,7 @@ function Textfield() {
       list: "TextTextText",
     },
   ];
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -238,7 +242,7 @@ function Textfield() {
       <SelectBox $toggle={toggle} onClick={handleClick}>
         <label>{selectValues ? selectValues : "placeholder"}</label>
         <ul>
-          <Options onClick={handleClickOption} />
+          <Options onClick={handleClickOption}/>
         </ul>
         {selectErrorMessage && <p>{selectErrorMessage}</p>}
       </SelectBox>
