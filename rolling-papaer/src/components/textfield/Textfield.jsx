@@ -8,11 +8,12 @@ const Container = styled.div`
   input {
     outline: none;
     display: block;
-    width: 20rem;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
+    width: 32rem;
+    padding: 1.2rem 1.6rem;
+    border-radius: 0.8rem;
     border: 1px solid ${THEME_LIGHT_COLOR.gray3};
     color: ${THEME_LIGHT_COLOR.gray5};
+    ${FONTS.FONT_16_REGULAR};
 
     &.error,
     &.error:hover,
@@ -43,23 +44,24 @@ const Container = styled.div`
   }
 
   p {
-    margin: 0.25rem 0 0;
+    margin: 0.4rem 0 0;
     color: ${THEME_LIGHT_COLOR.error};
     ${FONTS.FONT_12_REGULAR};
   }
 `;
 
 const SelectBox = styled.div`
-  max-width: 20rem;
+  max-width: 32rem;
 
   label {
     position: relative;
     display: block;
-    width: 20rem;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
+    width: 32rem;
+    padding: 1.2rem 1.6rem;
+    border-radius: 0.8rem;
     border: 1px solid ${THEME_LIGHT_COLOR.gray3};
     color: ${THEME_LIGHT_COLOR.gray5};
+    ${FONTS.FONT_16_REGULAR};
     cursor: pointer;
 
     &::before {
@@ -67,11 +69,11 @@ const SelectBox = styled.div`
       display: block;
       position: absolute;
       top: 50%;
-      right: 1rem;
+      right: 1.7rem;
       transform: translateY(-50%)
         ${({ $toggle }) => ($toggle ? "rotate(-180deg)" : "rotate(0)")};
-      width: 1rem;
-      height: 1rem;
+      width: 1.6rem;
+      height: 1.6rem;
       transition: transform 0.5s;
       background: url(${open}) no-repeat center;
     }
@@ -99,16 +101,17 @@ const SelectBox = styled.div`
     list-style-type: none;
     margin: 0.8rem 0 0;
     padding: 0;
-    width: 22rem;
-    height: ${({ $toggle }) => ($toggle ? "13.75rem" : "0")};
-    border-radius: 0.5rem;
+    width: 35rem;
+    height: ${({ $toggle }) => ($toggle ? "20rem" : "0")};
+    border-radius: 0.8rem;
     border: 1px solid ${THEME_LIGHT_COLOR.gray3};
     transition: visibility 0.5s, height 0.5s;
     box-shadow: 0 2px 12px 0 #00000014;
 
     li {
       color: ${THEME_LIGHT_COLOR.gray9};
-      padding: 0.75rem 1rem;
+      padding: 1.2rem 1.6rem;
+      ${FONTS.FONT_16_REGULAR};
       cursor: pointer;
 
       &:hover {
@@ -154,10 +157,6 @@ function Textfield() {
     },
     {
       id: "Text4",
-      list: "TextTextText",
-    },
-    {
-      id: "Text5",
       list: "TextTextText",
     },
   ];

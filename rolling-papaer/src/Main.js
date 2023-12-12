@@ -6,13 +6,22 @@ import InputMessageContentPage from "./pages/send-message-page/InputMessageConte
 import PickReceiverPage from "./pages/send-message-page/PickReceiverPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import App from "./App";
+import Textfield from "./components/textfield/Textfield";
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  html {
+    font-size:62.5%;
+  }
+`;
 
 function Main() {
   return (
     <BrowserRouter>
+      <GlobalStyle />
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<MainPage />} />
+          <Route index element={<Textfield />} />
           <Route path="list" element={<RollingPaperListPage />} />
           <Route path="post">
             <Route index element={<PickReceiverPage />} />
