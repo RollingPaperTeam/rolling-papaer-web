@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
 import { FONTS } from "../../theme/font";
 import open from "../../static/arrow-open.png";
@@ -130,7 +130,7 @@ const SelectBox = styled.div`
   }
 `;
 
-function Textfield() {
+function TextField() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [selectErrorMessage, setSelectErrorMessage] = useState(null);
   const [disabled, setDisabled] = useState(false);
@@ -255,4 +255,4 @@ function Textfield() {
   );
 }
 
-export default Textfield;
+export default TextField;
