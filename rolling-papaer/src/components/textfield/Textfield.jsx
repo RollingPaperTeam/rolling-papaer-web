@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
 import { FONTS } from "../../theme/font";
+import TextEditor from "./TextEditor";
 import open from "../../static/arrow-open.png";
 
 const Container = styled.div`
@@ -133,7 +134,6 @@ const SelectBox = styled.div`
 function TextField() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [selectErrorMessage, setSelectErrorMessage] = useState(null);
-  const [disabled, setDisabled] = useState(false);
   const [focusout, setFocusout] = useState("");
   const [toggle, setToggle] = useState(false);
   const [selectValues, setSelectValues] = useState("");
@@ -199,10 +199,6 @@ function TextField() {
     }
   };
 
-  useEffect(() => {
-    setDisabled(true);
-  }, []);
-
   function Options({ onClick }) {
     const list = optionList.map((item) => (
       <li key={item.id} onClick={onClick}>
@@ -234,7 +230,7 @@ function TextField() {
           placeholder="placeholder"
           onChange={handleChange}
           name="text"
-          disabled={disabled}
+          disabled
         />
       </Container>
       <p style={{ fontSize: "2rem"}}>Dropdown</p>
@@ -245,12 +241,13 @@ function TextField() {
         </ul>
         {selectErrorMessage && <p>{selectErrorMessage}</p>}
       </SelectBox>
-      <SelectBox $toggle={false} onClick={handleClickDisabled} disabled={disabled}>
+      <SelectBox $toggle={false} onClick={handleClickDisabled} disabled>
         <label>placeholder</label>
         <ul>
           <Options onClick={handleClickOption}/>
         </ul>
       </SelectBox>
+      <TextEditor />
     </>
   );
 }
