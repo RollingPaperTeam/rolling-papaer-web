@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import currentColor from "../../static/btn-current-color.png";
 import profile from "../../static/profile.png";
 import { createGlobalStyle } from "styled-components";
+import Test from "./Test";
 
 const Globalstyle = createGlobalStyle`
   body {
-    background-color: ${({ bodyColor }) => (bodyColor && bodyColor)};
+    background-color: ${({ bodyColor }) => bodyColor};
   }
 `;
 
@@ -126,6 +127,7 @@ function Option() {
 
   return (
     <>
+    <Test bodyColor={bodyColor}/>
       <Globalstyle bodyColor={bodyColor} />
       <Container>
         <ul>
