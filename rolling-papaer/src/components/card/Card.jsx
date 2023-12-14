@@ -5,6 +5,8 @@ import RelationBadge from "../badge/RelationBadge";
 import CardProfileName from "./CardProfileName";
 import CardContent from "./CardContent";
 import CardFooter from "./CardFooter";
+import { CardProvider } from "./CardProvider";
+import CardRelationBadge from "./CardRelationBadge";
 
 const Divider = styled.div`
   width: ${({ width }) => width ?? `100%`};
@@ -25,23 +27,21 @@ const CardBlock = styled.article`
     margin: 15px 0px 16px;
   }
 `;
-const tempContent = `일교차가 큰 시기입니다. 새벽에는 겨울, 한낮에는 여름, 아침저녁으로는 가을을 느껴보는 것도 좋을 것 같아요. 일교차가 큰 시기입니다. 새벽에는 겨울, 한낮에는 여름, 아침저녁으로는 가을을 느껴보는 것도 좋은`;
 
-function Card() {
+function Card({ cardData }) {
   return (
-    
-    <CardBlock>
-      <CardProfile>
-        {/*//TODO: Profile컴포넌트*/}
-        <CardProfileName name={"홍길동"} />
-        <RelationBadge />
-      </CardProfile>
-      <Divider />
-      <CardContent>
-        <p>{tempContent}</p>
-      </CardContent>
-      <CardFooter/>
-    </CardBlock>
+    <CardProvider defaultValue={cardData}>
+      <CardBlock>
+        <CardProfile>
+          {/*//TODO: Profile컴포넌트*/}
+          <CardProfileName name={"홍길동"} />
+          <CardRelationBadge />
+        </CardProfile>
+        <Divider />
+        <CardContent />
+        <CardFooter />
+      </CardBlock>
+    </CardProvider>
   );
 }
 

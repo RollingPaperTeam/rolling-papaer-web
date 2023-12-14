@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import FONTS from "../../theme/font";
+import { useCardContextValue } from "./CardProvider";
 
 export const CardProfileNameBlock = styled.p`
   margin: 0;
@@ -13,11 +14,12 @@ export const CardProfileNameBlock = styled.p`
   }
 `;
 
-function CardProfileName({ name }) {
+function CardProfileName() {
+  const {sender} = useCardContextValue();
   return (
     <CardProfileNameBlock>
       From.
-      <span>{name}</span>
+      <span>{sender}</span>
     </CardProfileNameBlock>
   );
 }
