@@ -29,20 +29,26 @@ const CardBlock = styled.article`
 `;
 
 function Card({ cardData }) {
-  return (
-    <CardProvider defaultValue={cardData}>
-      <CardBlock>
-        <CardProfile>
-          {/*//TODO: Profile컴포넌트*/}
-          <CardProfileName name={"홍길동"} />
-          <CardRelationBadge />
-        </CardProfile>
-        <Divider />
-        <CardContent />
-        <CardFooter />
-      </CardBlock>
-    </CardProvider>
-  );
+  if (cardData) {
+    return (
+      <CardProvider defaultValue={cardData}>
+        <CardBlock>
+          <CardProfile>
+            {/*//TODO: Profile컴포넌트*/}
+            <CardProfileName name={"홍길동"} />
+            <CardRelationBadge />
+          </CardProfile>
+          <Divider />
+          <CardContent />
+          <CardFooter />
+        </CardBlock>
+      </CardProvider>
+    );
+  } else {
+    return <CardBlock>
+      //TODO: 새 편지 추가
+    </CardBlock>;
+  }
 }
 
 export default Card;
