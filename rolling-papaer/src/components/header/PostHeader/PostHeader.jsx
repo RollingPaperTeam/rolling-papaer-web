@@ -41,6 +41,19 @@ const testPostSummaryData = {
   ],
 };
 
+const ReceiverNameBlock = styled.p`
+  margin: 0;
+  ${FONTS.FONT_28_BOLD}
+  color: ${THEME_LIGHT_COLOR.gray8};
+  line-height: 4.2rem;
+  letter-spacing: -0.028rem;
+`;
+
+function ReceiverName() {
+  const { name } = usePostHeaderContextValue();
+
+  return <ReceiverNameBlock>To. {name}</ReceiverNameBlock>;
+}
 
 function PostHeader({ postSummaryData = testPostSummaryData }) {
   return (
