@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import FONTS from "../../../theme/font";
 import { useContext } from "react";
+import {
+  PostHeaderProvider,
+  usePostHeaderContextValue,
+} from "./PostHeaderProvider";
+import PostHeaderItems from "./PostHeaderItems";
 import { THEME_LIGHT_COLOR } from "../../../theme/color";
 
 const PostHeaderBlock = styled.header`
@@ -39,6 +44,7 @@ const testPostSummaryData = {
 
 function PostHeader({ postSummaryData = testPostSummaryData }) {
   return (
+    <PostHeaderProvider defaultValue={postSummaryData}>
       <PostHeaderBlock>
         <ReceiverName/>
         <PostHeaderItems>
@@ -47,6 +53,7 @@ function PostHeader({ postSummaryData = testPostSummaryData }) {
           <div>//TODO:공유버튼</div>
         </PostHeaderItems>
       </PostHeaderBlock>
+    </PostHeaderProvider>
   );
 }
 
