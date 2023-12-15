@@ -277,7 +277,7 @@ function Button() {
         </div>
         <div>
           <ButtonStyle
-            $outlinedtlined="outlined"
+            $outlined="outlined"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
             size="medium"
