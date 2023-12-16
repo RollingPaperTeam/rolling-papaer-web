@@ -1,27 +1,62 @@
 import styled from "styled-components";
 import FONTS from "../../theme/font";
 import CardList from "../../components/card/CardList";
+import { useEffect, useState } from "react";
+import { getRecipients } from "../../api/Routes";
+import TRANSLATE_VALUE from "../../components/card/translateValue";
+import NextButton from "../../components/button/NextButton";
 
+const Section = styled.section`
+  width: 116rem;
+  margin: 5rem auto 1.6rem;
+  overflow: hidden;
+`;
 const Title = styled.h2`
   ${FONTS.FONT_24_BOLD}
-  margin: 0;
-  margin-bottom: 1rem;
 `;
 const CardContainer = styled.div`
-  width: 120rem;
-  height: 16.25rem;
-  margin: 0 auto 3.12rem;
+  margin: 0 auto;
+  gap: 2rem;
+  width: 116rem;
+  height: 26rem;
   display: flex;
-  gap: 1.25rem;
+  transform: translate(
+    ${({ $cardIndex }) => `${$cardIndex * TRANSLATE_VALUE}rem`}
+  );
+  transition: transform 0.3s ease 0s;
 `;
-function CardSection({ children }) {
+function CardSection({ children, limit, like }) {
+  const [cardData, setCardData] = useState([]);
+  const [cardIndex, setCardIndex] = useState(0);
+  const [dataLength, setDataLength] = useState(0);
+
+  const dataLoad = async (limit, like) => {
+    try {
+      const { results } = await getRecipients(limit, like);
+      setCardData(results);
+      setDataLength(results.length);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+  useEffect(() => {
+    dataLoad(limit, like);
+  }, [limit, like]);
+  const handlePlusClick = () => {
+    setCardIndex(cardIndex + 1);
+  };
+  const handleMinusClick = () => {
+    setCardIndex(cardIndex - 1);
+  };
   return (
-    <section>
+    <Section>
       <Title>{children}</Title>
-      <CardContainer>
-        <CardList />
+      <CardContainer $cardIndex={cardIndex}>
+        {cardData && <CardList cardData={cardData} />}
       </CardContainer>
-    </section>
+      {cardIndex > 0 && <button onClick={handleMinusClick}>이전</button>}
+      {dataLength - cardIndex > 4 && <NextButton onClick={handlePlusClick} />}
+    </Section>
   );
 }
 
