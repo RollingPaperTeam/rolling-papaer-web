@@ -59,6 +59,9 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+  button {
+    cursor: pointer;
+  }
 `;
 function Main() {
   return (
