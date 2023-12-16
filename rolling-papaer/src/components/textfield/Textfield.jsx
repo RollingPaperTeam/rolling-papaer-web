@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
 import { FONTS } from "../../theme/font";
-import TextEditor from "./TextEditor";
 import open from "../../static/arrow-open.png";
 
 const Container = styled.div`
@@ -54,17 +53,31 @@ const Container = styled.div`
 const SelectBox = styled.div`
   max-width: 32rem;
 
+  &.active ul {
+    visibility: visible;
+    height: 20rem;
+  }
+
+  &.active label {
+    border: 1px solid ${THEME_LIGHT_COLOR.gray5};
+
+    &::before {
+      transform: translateY(-50%) rotate(-180deg);
+    }
+  }
+
   label {
     position: relative;
     display: block;
     width: 32rem;
     padding: 1.2rem 1.6rem;
     border-radius: 0.8rem;
-    border: ${({ $toggle }) => ($toggle ? `1px solid ${THEME_LIGHT_COLOR.gray5}` : `1px solid ${THEME_LIGHT_COLOR.gray3}`)};
+    border: 1px solid ${THEME_LIGHT_COLOR.gray3};
     color: ${THEME_LIGHT_COLOR.gray5};
     ${FONTS.FONT_16_REGULAR};
     cursor: pointer;
-    background-color: ${({ disabled }) => (disabled ? `${THEME_LIGHT_COLOR.gray1}` : `${THEME_LIGHT_COLOR.white}`)};
+    background-color: ${({ disabled }) =>
+      disabled ? `${THEME_LIGHT_COLOR.gray1}` : `${THEME_LIGHT_COLOR.white}`};
 
     &::before {
       content: "";
@@ -72,8 +85,7 @@ const SelectBox = styled.div`
       position: absolute;
       top: 50%;
       right: 1.7rem;
-      transform: translateY(-50%)
-        ${({ $toggle }) => ($toggle ? "rotate(-180deg)" : "rotate(0)")};
+      transform: translateY(-50%) rotate(0);
       width: 1.6rem;
       height: 1.6rem;
       transition: transform 0.5s;
@@ -92,19 +104,19 @@ const SelectBox = styled.div`
   }
 
   p {
-      margin: 0;
-      color: ${THEME_LIGHT_COLOR.error};
-      ${FONTS.FONT_12_REGULAR};
-    }
-
+    margin: 0;
+    color: ${THEME_LIGHT_COLOR.error};
+    ${FONTS.FONT_12_REGULAR};
+  }
+  
   ul {
     overflow: hidden;
-    visibility: ${({ $toggle }) => ($toggle ? "visible" : "hidden")};
+    visibility: hidden;
     list-style-type: none;
     margin: 0.8rem 0 0;
     padding: 0;
     width: 35rem;
-    height: ${({ $toggle }) => ($toggle ? "20rem" : "0")};
+    height: 0;
     border-radius: 0.8rem;
     border: 1px solid ${THEME_LIGHT_COLOR.gray3};
     transition: visibility 0.5s, height 0.5s;
@@ -133,35 +145,34 @@ const SelectBox = styled.div`
 
 function TextField() {
   const [errorMessage, setErrorMessage] = useState(null);
-  const [selectErrorMessage, setSelectErrorMessage] = useState(null);
   const [focusout, setFocusout] = useState("");
-  const [toggle, setToggle] = useState(false);
-  const [selectValues, setSelectValues] = useState("");
+  const [selectValues1, setSelectValues1] = useState("");
+  const [selectValues2, setSelectValues2] = useState("");
   const [values, setValues] = useState({
     text: "",
     placeholder: "",
     type: "",
   });
 
-  const optionList = [
+  const OPTION_LIST = [
     {
       id: "Text1",
-      list: "TextTextText",
+      list: "TextTextText1list",
     },
     {
       id: "Text2",
-      list: "TextTextText",
+      list: "TextTextText2list",
     },
     {
       id: "Text3",
-      list: "TextTextText",
+      list: "TextTextText3list",
     },
     {
       id: "Text4",
-      list: "TextTextText",
+      list: "TextTextText4list",
     },
   ];
- 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -171,21 +182,20 @@ function TextField() {
     }));
   };
 
+  const selectRef1 = useRef(null);
+  const selectRef2 = useRef(null);
+
   const handleClick = (e) => {
-    setToggle(!toggle);
+    e.currentTarget.classList.toggle("active");
+  };
 
-    if (e.target.value === "") {
-      e.target.classList.add("error");
-      setSelectErrorMessage("Error Massage");
-    } else {
-      e.target.classList.remove("error");
-      setSelectErrorMessage("");
+  const handleClickOption = (e) => {
+    if (e.currentTarget.closest("div").classList.contains("active")) {
+      e.currentTarget.closest("div") === selectRef1.current
+        ? setSelectValues1(e.target.textContent)
+        : setSelectValues2(e.target.textContent);
     }
-  }
-
-  const handleClickDisabled = (e) => e.preventDefault(); 
-
-  const handleClickOption = (e) => setSelectValues(e.target.textContent);
+  };
 
   const handleFocusout = (e) => {
     setFocusout(e.target.value);
@@ -199,9 +209,9 @@ function TextField() {
     }
   };
 
-  function Options({ onClick }) {
-    const list = optionList.map((item) => (
-      <li key={item.id} onClick={onClick}>
+  function Options() {
+    const list = OPTION_LIST.map((item) => (
+      <li key={item.id} onClick={handleClickOption}>
         {item.list}
       </li>
     ));
@@ -210,7 +220,7 @@ function TextField() {
 
   return (
     <>
-      <p style={{ fontSize: "2rem"}}>Input</p>
+      <p style={{ fontSize: "2rem" }}>Input</p>
       <Container>
         <input
           type="text"
@@ -233,21 +243,26 @@ function TextField() {
           disabled
         />
       </Container>
-      <p style={{ fontSize: "2rem"}}>Dropdown</p>
-      <SelectBox $toggle={toggle} onClick={handleClick}>
-        <label>{selectValues ? selectValues : "placeholder"}</label>
+      <p style={{ fontSize: "2rem" }}>Dropdown</p>
+
+      <SelectBox ref={selectRef1} onClick={handleClick}>
+        <label>{selectValues1 || "placeholder"}</label>
         <ul>
-          <Options onClick={handleClickOption}/>
+          <Options onClick={handleClickOption} />
         </ul>
-        {selectErrorMessage && <p>{selectErrorMessage}</p>}
       </SelectBox>
-      <SelectBox $toggle={false} onClick={handleClickDisabled} disabled>
+      <SelectBox ref={selectRef2} onClick={handleClick}>
+        <label>{selectValues2 || "placeholder"}</label>
+        <ul>
+          <Options onClick={handleClickOption} />
+        </ul>
+      </SelectBox>
+      <SelectBox disabled>
         <label>placeholder</label>
         <ul>
-          <Options onClick={handleClickOption}/>
+          <Options onClick={handleClickOption} />
         </ul>
       </SelectBox>
-      <TextEditor />
     </>
   );
 }
