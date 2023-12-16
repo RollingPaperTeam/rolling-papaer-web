@@ -1,17 +1,16 @@
 import styled from "styled-components";
-import arrowRight from "../../static/arrow-right.svg";
-import eclips from "../../static/eclips.svg";
+//TODO 이미지 파일 임포트 해오자
 function BaseButton({ onClick }) {
   return (
     <button onClick={onClick}>
-      <img src={arrowRight} alt="오른쪽 화살표" />
+      <img alt="오른쪽 화살표" />
     </button>
   );
-}
+} //TODOsrc로 이미지 파일 임포트 해온 거 넣어주자!
 const NextButton = styled(BaseButton)`
   width: 40px;
   height: 40px;
-  background: url(${eclips}) no-repeat center / 1.6rem;
+  background: url("") no-repeat center / 1.6rem; //TODO 백그라운드 넣어야함
 
   button {
     fill: rgba(255, 255, 255, 0.9);
