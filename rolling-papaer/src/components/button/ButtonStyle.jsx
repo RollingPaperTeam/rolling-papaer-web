@@ -158,8 +158,8 @@ const focusStyles = css`
 const ButtonBase = styled.button`
   position: relative;
   padding: 0 2.4rem;
-  padding: ${({ $icon }) => $icon && '0 0 0 2.4rem'};
-  padding: ${({ $icon20 }) => $icon20 && '0 0 0 2rem'};
+  padding: ${({ $icon }) => $icon && '0 1.6rem 0 4.4rem'};
+  padding: ${({ $icon20 }) => $icon20 && '0 1.6rem 0 3.8rem'};
   color: ${THEME_LIGHT_COLOR.white};
   border: none;
   border-radius: 1.2rem;
