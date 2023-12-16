@@ -117,19 +117,19 @@ const ButtonPlus = styled.button`
 
   &:hover {
     background-color: ${({ disabled }) =>
-      disabled ? "transparent" : `${THEME_LIGHT_COLOR.gray6}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray6}`};
   }
 
   &:active {
     background-color: ${({ disabled }) =>
-      disabled ? "transparent" : `${THEME_LIGHT_COLOR.gray7}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray7}`};
   }
 
   &:focus {
     border: ${({ disabled }) =>
       disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray8}`};
     background-color: ${({ disabled }) =>
-      disabled ? "transparent" : `${THEME_LIGHT_COLOR.gray7}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray7}`};
   }
 
   ${PlusIcon} {
@@ -154,24 +154,28 @@ const ButtonDeleted = styled.button`
     border: ${({ disabled }) =>
       disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
     background-color: ${({ disabled }) =>
-      disabled ? "transparent" : `${THEME_LIGHT_COLOR.gray1}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray1}`};
   }
 
   &:active {
     border: ${({ disabled }) =>
-      disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
     background-color: ${({ disabled }) =>
-      disabled ? "transparent" : `${THEME_LIGHT_COLOR.gray1}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray1}`};
   }
 
   &:focus {
     border: ${({ disabled }) =>
-      disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray5}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `1px solid ${THEME_LIGHT_COLOR.gray5}`};
     background-color: ${({ disabled }) =>
-      disabled ? "transparent" : `${THEME_LIGHT_COLOR.white}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.white}`};
   }
 
   ${DeletedIcon} {
+    ${PositionCenter}
+  }
+
+  ${DeletedDisabledIcon} {
     ${PositionCenter}
   }
 `;

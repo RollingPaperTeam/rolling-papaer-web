@@ -180,13 +180,13 @@ const ButtonBase = styled.button`
 
   &:hover {
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.puple7}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.puple7}`};
     ${hoverStyles}
   }
 
   &:active {
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.puple8}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.puple8}`};
     ${activeStyles}
   }
 
@@ -194,7 +194,7 @@ const ButtonBase = styled.button`
     border: ${({ disabled }) =>
       disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.puple9}`};
     background-color: ${({ disabled }) =>
-        disabled ? "none" : `${THEME_LIGHT_COLOR.puple8}`};
+        disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.puple8}`};
       ${focusStyles}
   }
 `;
