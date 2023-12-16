@@ -12,6 +12,9 @@ import arrowDown from "../../static/arrow_down.svg";
 import edit from "../../static/edit.svg";
 import buttonPrev from "../../static/arrow_prev.svg";
 import buttonNext from "../../static/arrow_next.svg";
+import addDisabled from "../../static/add_disabled.svg";
+import add20Disabled from "../../static/add_20_disabled.svg";
+import deletedDisabled from "../../static/deleted_disabled.svg";
 
 const Icon = styled.i`
   display: block;
@@ -38,8 +41,18 @@ const AddIcon = styled(Icon)`
   background: url(${add}) no-repeat;
 `;
 
+const AddDisabledIcon = styled(Icon)`
+  position: ${({ $icon }) => $icon && "absolute"};
+  left: 1.6rem;
+  background: url(${addDisabled}) no-repeat;
+`;
+
 const DeletedIcon = styled(Icon)`
   background: url(${deleted}) no-repeat center;
+`;
+
+const DeletedDisabledIcon = styled(Icon)`
+  background: url(${deletedDisabled}) no-repeat center;
 `;
 
 const ArrowDownIcon = styled(Icon)`
@@ -60,6 +73,16 @@ const Add20Icon = styled(Icon)`
   width: 2rem;
   height: 2rem;
   background: url(${add}) no-repeat;
+  background-size: 100% 2rem;
+`;
+
+const Add20DisabledIcon = styled(Icon)`
+  position: ${({ $icon20 }) => $icon20 && "absolute"};
+  left: 1.6rem;
+  margin: 0.3rem 0 0;
+  width: 2rem;
+  height: 2rem;
+  background: url(${add20Disabled}) no-repeat;
   background-size: 100% 2rem;
 `;
 
@@ -341,7 +364,7 @@ function Button() {
             $icon
             disabled
           >
-            <AddIcon $icon />
+            <AddDisabledIcon $icon />
             Disabled
           </ButtonStyle>
         </div>
@@ -393,7 +416,7 @@ function Button() {
             $icon
             disabled
           >
-            <AddIcon $icon />
+            <AddDisabledIcon $icon />
             Disabled
           </ButtonStyle>
         </div>
@@ -445,7 +468,7 @@ function Button() {
             $icon20
             disabled
           >
-            <Add20Icon $icon20 />
+            <Add20DisabledIcon $icon20 />
             Disabled
           </ButtonStyle>
         </div>
@@ -490,7 +513,7 @@ function Button() {
         <br />
         <br />
         <ButtonDeleted type="button" disabled>
-          <DeletedIcon />
+          <DeletedDisabledIcon />
         </ButtonDeleted>
       </div>
 
