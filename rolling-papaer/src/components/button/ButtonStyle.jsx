@@ -30,6 +30,10 @@ const BORDER_RADIUS_STYLE = {
   borderRadius6: "0.6rem",
 };
 
+const PADDING_STYLE = {
+  padding16: "0 1.6rem",
+};
+
 const BUTTON_STYLE = {
   primary: {
     border: "none",
@@ -74,53 +78,59 @@ const BUTTON_STYLE = {
 
 const primaryStyles = css`
   ${({ $primary }) => css`
-    width: ${SIZE_STYLE[$primary]?.width};
+    min-width: ${SIZE_STYLE[$primary]?.width};
     height: ${SIZE_STYLE[$primary]?.height};
     border: ${BUTTON_STYLE[$primary]?.border};
     color: ${BUTTON_STYLE[$primary]?.color};
-    font-size: ${BUTTON_STYLE[$primary]?.fontSize};
+    ${BUTTON_STYLE[$primary]?.fontSize};
     background-color: ${BUTTON_STYLE[$primary]?.backgroundColor};
   `}
 `;
 
 const secondaryStyles = css`
   ${({ $secondary }) => css`
-    width: ${SIZE_STYLE[$secondary]?.width};
+    min-width: ${SIZE_STYLE[$secondary]?.width};
     height: ${SIZE_STYLE[$secondary]?.height};
     border: ${BUTTON_STYLE[$secondary]?.border};
     color: ${BUTTON_STYLE[$secondary]?.color};
-    font-size: ${BUTTON_STYLE[$secondary]?.fontSize};
+    ${BUTTON_STYLE[$secondary]?.fontSize};
     background-color: ${BUTTON_STYLE[$secondary]?.backgroundColor};
   `}
 `;
 
 const outlinedStyles = css`
   ${({ $outlined }) => css`
-    width: ${SIZE_STYLE[$outlined]?.width};
+    min-width: ${SIZE_STYLE[$outlined]?.width};
     height: ${SIZE_STYLE[$outlined]?.height};
     border: ${BUTTON_STYLE[$outlined]?.border};
     color: ${BUTTON_STYLE[$outlined]?.color};
-    font-size: ${BUTTON_STYLE[$outlined]?.fontSize};
+    ${BUTTON_STYLE[$outlined]?.fontSize};
     background-color: ${BUTTON_STYLE[$outlined]?.backgroundColor};
   `}
 `;
 
 const sizeStyles = css`
   ${({ size }) => css`
-    width: ${SIZE_STYLE[size]?.width};
+    min-width: ${SIZE_STYLE[size]?.width};
     height: ${SIZE_STYLE[size]?.height};
   `}
 `;
 
 const fontSizeStyles = css`
   ${({ fontSize }) => css`
-    font-size: ${FONT_SIZE_STYLE[fontSize]};
+    ${FONT_SIZE_STYLE[fontSize]};
   `}
 `;
 
 const borderRadiusStyles = css`
   ${({ $borderRadius }) => css`
     border-radius: ${BORDER_RADIUS_STYLE[$borderRadius]};
+  `}
+`;
+
+const paddingStyles = css`
+  ${({ $padding }) => css`
+    padding: ${PADDING_STYLE[$padding]};
   `}
 `;
 
@@ -147,6 +157,7 @@ const focusStyles = css`
 
 const ButtonBase = styled.button`
   position: relative;
+  padding: 0 2.4rem;
   padding: ${({ $icon }) => $icon && '0 0 0 2.4rem'};
   padding: ${({ $icon20 }) => $icon20 && '0 0 0 2rem'};
   color: ${THEME_LIGHT_COLOR.white};
@@ -161,6 +172,7 @@ const ButtonBase = styled.button`
   ${fontSizeStyles}
   ${outlinedStyles}
   ${borderRadiusStyles}
+  ${paddingStyles}
 
   &:disabled {
     background-color: ${THEME_LIGHT_COLOR.gray3};

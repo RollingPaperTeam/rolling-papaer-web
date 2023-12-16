@@ -94,19 +94,19 @@ const ButtonPlus = styled.button`
 
   &:hover {
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.gray6}`};
+      disabled ? "transparent" : `${THEME_LIGHT_COLOR.gray6}`};
   }
 
   &:active {
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.gray7}`};
+      disabled ? "transparent" : `${THEME_LIGHT_COLOR.gray7}`};
   }
 
   &:focus {
     border: ${({ disabled }) =>
       disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray8}`};
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.gray7}`};
+      disabled ? "transparent" : `${THEME_LIGHT_COLOR.gray7}`};
   }
 
   ${PlusIcon} {
@@ -131,24 +131,24 @@ const ButtonDeleted = styled.button`
     border: ${({ disabled }) =>
       disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.gray1}`};
+      disabled ? "transparent" : `${THEME_LIGHT_COLOR.gray1}`};
   }
 
   &:active {
     border: ${({ disabled }) =>
       disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.gray1}`};
+      disabled ? "transparent" : `${THEME_LIGHT_COLOR.gray1}`};
   }
 
   &:focus {
     border: ${({ disabled }) =>
       disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray5}`};
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.white}`};
+      disabled ? "transparent" : `${THEME_LIGHT_COLOR.white}`};
   }
 
-  ${DeletedIcon}{
+  ${DeletedIcon} {
     ${PositionCenter}
   }
 `;
@@ -167,7 +167,7 @@ const ButtonToggle = styled.div`
   width: 24.4rem;
   border-radius: 0.6rem;
   text-align: center;
-  font-size: ${FONTS.FONT_16_REGULAR};
+  ${FONTS.FONT_16_REGULAR};
   color: ${THEME_LIGHT_COLOR.gray9};
   background-color: ${THEME_LIGHT_COLOR.gray1};
 
@@ -184,7 +184,7 @@ const ButtonToggle = styled.div`
     &.active {
       border: 2px solid ${THEME_LIGHT_COLOR.puple6};
       color: ${THEME_LIGHT_COLOR.puple7};
-      font-size: ${FONTS.FONT_16_BOLD};
+      ${FONTS.FONT_16_BOLD};
       background-color: ${THEME_LIGHT_COLOR.white};
     }
   }
@@ -200,7 +200,11 @@ function Button() {
       <p style={{ fontSize: "2rem" }}>primary</p>
       <div style={{ display: "flex", gap: "2rem" }}>
         <div>
-          <ButtonStyle $primary="primary" size="large" fontSize="fontSize18">
+          <ButtonStyle
+            $primary="primary"
+            size="large"
+            fontSize="fontSize18"
+          >
             Enabled
           </ButtonStyle>
           <br />
@@ -215,7 +219,12 @@ function Button() {
           </ButtonStyle>
         </div>
         <div>
-          <ButtonStyle $primary="primary" size="medium" fontSize="fontSize16">
+          <ButtonStyle
+            $primary="primary"
+            size="medium"
+            fontSize="fontSize16"
+            $padding="padding16"
+          >
             Enabled
           </ButtonStyle>
           <br />
@@ -224,6 +233,7 @@ function Button() {
             $primary="primary"
             size="medium"
             fontSize="fontSize16"
+            $padding="padding16"
             disabled="disabled"
           >
             Disabled
@@ -238,6 +248,7 @@ function Button() {
           size="medium"
           fontSize="fontSize16"
           $borderRadius="borderRadius6"
+          $padding="padding16"
           $hover="secondary"
           $active="secondary"
           $focus="secondary"
@@ -250,6 +261,7 @@ function Button() {
           size="medium"
           fontSize="fontSize16"
           $borderRadius="borderRadius6"
+          $padding="padding16"
           disabled="disabled"
         >
           Disabled
@@ -262,6 +274,7 @@ function Button() {
           <ButtonStyle
             $outlined="outlined"
             fontSize="fontSize18"
+            $padding="padding16"
             size="large"
             $hover="outlined"
             $active="outlined"
@@ -271,7 +284,12 @@ function Button() {
           </ButtonStyle>
           <br />
           <br />
-          <ButtonStyle size="large" fontSize="fontSize18" disabled>
+          <ButtonStyle
+            size="large"
+            fontSize="fontSize18"
+            $padding="padding16"
+            disabled
+          >
             Disabled
           </ButtonStyle>
         </div>
@@ -279,6 +297,7 @@ function Button() {
           <ButtonStyle
             $outlined="outlined"
             fontSize="fontSize16"
+            $padding="padding16"
             $borderRadius="borderRadius6"
             size="medium"
             $hover="outlined"
@@ -292,6 +311,7 @@ function Button() {
           <ButtonStyle
             size="medium"
             fontSize="fontSize16"
+            $padding="padding16"
             $borderRadius="borderRadius6"
             disabled
           >
@@ -318,8 +338,10 @@ function Button() {
             size="medium"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $icon
             disabled
           >
+            <AddIcon $icon />
             Disabled
           </ButtonStyle>
         </div>
@@ -328,6 +350,7 @@ function Button() {
             $outlined="outlined"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $padding="padding16"
             size="small"
             $hover="outlined"
             $active="outlined"
@@ -341,6 +364,7 @@ function Button() {
             size="small"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $padding="padding16"
             disabled
           >
             Disabled
@@ -366,8 +390,10 @@ function Button() {
             size="small"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $icon
             disabled
           >
+            <AddIcon $icon />
             Disabled
           </ButtonStyle>
         </div>
@@ -376,6 +402,7 @@ function Button() {
             $outlined="outlined"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $padding="padding16"
             size="mini"
             $hover="outlined"
             $active="outlined"
@@ -389,6 +416,7 @@ function Button() {
             size="mini"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $padding="padding16"
             disabled
           >
             Disabled
@@ -414,8 +442,10 @@ function Button() {
             size="mini"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $icon20
             disabled
           >
+            <Add20Icon $icon20 />
             Disabled
           </ButtonStyle>
         </div>
