@@ -1,16 +1,9 @@
 import styled from "styled-components";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
-import { useEffect, useState } from "react";
-import currentColor from "../../static/btn-current-color.png";
-import profile from "../../static/profile.png";
-import { createGlobalStyle } from "styled-components";
-import Test from "./Test";
-
-const Globalstyle = createGlobalStyle`
-  body {
-    background-color: ${({ bodyColor }) => bodyColor};
-  }
-`;
+import { useContext } from "react";
+import currentColor from "../../static/current_color.svg";
+import person from "../../static/person.svg";
+import { ColorContext } from "./OptionContext";
 
 const Container = styled.div`
   ul {
@@ -29,22 +22,6 @@ const Container = styled.div`
       text-indent: 100%;
       white-space: nowrap;
       cursor: pointer;
-
-      &:first-child {
-        background-color: ${THEME_LIGHT_COLOR.orange2};
-      }
-
-      &:nth-child(2) {
-        background-color: ${THEME_LIGHT_COLOR.puple2};
-      }
-
-      &:nth-child(3) {
-        background-color: ${THEME_LIGHT_COLOR.blue2};
-      }
-
-      &:last-child {
-        background-color: ${THEME_LIGHT_COLOR.green2};
-      }
     }
   }
 
@@ -103,7 +80,11 @@ const optionList = [
 
 function ColorBox({ handleClick, currentColor }) {
   const list = optionList.map((item) => (
-    <li key={item.id} onClick={() => handleClick(item.color)}>
+    <li
+      key={item.id}
+      onClick={() => handleClick(item.color)}
+      style={{ backgroundColor: item.color }}
+    >
       {item.color}
       <span className={currentColor === item.color ? "active" : ""}>
         현재 선택된 색상 버튼
@@ -114,29 +95,20 @@ function ColorBox({ handleClick, currentColor }) {
 }
 
 function Option() {
-  const [currentColor, setCurrentColor] = useState(`${THEME_LIGHT_COLOR.orange2}`);
-  const [bodyColor, setBodyColor] = useState(`${THEME_LIGHT_COLOR.orange2}`);
-  const handleClick = (item) => {
-    setCurrentColor(item);
-    setBodyColor(item);
-  };
-
-  useEffect(() => {
-    handleClick(`${THEME_LIGHT_COLOR.orange2}`);
-  }, []);
+  const { currentColor, setNewColor } = useContext(ColorContext);
+  const handleClick = (item) => setNewColor(item);
 
   return (
     <>
-    <Test bodyColor={bodyColor}/>
-      <Globalstyle bodyColor={bodyColor} />
       <Container>
         <ul>
           <ColorBox handleClick={handleClick} currentColor={currentColor} />
         </ul>
       </Container>
+
       <p style={{ fontSize: "2rem" }}>프로필 이미지</p>
       <ImgContainer>
-        <img src={profile} alt="프로필 이미지" />
+        <img src={person} alt="프로필 이미지" />
       </ImgContainer>
     </>
   );
