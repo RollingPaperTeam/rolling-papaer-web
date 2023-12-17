@@ -11,9 +11,14 @@ const ColorImageContainer = styled.section`
   margin: 5.7rem 0 0;
   padding: 0 60rem 33.6rem 60rem;
 
-  @media screen and (max-width:768px){
+  @media screen and (max-width: 768px) {
     margin: 4.9rem 0 0;
     padding: 0 2.4rem 2.4rem 2.4rem;
+  }
+
+  @media screen and (max-width: 760px) {
+    margin: 5rem 0 0;
+    padding: 0 2rem 2.4rem 2rem;
   }
 `;
 
@@ -34,6 +39,10 @@ const Container = styled.div`
     border: 1px solid var(--gray3);
     color: var(--gray5);
     ${FONTS.FONT_16_REGULAR};
+
+    @media screen and (max-width:768px){
+      width: 100%;
+    }
 
     &.error,
     &.error:hover,
@@ -73,8 +82,12 @@ const Container = styled.div`
 const SelectBackground = styled.div`
   margin: 5rem 0 0;
 
-  @media screen and (max-width:768px){
+  @media screen and (max-width: 768px) {
     margin: 5.4rem 0 0;
+  }
+
+  @media screen and (max-width: 360px) {
+    margin: 4.8rem 0 0;
   }
 
   p {
@@ -99,8 +112,12 @@ const ButtonToggle = styled.div`
   color: var(--gray9);
   background-color: var(--gray1);
 
-  @media screen and (max-width:768px){
+  @media screen and (max-width: 768px) {
     margin: 2.4rem 0 4rem 0;
+  }
+
+  @media screen and (max-width: 360px) {
+    margin: 2.4rem 0 2.8rem 0;
   }
 
   button {
@@ -125,12 +142,22 @@ const ButtonToggle = styled.div`
 const ColorContainer = styled.div`
   margin: 0 0 3.4rem 0;
 
+  @media screen and (max-width: 360px) {
+    gap: 8.2rem;
+  }
+
   ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
     gap: 1.6rem;
+
+    @media screen and (max-width: 360px) {
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: space-between;
+    }
 
     li {
       overflow: hidden;
@@ -141,6 +168,11 @@ const ColorContainer = styled.div`
       text-indent: 100%;
       white-space: nowrap;
       cursor: pointer;
+
+      @media screen and (max-width: 360px) {
+        width: calc(50% - 0.6rem);
+        height: 15.4rem;
+      }
     }
   }
 
@@ -288,7 +320,12 @@ function ColorImageCasePage() {
           </ul>
         </ColorContainer>
       </SelectBackground>
-      <ButtonStyle $primary="primary" size="large" fontSize="fontSize18" style={{width:"100%"}}>
+      <ButtonStyle
+        $primary="primary"
+        size="large"
+        fontSize="fontSize18"
+        style={{ width: "100%" }}
+      >
         생성하기
       </ButtonStyle>
     </ColorImageContainer>
