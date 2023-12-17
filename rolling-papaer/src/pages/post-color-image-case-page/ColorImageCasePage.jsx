@@ -7,9 +7,14 @@ import { FONTS } from "../../theme/font";
 // import { ColorContext } from "./OptionContext";
 import ButtonStyle from "../../components/button/ButtonStyle";
 
-const ColorImageContainer = styled.div`
+const ColorImageContainer = styled.section`
   margin: 5.7rem 0 0;
   padding: 0 60rem 33.6rem 60rem;
+
+  @media screen and (max-width:768px){
+    margin: 4.9rem 0 0;
+    padding: 0 2.4rem 2.4rem 2.4rem;
+  }
 `;
 
 const Recipient = styled.div`
@@ -68,6 +73,10 @@ const Container = styled.div`
 const SelectBackground = styled.div`
   margin: 5rem 0 0;
 
+  @media screen and (max-width:768px){
+    margin: 5.4rem 0 0;
+  }
+
   p {
     ${FONTS.FONT_24_BOLD}
     margin: 0 0 0.4rem 0;
@@ -90,6 +99,10 @@ const ButtonToggle = styled.div`
   color: var(--gray9);
   background-color: var(--gray1);
 
+  @media screen and (max-width:768px){
+    margin: 2.4rem 0 4rem 0;
+  }
+
   button {
     border: none;
     padding: 0;
@@ -110,7 +123,7 @@ const ButtonToggle = styled.div`
 `;
 
 const ColorContainer = styled.div`
-  margin: 0 0 6.9rem 0;
+  margin: 0 0 3.4rem 0;
 
   ul {
     list-style-type: none;
