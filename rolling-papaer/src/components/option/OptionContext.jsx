@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 const ColorContext = createContext();
 
-const ColorProvider = ({ children }) => {
+const OptionProvider = ({ children }) => {
   const savedColor = localStorage.getItem('currentColor') || '';
   const [currentColor, setCurrentColor] = useState(savedColor);
   
@@ -18,4 +18,4 @@ const ColorProvider = ({ children }) => {
   );
 };
 
-export { ColorContext, ColorProvider };
+export { ColorContext, OptionProvider };
