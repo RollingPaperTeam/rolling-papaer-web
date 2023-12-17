@@ -7,8 +7,6 @@ import PickReceiverPage from "./pages/send-message-page/PickReceiverPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import App from "./App";
 import { OptionProvider } from "./components/option/OptionContext";
-import Option from './components/option/Option'
-import Test from './components/option/Test'
 
 function Main() {
   return (
@@ -16,8 +14,8 @@ function Main() {
       <OptionProvider>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<Option />} />
-            <Route path="list" element={<Test />} />
+            <Route index element={<MainPage />} />
+            <Route path="list" element={<RollingPaperListPage />} />
             <Route path="post">
               <Route index element={<PickReceiverPage />} />
               <Route path=":id" element={<RollingPaperPage />}>
