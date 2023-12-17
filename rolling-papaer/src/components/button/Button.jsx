@@ -159,14 +159,18 @@ const ButtonDeleted = styled.button`
 
   &:active {
     border: ${({ disabled }) =>
-      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
+      disabled
+        ? `${THEME_LIGHT_COLOR.gray3}`
+        : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
     background-color: ${({ disabled }) =>
       disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray1}`};
   }
 
   &:focus {
     border: ${({ disabled }) =>
-      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `1px solid ${THEME_LIGHT_COLOR.gray5}`};
+      disabled
+        ? `${THEME_LIGHT_COLOR.gray3}`
+        : `1px solid ${THEME_LIGHT_COLOR.gray5}`};
     background-color: ${({ disabled }) =>
       disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.white}`};
   }
@@ -227,11 +231,7 @@ function Button() {
       <p style={{ fontSize: "2rem" }}>primary</p>
       <div style={{ display: "flex", gap: "2rem" }}>
         <div>
-          <ButtonStyle
-            $primary="primary"
-            size="large"
-            fontSize="fontSize18"
-          >
+          <ButtonStyle $primary="primary" size="large" fontSize="fontSize18">
             Enabled
           </ButtonStyle>
           <br />
@@ -267,7 +267,15 @@ function Button() {
           </ButtonStyle>
         </div>
       </div>
-
+      <p style={{ fontSize: "2rem" }}>mobile</p>
+      <ButtonStyle
+        $primary="primary"
+        size="large"
+        fontSize="fontSize18"
+        $mobile="width100"
+      >
+        Enabled
+      </ButtonStyle>
       <p style={{ fontSize: "2rem" }}>Secondary</p>
       <div>
         <ButtonStyle
@@ -477,7 +485,6 @@ function Button() {
           </ButtonStyle>
         </div>
       </div>
-
       <p style={{ fontSize: "2rem" }}>Icon</p>
       <div
         style={{ backgroundColor: "#E2E2E2", width: "100px", height: "300px" }}
