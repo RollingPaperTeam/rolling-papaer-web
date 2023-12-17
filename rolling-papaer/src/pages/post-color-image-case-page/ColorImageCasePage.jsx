@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styled from "styled-components";
 import { FONTS } from "../../theme/font";
 // import { useContext } from "react";
@@ -235,7 +235,7 @@ function Tab({ handleClickTab, toggle }) {
       title: "이미지",
     },
   ];
-  
+
   const list = TAB.map((tab) => (
     <button
       type="button"
@@ -298,7 +298,6 @@ function ColorImageCasePage() {
   const handleClickTab = (target) => setToggle(target);
 
   // const handleClick = (item) => setNewColor(item);
-
   return (
     <ColorImageContainer>
       <Recipient>
@@ -333,7 +332,9 @@ function ColorImageCasePage() {
         $primary="primary"
         size="large"
         fontSize="fontSize18"
+        // ref={disabledRef}
         style={{ width: "100%" }}
+        disabled={focusout === "" && 'disabled'}
       >
         생성하기
       </ButtonStyle>
