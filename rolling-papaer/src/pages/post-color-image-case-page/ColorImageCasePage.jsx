@@ -12,7 +12,7 @@ const ColorImageContainer = styled.section`
   width: 72rem;
   margin: 0 auto;
 
-  @media screen and (min-width: 360px) and (max-width: 768px){
+  @media screen and (min-width: 360px) and (max-width: 768px) {
     width: 100%;
     margin: 5rem 0 0;
     padding: 0 2rem 2.4rem 2rem;
@@ -224,6 +224,31 @@ const COLOR_LIST = [
 //   return list;
 // }
 
+function Tab({ handleClickTab, toggle }) {
+  const TAB = [
+    {
+      id: "color",
+      title: "컬러",
+    },
+    {
+      id: "image",
+      title: "이미지",
+    },
+  ];
+  
+  const list = TAB.map((tab) => (
+    <button
+      type="button"
+      key={tab.id}
+      onClick={() => handleClickTab(tab.id)}
+      className={tab.id === toggle ? "active" : ""}
+    >
+      {tab.title}
+    </button>
+  ));
+  return list;
+}
+
 function ColorBox({ handleClick }) {
   const list = COLOR_LIST.map((item) => (
     <li
@@ -241,7 +266,7 @@ function ColorBox({ handleClick }) {
 function ColorImageCasePage() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [focusout, setFocusout] = useState("");
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState("color");
   // const { currentColor, setNewColor } = useContext(ColorContext);
   const [values, setValues] = useState({
     text: "",
@@ -270,7 +295,7 @@ function ColorImageCasePage() {
     }
   };
 
-  const handleClickToggle = () => setToggle(!toggle);
+  const handleClickTab = (target) => setToggle(target);
 
   // const handleClick = (item) => setNewColor(item);
 
@@ -295,20 +320,7 @@ function ColorImageCasePage() {
         <p>배경화면을 선택해 주세요.</p>
         <span>컬러를 선택하거나, 이미지를 선택할 수 있습니다.</span>
         <ButtonToggle>
-          <button
-            type="button"
-            onClick={handleClickToggle}
-            className={toggle ? "" : "active"}
-          >
-            컬러
-          </button>
-          <button
-            type="button"
-            onClick={handleClickToggle}
-            className={toggle ? "active" : ""}
-          >
-            이미지
-          </button>
+          <Tab handleClickTab={handleClickTab} toggle={toggle} />
         </ButtonToggle>
         <ColorContainer>
           <ul>
