@@ -25,7 +25,7 @@ function EmojiBadgeList({
   return (
     <EmojiBadgeListBlock $columnLength={maxEmojisPerLine}>
       {sortedEmojiList.map((item) => (
-        <EmojiBadge id={item.id} emoji={item.emoji} count={item.count} />
+        <EmojiBadge key={item.id} emoji={item.emoji} count={item.count} />
       ))}
     </EmojiBadgeListBlock>
   );
