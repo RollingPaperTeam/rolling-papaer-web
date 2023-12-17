@@ -16,7 +16,6 @@ const OptionGlobalStyle = () => {
     <ThemeProvider theme={{ backgroundColor: currentColor }}>
        <GlobalStyle />
     </ThemeProvider>
-   
   );
 };
 
