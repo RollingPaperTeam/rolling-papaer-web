@@ -26,7 +26,7 @@ const Recipient = styled.div`
   }
 `;
 
-const Container = styled.div`
+const InputContainer = styled.div`
   input {
     outline: none;
     display: block;
@@ -278,7 +278,7 @@ function ColorImageCasePage() {
     <ColorImageContainer>
       <Recipient>
         <p>To.</p>
-        <Container>
+        <InputContainer>
           <input
             type="text"
             value={values.text}
@@ -289,7 +289,7 @@ function ColorImageCasePage() {
             focusout={focusout}
           />
           {errorMessage && <p>{errorMessage}</p>}
-        </Container>
+        </InputContainer>
       </Recipient>
       <SelectBackground>
         <p>배경화면을 선택해 주세요.</p>
