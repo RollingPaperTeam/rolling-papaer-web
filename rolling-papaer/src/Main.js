@@ -6,18 +6,18 @@ import InputMessageContentPage from "./pages/send-message-page/InputMessageConte
 import PickReceiverPage from "./pages/send-message-page/PickReceiverPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import App from "./App";
-import { ColorProvider } from "./components/option/OptionContext";
-import OptionGlobalStyle from "./components/option/OptionGlobalStyle";
+import { OptionProvider } from "./components/option/OptionContext";
+import Option from './components/option/Option'
+import Test from './components/option/Test'
 
 function Main() {
   return (
     <BrowserRouter>
-      <ColorProvider>
-        <OptionGlobalStyle />
+      <OptionProvider>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<MainPage />} />
-            <Route path="list" element={<RollingPaperListPage />} />
+            <Route index element={<Option />} />
+            <Route path="list" element={<Test />} />
             <Route path="post">
               <Route index element={<PickReceiverPage />} />
               <Route path=":id" element={<RollingPaperPage />}>
@@ -28,7 +28,7 @@ function Main() {
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </ColorProvider>
+      </OptionProvider>
     </BrowserRouter>
   );
 }
