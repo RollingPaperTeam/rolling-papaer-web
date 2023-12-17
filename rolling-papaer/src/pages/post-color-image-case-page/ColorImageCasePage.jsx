@@ -8,15 +8,12 @@ import { FONTS } from "../../theme/font";
 import ButtonStyle from "../../components/button/ButtonStyle";
 
 const ColorImageContainer = styled.section`
-  margin: 5.7rem 0 0;
-  padding: 0 60rem 33.6rem 60rem;
+  padding: 5.7rem 0 33.6rem 0;
+  width: 72rem;
+  margin: 0 auto;
 
-  @media screen and (max-width: 768px) {
-    margin: 4.9rem 0 0;
-    padding: 0 2.4rem 2.4rem 2.4rem;
-  }
-
-  @media screen and (max-width: 760px) {
+  @media screen and (min-width: 360px) and (max-width: 768px){
+    width: 100%;
     margin: 5rem 0 0;
     padding: 0 2rem 2.4rem 2rem;
   }
@@ -40,7 +37,7 @@ const Container = styled.div`
     color: var(--gray5);
     ${FONTS.FONT_16_REGULAR};
 
-    @media screen and (max-width:768px){
+    @media screen and (max-width: 1200px) {
       width: 100%;
     }
 
@@ -82,11 +79,11 @@ const Container = styled.div`
 const SelectBackground = styled.div`
   margin: 5rem 0 0;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1200px) {
     margin: 5.4rem 0 0;
   }
 
-  @media screen and (max-width: 360px) {
+  @media screen and (min-width: 360px) and (max-width: 768px) {
     margin: 4.8rem 0 0;
   }
 
@@ -112,11 +109,11 @@ const ButtonToggle = styled.div`
   color: var(--gray9);
   background-color: var(--gray1);
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1200px) {
     margin: 2.4rem 0 4rem 0;
   }
 
-  @media screen and (max-width: 360px) {
+  @media screen and (min-width: 360px) and (max-width: 768px) {
     margin: 2.4rem 0 2.8rem 0;
   }
 
@@ -142,7 +139,7 @@ const ButtonToggle = styled.div`
 const ColorContainer = styled.div`
   margin: 0 0 3.4rem 0;
 
-  @media screen and (max-width: 360px) {
+  @media screen and (min-width: 360px) and (max-width: 768px) {
     gap: 8.2rem;
   }
 
@@ -153,7 +150,7 @@ const ColorContainer = styled.div`
     display: flex;
     gap: 1.6rem;
 
-    @media screen and (max-width: 360px) {
+    @media screen and (min-width: 360px) and (max-width: 768px) {
       flex-wrap: wrap;
       gap: 1.2rem;
       justify-content: space-between;
@@ -169,7 +166,7 @@ const ColorContainer = styled.div`
       white-space: nowrap;
       cursor: pointer;
 
-      @media screen and (max-width: 360px) {
+      @media screen and (min-width: 360px) and (max-width: 768px) {
         width: calc(50% - 0.6rem);
         height: 15.4rem;
       }
