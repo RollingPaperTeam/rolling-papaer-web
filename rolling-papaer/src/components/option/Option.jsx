@@ -59,7 +59,7 @@ const ImgContainer = styled.div`
   }
 `;
 
-const optionList = [
+const COLOR_LIST = [
   {
     id: "orange",
     color: `${THEME_LIGHT_COLOR.orange2}`,
@@ -79,7 +79,7 @@ const optionList = [
 ];
 
 function ColorBox({ handleClick, currentColor }) {
-  const list = optionList.map((item) => (
+  const list = COLOR_LIST.map((item) => (
     <li
       key={item.id}
       onClick={() => handleClick(item.color)}
