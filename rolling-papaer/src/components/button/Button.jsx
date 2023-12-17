@@ -267,15 +267,6 @@ function Button() {
           </ButtonStyle>
         </div>
       </div>
-      <p style={{ fontSize: "2rem" }}>mobile</p>
-      <ButtonStyle
-        $primary="primary"
-        size="large"
-        fontSize="fontSize18"
-        $mobile="width100"
-      >
-        Enabled
-      </ButtonStyle>
       <p style={{ fontSize: "2rem" }}>Secondary</p>
       <div>
         <ButtonStyle

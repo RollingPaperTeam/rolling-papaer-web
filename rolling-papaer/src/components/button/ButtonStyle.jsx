@@ -34,10 +34,6 @@ const PADDING_STYLE = {
   padding16: "0 1.6rem",
 };
 
-const MOBILE_STYLE = {
-  width100: "100%",
-}
-
 const BUTTON_STYLE = {
   primary: {
     border: "none",
@@ -159,12 +155,6 @@ const focusStyles = css`
   `}
 `;
 
-const mobileStyles = css`
-  ${({ $mobile }) => css`
-    width: ${MOBILE_STYLE[$mobile]};
-  `}
-`;
-
 const ButtonBase = styled.button`
   position: relative;
   padding: 0 2.4rem;
@@ -183,7 +173,6 @@ const ButtonBase = styled.button`
   ${outlinedStyles}
   ${borderRadiusStyles}
   ${paddingStyles}
-  ${mobileStyles}
 
   &:disabled {
     background-color: ${THEME_LIGHT_COLOR.gray3};
