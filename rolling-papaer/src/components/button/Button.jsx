@@ -16,57 +16,57 @@ import addDisabled from "../../static/add_disabled.svg";
 import add20Disabled from "../../static/add_20_disabled.svg";
 import deletedDisabled from "../../static/deleted_disabled.svg";
 
-const Icon = styled.i`
+export const Icon = styled.i`
   display: block;
   width: 2.4rem;
   height: 2.4rem;
   cursor: pointer;
 `;
 
-const PlusIcon = styled(Icon)`
+export const PlusIcon = styled(Icon)`
   background: url(${plus}) no-repeat;
 `;
 
-const CheckIcon = styled(Icon)`
+export const CheckIcon = styled(Icon)`
   background: url(${check}) no-repeat;
 `;
 
-const ShareIcon = styled(Icon)`
+export const ShareIcon = styled(Icon)`
   background: url(${share}) no-repeat;
 `;
 
-const AddIcon = styled(Icon)`
+export const AddIcon = styled(Icon)`
   position: ${({ $icon }) => $icon && "absolute"};
   left: 1.6rem;
   background: url(${add}) no-repeat;
 `;
 
-const AddDisabledIcon = styled(Icon)`
+export const AddDisabledIcon = styled(Icon)`
   position: ${({ $icon }) => $icon && "absolute"};
   left: 1.6rem;
   background: url(${addDisabled}) no-repeat;
 `;
 
-const DeletedIcon = styled(Icon)`
+export const DeletedIcon = styled(Icon)`
   background: url(${deleted}) no-repeat center;
 `;
 
-const DeletedDisabledIcon = styled(Icon)`
+export const DeletedDisabledIcon = styled(Icon)`
   background: url(${deletedDisabled}) no-repeat center;
 `;
 
-const ArrowDownIcon = styled(Icon)`
+export const ArrowDownIcon = styled(Icon)`
   background: url(${arrowDown}) no-repeat;
 `;
 
-const Share20Icon = styled(Icon)`
+export const Share20Icon = styled(Icon)`
   width: 2rem;
   height: 2rem;
   background: url(${share}) no-repeat;
   background-size: 100% 2rem;
 `;
 
-const Add20Icon = styled(Icon)`
+export const Add20Icon = styled(Icon)`
   position: ${({ $icon20 }) => $icon20 && "absolute"};
   left: 1.6rem;
   margin: 0.3rem 0 0;
@@ -76,7 +76,7 @@ const Add20Icon = styled(Icon)`
   background-size: 100% 2rem;
 `;
 
-const Add20DisabledIcon = styled(Icon)`
+export const Add20DisabledIcon = styled(Icon)`
   position: ${({ $icon20 }) => $icon20 && "absolute"};
   left: 1.6rem;
   margin: 0.3rem 0 0;
@@ -86,15 +86,15 @@ const Add20DisabledIcon = styled(Icon)`
   background-size: 100% 2rem;
 `;
 
-const EditIcon = styled(Icon)`
+export const EditIcon = styled(Icon)`
   background: url(${edit}) no-repeat;
 `;
 
-const ButtonNextIcon = styled(Icon)`
+export const ButtonNextIcon = styled(Icon)`
   background: url(${buttonNext}) no-repeat center;
 `;
 
-const ButtonPrevIcon = styled(Icon)`
+export const ButtonPrevIcon = styled(Icon)`
   background: url(${buttonPrev}) no-repeat center;
 `;
 
