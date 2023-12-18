@@ -11,7 +11,7 @@ function NextBaseButton({ onClick, className }) {
 const NextButton = styled(NextBaseButton)`
   position: absolute;
   top: 19rem;
-  right: 8.4rem;
+  right: -2rem;
   z-index: 1;
 `;
 

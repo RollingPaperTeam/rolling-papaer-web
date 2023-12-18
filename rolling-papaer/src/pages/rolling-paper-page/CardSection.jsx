@@ -8,14 +8,15 @@ import NextButton from "../../components/button/NextButton";
 import PrevButton from "../../components/button/PrevButton";
 
 const Section = styled.section`
+  width: 116rem;
   position: relative;
+  margin: 5rem auto 1.6rem;
 `;
 const Title = styled.h2`
   ${FONTS.FONT_24_BOLD}
 `;
 const CardSection = styled(BaseSection)`
   width: 116rem;
-  margin: 5rem auto 1.6rem;
   overflow: hidden;
 `;
 const CardContainer = styled.div`
