@@ -255,6 +255,9 @@ const ButtonContainer = styled.div`
 //   ));
 //   return list;
 // }
+
+
+
 const TAB = [
   {
     id: "color",
@@ -373,7 +376,7 @@ function FileInput({ name, value, onChange }) {
     <>
       <ButtonContainer>
         <ButtonPlus type="button">
-          {!preview ? <PlusIcon preview={preview ? 'active' : ''}/> : ""}
+          {!preview ? <PlusIcon preview={preview ? "active" : ""} /> : ""}
         </ButtonPlus>
       </ButtonContainer>
       <input
@@ -437,6 +440,30 @@ function ColorImageCasePage() {
   const handleClickTab = (item) => setToggle(item);
 
   // const handleClick = (item) => setNewColor(item);
+  async function getRecipients() {
+    try {
+      const recipients = {
+        team: "6",
+        name: values?.text,
+        backgroundColor: "beige",
+        backgroudImageURL: "", 
+      };
+
+      const response = await fetch("https://rolling-api.vercel.app/2-6/recipients/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(recipients),
+      });
+      console.log(response)
+  
+      if (!response.ok) throw new Error('Failed to fetch data');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ColorImageContainer>
       <Recipient>
@@ -491,6 +518,7 @@ function ColorImageCasePage() {
         fontSize="fontSize18"
         style={{ width: "100%" }}
         disabled={focusout === "" && "disabled"}
+        onClick={getRecipients}
       >
         생성하기
       </ButtonStyle>
@@ -498,3 +526,6 @@ function ColorImageCasePage() {
   );
 }
 export default ColorImageCasePage;
+
+
+
