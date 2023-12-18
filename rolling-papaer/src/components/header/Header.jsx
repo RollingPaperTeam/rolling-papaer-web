@@ -1,11 +1,7 @@
 import Nav from "./Nav";
 
-function Header() {
-  return (
-    <nav>
-      <Nav />
-    </nav>
-  );
+function Header({ children }) {
+  return <Nav children={children} />;
 }
 
 export default Header;
