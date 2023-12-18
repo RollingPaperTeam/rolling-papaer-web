@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { useState } from "react";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
-import { FONTS } from "../../theme/font";
+import FONTS from "../../theme/font";
 import ButtonStyle from "./ButtonStyle";
 import plus from "../../static/plus.svg";
 import check from "../../static/check.svg";
@@ -148,7 +148,7 @@ const ButtonDeleted = styled.button`
       disabled ? "none" : `${THEME_LIGHT_COLOR.white}`};
   }
 
-  ${DeletedIcon}{
+  ${DeletedIcon} {
     ${PositionCenter}
   }
 `;
