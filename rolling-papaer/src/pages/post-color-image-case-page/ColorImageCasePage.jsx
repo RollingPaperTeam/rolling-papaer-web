@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { FONTS } from "../../theme/font";
 // import { useContext } from "react";
@@ -6,6 +6,7 @@ import { FONTS } from "../../theme/font";
 // import person from "../../static/person.svg";
 // import { ColorContext } from "./OptionContext";
 import ButtonStyle from "../../components/button/ButtonStyle";
+import { ButtonPlus, PlusIcon } from "../../components/button/Button";
 import img01 from "../../static/img01.jpg";
 
 const ColorImageContainer = styled.section`
@@ -169,11 +170,35 @@ const ToggleContainer = styled.div`
       border-radius: 1.6rem;
       text-indent: 100%;
       white-space: nowrap;
+      border: 1px solid #00000014;
       cursor: pointer;
 
       @media screen and (min-width: 360px) and (max-width: 768px) {
         width: calc(50% - 0.6rem);
         height: 15.4rem;
+      }
+
+      &:first-child {
+        position: relative;
+        background-color: var(--surface);
+
+        input {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+
+          &::before {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            opacity: 0.5;
+            background-color: var(--surface);
+          }
+        }
       }
     }
   }
@@ -194,6 +219,26 @@ const ToggleContainer = styled.div`
   }
 `;
 
+const ButtonContainer = styled.div`
+  ${ButtonPlus} {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 4rem;
+    height: 4rem;
+
+    ${PlusIcon} {
+      width: 2rem;
+      height: 2rem;
+      background-size: 100% 2rem;
+
+      &.active {
+        display: none;
+      }
+    }
+  }
+`;
 
 // function ColorBox({ handleClick, currentColor }) {
 //   const list = COLOR_LIST.map((item) => (
@@ -249,10 +294,6 @@ const TAB = [
         id: "image3",
         image: `${img01}`,
       },
-      {
-        id: "image4",
-        image: `${img01}`,
-      },
     ],
   },
 ];
@@ -303,6 +344,54 @@ function ColorBox({ handleClick }) {
   return list;
 }
 
+function FileInput({ name, value, onChange }) {
+  const [preview, setPreview] = useState(null);
+  const inputFileRef = useRef(null);
+  const handleChange = (e) => {
+    const fileValue = e.target.files[0];
+    onChange(name, fileValue);
+  };
+
+  const handleClickClear = () => {
+    if (!inputFileRef.current) return;
+    inputFileRef.current.value = "";
+    onChange(name, null);
+  };
+
+  useEffect(() => {
+    if (!value) return;
+    const nextPreview = URL.createObjectURL(value);
+    setPreview(nextPreview);
+
+    return () => {
+      setPreview();
+      URL.revokeObjectURL(nextPreview);
+    };
+  }, [value]);
+
+  return (
+    <>
+      <ButtonContainer>
+        <ButtonPlus type="button">
+          {!preview ? <PlusIcon preview={preview ? 'active' : ''}/> : ""}
+        </ButtonPlus>
+      </ButtonContainer>
+      <input
+        type="file"
+        accept="image/png, image/jpg"
+        onChange={handleChange}
+        onClick={handleClickClear}
+        ref={inputFileRef}
+        style={{
+          backgroundImage: `url(${preview})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      />
+    </>
+  );
+}
+
 function ColorImageCasePage() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [focusout, setFocusout] = useState("");
@@ -313,11 +402,21 @@ function ColorImageCasePage() {
     placeholder: "",
     type: "",
   });
+  const [filevalues, setFileValues] = useState({
+    imgFile: null,
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleChangeFile = (name, value) => {
+    setFileValues((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
@@ -373,6 +472,13 @@ function ColorImageCasePage() {
           {toggle === "image" && (
             <ToggleContainer>
               <ul>
+                <li>
+                  <FileInput
+                    name="imgFile"
+                    value={filevalues.imgFile}
+                    onChange={handleChangeFile}
+                  />
+                </li>
                 <ImgBox />
               </ul>
             </ToggleContainer>
@@ -383,7 +489,6 @@ function ColorImageCasePage() {
         $primary="primary"
         size="large"
         fontSize="fontSize18"
-        // ref={disabledRef}
         style={{ width: "100%" }}
         disabled={focusout === "" && "disabled"}
       >
