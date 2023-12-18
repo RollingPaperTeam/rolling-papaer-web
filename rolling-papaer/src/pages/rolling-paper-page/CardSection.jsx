@@ -5,14 +5,18 @@ import { useEffect, useState } from "react";
 import { getRecipients } from "../../api/Routes";
 import TRANSLATE_VALUE from "../../components/card/translateValue";
 import NextButton from "../../components/button/NextButton";
+import PrevButton from "../../components/button/PrevButton";
 
 const Section = styled.section`
-  width: 116rem;
-  margin: 5rem auto 1.6rem;
-  overflow: hidden;
+  position: relative;
 `;
 const Title = styled.h2`
   ${FONTS.FONT_24_BOLD}
+`;
+const CardSection = styled(BaseSection)`
+  width: 116rem;
+  margin: 5rem auto 1.6rem;
+  overflow: hidden;
 `;
 const CardContainer = styled.div`
   margin: 0 auto;
@@ -20,12 +24,13 @@ const CardContainer = styled.div`
   width: 116rem;
   height: 26rem;
   display: flex;
+
   transform: translate(
     ${({ $cardIndex }) => `${$cardIndex * TRANSLATE_VALUE}rem`}
   );
   transition: transform 0.3s ease 0s;
 `;
-function CardSection({ children, limit, like }) {
+function BaseSection({ children, limit, like, className }) {
   const [cardData, setCardData] = useState([]);
   const [cardIndex, setCardIndex] = useState(0);
   const [dataLength, setDataLength] = useState(0);
@@ -50,12 +55,14 @@ function CardSection({ children, limit, like }) {
   };
   return (
     <Section>
-      <Title>{children}</Title>
-      <CardContainer $cardIndex={cardIndex}>
-        {cardData && <CardList cardData={cardData} />}
-      </CardContainer>
-      {cardIndex > 0 && <button onClick={handleMinusClick}>이전</button>}
-      {dataLength - cardIndex > 4 && <NextButton onClick={handlePlusClick} />}
+      <div className={className}>
+        <Title>{children}</Title>
+        <CardContainer $cardIndex={cardIndex}>
+          {cardData && <CardList cardData={cardData} />}
+        </CardContainer>
+        {cardIndex > 0 && <PrevButton onClick={handleMinusClick} />}
+        {dataLength - cardIndex > 4 && <NextButton onClick={handlePlusClick} />}
+      </div>
     </Section>
   );
 }
