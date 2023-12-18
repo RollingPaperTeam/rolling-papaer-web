@@ -500,3 +500,4 @@ function Button() {
 }
 
 export default Button;
+export { ButtonControl, ButtonNextIcon, ButtonPrevIcon };
