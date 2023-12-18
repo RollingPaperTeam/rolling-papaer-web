@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import FONTS from "../../../theme/font";
-import { useContext } from "react";
 import {
   PostHeaderProvider,
   usePostHeaderContextValue,
@@ -12,7 +11,7 @@ const PostHeaderBlock = styled.header`
   width: 100%;
   height: 68px;
 
-  padding: 13px 360px;
+  padding: 13px calc(max((100% - 1200px) / 2, 24px));
 
   display: flex;
   justify-content: space-between;
