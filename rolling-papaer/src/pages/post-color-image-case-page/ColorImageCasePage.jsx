@@ -6,6 +6,7 @@ import { FONTS } from "../../theme/font";
 // import person from "../../static/person.svg";
 // import { ColorContext } from "./OptionContext";
 import ButtonStyle from "../../components/button/ButtonStyle";
+import img01 from "../../static/img01.jpg";
 
 const ColorImageContainer = styled.section`
   padding: 5.7rem 0 33.6rem 0;
@@ -100,6 +101,10 @@ const SelectBackground = styled.div`
   }
 `;
 
+const TabContainer = styled.div`
+  position: relative;
+`;
+
 const ButtonToggle = styled.div`
   width: 24.4rem;
   margin: 2.4rem 0 4.5rem 0;
@@ -136,7 +141,7 @@ const ButtonToggle = styled.div`
   }
 `;
 
-const ColorContainer = styled.div`
+const ToggleContainer = styled.div`
   margin: 0 0 3.4rem 0;
 
   @media screen and (min-width: 360px) and (max-width: 768px) {
@@ -189,24 +194,6 @@ const ColorContainer = styled.div`
   }
 `;
 
-const COLOR_LIST = [
-  {
-    id: "orange",
-    color: `var(--orange2)`,
-  },
-  {
-    id: "purple",
-    color: `var(--purple2)`,
-  },
-  {
-    id: "blue",
-    color: `var(--blue2)`,
-  },
-  {
-    id: "green",
-    color: `var(--green2)`,
-  },
-];
 
 // function ColorBox({ handleClick, currentColor }) {
 //   const list = COLOR_LIST.map((item) => (
@@ -223,25 +210,60 @@ const COLOR_LIST = [
 //   ));
 //   return list;
 // }
+const TAB = [
+  {
+    id: "color",
+    title: "컬러",
+    color: [
+      {
+        id: "orange",
+        color: `var(--orange2)`,
+      },
+      {
+        id: "purple",
+        color: `var(--purple2)`,
+      },
+      {
+        id: "blue",
+        color: `var(--blue2)`,
+      },
+      {
+        id: "green",
+        color: `var(--green2)`,
+      },
+    ],
+  },
+  {
+    id: "image",
+    title: "이미지",
+    image: [
+      {
+        id: "image1",
+        image: `${img01}`,
+      },
+      {
+        id: "image2",
+        image: `${img01}`,
+      },
+      {
+        id: "image3",
+        image: `${img01}`,
+      },
+      {
+        id: "image4",
+        image: `${img01}`,
+      },
+    ],
+  },
+];
 
 function Tab({ handleClickTab, toggle }) {
-  const TAB = [
-    {
-      id: "color",
-      title: "컬러",
-    },
-    {
-      id: "image",
-      title: "이미지",
-    },
-  ];
-
   const list = TAB.map((tab) => (
     <button
       type="button"
       key={tab.id}
       onClick={() => handleClickTab(tab.id)}
-      className={tab.id === toggle ? "active" : ""}
+      className={toggle === tab.id ? "active" : ""}
     >
       {tab.title}
     </button>
@@ -249,14 +271,32 @@ function Tab({ handleClickTab, toggle }) {
   return list;
 }
 
+function ImgBox({ handleClick }) {
+  const imageTab = TAB.find((tab) => tab.id === "image");
+  const images = imageTab ? imageTab.image : [];
+
+  const list = images.map((images) => (
+    <li
+      key={images.id}
+      onClick={() => handleClick(images.image)}
+      style={{ backgroundImage: `url(${images.image})` }}
+    >
+      <span>현재 선택된 이미지 버튼</span>
+    </li>
+  ));
+  return list;
+}
+
 function ColorBox({ handleClick }) {
-  const list = COLOR_LIST.map((item) => (
+  const colorTab = TAB.find((tab) => tab.id === "color");
+  const color = colorTab ? colorTab.color : [];
+
+  const list = color.map((item) => (
     <li
       key={item.id}
       onClick={() => handleClick(item.color)}
       style={{ backgroundColor: item.color }}
     >
-      {item.color}
       <span>현재 선택된 색상 버튼</span>
     </li>
   ));
@@ -295,7 +335,7 @@ function ColorImageCasePage() {
     }
   };
 
-  const handleClickTab = (target) => setToggle(target);
+  const handleClickTab = (item) => setToggle(item);
 
   // const handleClick = (item) => setNewColor(item);
   return (
@@ -321,12 +361,23 @@ function ColorImageCasePage() {
         <ButtonToggle>
           <Tab handleClickTab={handleClickTab} toggle={toggle} />
         </ButtonToggle>
-        <ColorContainer>
-          <ul>
-            {/* <ColorBox handleClick={handleClick} currentColor={currentColor} /> */}
-            <ColorBox />
-          </ul>
-        </ColorContainer>
+        <TabContainer>
+          {toggle === "color" && (
+            <ToggleContainer>
+              <ul>
+                {/* <ColorBox handleClick={handleClick} currentColor={currentColor} /> */}
+                <ColorBox />
+              </ul>
+            </ToggleContainer>
+          )}
+          {toggle === "image" && (
+            <ToggleContainer>
+              <ul>
+                <ImgBox />
+              </ul>
+            </ToggleContainer>
+          )}
+        </TabContainer>
       </SelectBackground>
       <ButtonStyle
         $primary="primary"
@@ -334,7 +385,7 @@ function ColorImageCasePage() {
         fontSize="fontSize18"
         // ref={disabledRef}
         style={{ width: "100%" }}
-        disabled={focusout === "" && 'disabled'}
+        disabled={focusout === "" && "disabled"}
       >
         생성하기
       </ButtonStyle>
