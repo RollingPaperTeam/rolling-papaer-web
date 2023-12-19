@@ -2,7 +2,7 @@ import styled from "styled-components";
 import FONTS from "../../theme/font";
 import CardList from "../../components/card/CardList";
 import { useEffect, useState } from "react";
-import { getRecipients } from "../../api/Routes";
+import getRecipients from "../../api/api";
 import TRANSLATE_VALUE from "../../components/card/translateValue";
 import NextButton from "../../components/button/NextButton";
 import PrevButton from "../../components/button/PrevButton";
@@ -10,7 +10,7 @@ import PrevButton from "../../components/button/PrevButton";
 const Section = styled.section`
   width: 116rem;
   position: relative;
-  margin: 5rem auto 1.6rem;
+  margin: 5rem auto 0;
 `;
 const Title = styled.h2`
   ${FONTS.FONT_24_BOLD}

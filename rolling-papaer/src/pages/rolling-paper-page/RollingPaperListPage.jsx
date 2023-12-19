@@ -2,6 +2,7 @@ import Header from "../../components/header/Header";
 import CardSection from "./CardSection";
 import { Link } from "react-router-dom";
 import ButtonStyle from "../../components/button/ButtonStyle";
+import LinkButton from "../../components/button/LinkButton";
 
 function RollingPaperListPage() {
   return (
@@ -27,6 +28,7 @@ function RollingPaperListPage() {
         limit="10"
         like=""
       />
+      <LinkButton to="/post">나도 만들어보기</LinkButton>
     </>
   );
 }
