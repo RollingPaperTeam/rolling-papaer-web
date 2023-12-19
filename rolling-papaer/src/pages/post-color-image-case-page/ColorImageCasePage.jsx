@@ -305,7 +305,7 @@ function ColorImageCasePage() {
   const [filevalues, setFileValues] = useState({
     imgFile: null,
   });
-  const [data, setData] = useState(null);
+  const [data, setData] = useState("https://i.ibb.co/9ZsWvRM/snowman.jpg");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -354,7 +354,7 @@ function ColorImageCasePage() {
         currentColor = currentColor.replace(/var\(--blue2\)/i, "blue");
       if (currentColor === "var(--green2)")
         currentColor = currentColor.replace(/var\(--green2\)/i, "green");
-      
+
       const recipients = {
         team: "2-6",
         name: values?.text,
@@ -524,7 +524,6 @@ function ColorImageCasePage() {
                 <ImgBox
                   handleClickBackground={handleClickBackground}
                   background={background}
-                  data={data}
                 />
               </ul>
             </ToggleContainer>
