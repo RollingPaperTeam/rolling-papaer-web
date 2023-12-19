@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { FONTS } from "../../theme/font";
-// import { useContext } from "react";
-// import currentColor from "../../static/current_color.svg";
-// import person from "../../static/person.svg";
-// import { ColorContext } from "./OptionContext";
+import currentColor from "../../static/current_color.svg";
 import ButtonStyle from "../../components/button/ButtonStyle";
-import { ButtonPlus, PlusIcon } from "../../components/button/Button";
+import Button, { ButtonPlus, PlusIcon } from "../../components/button/Button";
 import img01 from "../../static/img01.jpg";
+import img02 from "../../static/img02.jpg";
+import img03 from "../../static/img03.png";
+import img04 from "../../static/img04.jpg";
 
 const ColorImageContainer = styled.section`
   padding: 5.7rem 0 33.6rem 0;
@@ -170,17 +170,44 @@ const ToggleContainer = styled.div`
       border-radius: 1.6rem;
       text-indent: 100%;
       white-space: nowrap;
-      border: 1px solid #00000014;
+      border: ${({ $toggle }) =>
+        $toggle === "color" ? "1px solid #00000014" : "none"};
       cursor: pointer;
+      background: url() no-repeat;
+      background-size: cover;
 
       @media screen and (min-width: 360px) and (max-width: 768px) {
         width: calc(50% - 0.6rem);
         height: 15.4rem;
       }
 
+      &.active::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        background-color: #fbfcfd;
+      }
+
       &:first-child {
         position: relative;
-        background-color: var(--surface);
+        border: 1px solid #00000014;
+
+        ${ButtonPlus} {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 4.4rem;
+          height: 4.4rem;
+
+          ${PlusIcon} {
+            width: 2.2rem;
+            height: 2.2rem;
+            background-size: cover;
+          }
+        }
 
         input {
           position: absolute;
@@ -195,8 +222,11 @@ const ToggleContainer = styled.div`
             display: block;
             width: 100%;
             height: 100%;
-            opacity: 0.5;
-            background-color: var(--surface);
+            background-color: #fbfcfd1d;
+          }
+
+          &.active {
+            background: url(${currentColor}) no-repeat;
           }
         }
       }
@@ -215,48 +245,9 @@ const ToggleContainer = styled.div`
     text-indent: 100%;
     white-space: nowrap;
     cursor: pointer;
-    background: url() no-repeat;
+    background: url(${currentColor}) no-repeat;
   }
 `;
-
-const ButtonContainer = styled.div`
-  ${ButtonPlus} {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 4rem;
-    height: 4rem;
-
-    ${PlusIcon} {
-      width: 2rem;
-      height: 2rem;
-      background-size: 100% 2rem;
-
-      &.active {
-        display: none;
-      }
-    }
-  }
-`;
-
-// function ColorBox({ handleClick, currentColor }) {
-//   const list = COLOR_LIST.map((item) => (
-//     <li
-//       key={item.id}
-//       onClick={() => handleClick(item.color)}
-//       style={{ backgroundColor: item.color }}
-//     >
-//       {item.color}
-//       <span className={currentColor === item.color ? "active" : ""}>
-//         현재 선택된 색상 버튼
-//       </span>
-//     </li>
-//   ));
-//   return list;
-// }
-
-
 
 const TAB = [
   {
@@ -291,23 +282,27 @@ const TAB = [
       },
       {
         id: "image2",
-        image: `${img01}`,
+        image: `${img02}`,
       },
       {
         id: "image3",
-        image: `${img01}`,
+        image: `${img03}`,
+      },
+      {
+        id: "image4",
+        image: `${img04}`,
       },
     ],
   },
 ];
 
-function Tab({ handleClickTab, toggle }) {
+function Tab({ handleClickTab, $toggle }) {
   const list = TAB.map((tab) => (
     <button
       type="button"
       key={tab.id}
       onClick={() => handleClickTab(tab.id)}
-      className={toggle === tab.id ? "active" : ""}
+      className={$toggle === tab.id ? "active" : ""}
     >
       {tab.title}
     </button>
@@ -315,23 +310,26 @@ function Tab({ handleClickTab, toggle }) {
   return list;
 }
 
-function ImgBox({ handleClick }) {
+function ImgBox({ handleClickBackground, background }) {
   const imageTab = TAB.find((tab) => tab.id === "image");
   const images = imageTab ? imageTab.image : [];
 
-  const list = images.map((images) => (
+  const list = images.map((item) => (
     <li
-      key={images.id}
-      onClick={() => handleClick(images.image)}
-      style={{ backgroundImage: `url(${images.image})` }}
+      key={item.id}
+      onClick={() => handleClickBackground(item.image)}
+      className={background === item.image ? "active" : ""}
+      style={{ backgroundImage: `url(${item.image})` }}
     >
-      <span>현재 선택된 이미지 버튼</span>
+      <span className={background === item.image ? "active" : ""}>
+        현재 선택된 이미지 버튼
+      </span>
     </li>
   ));
   return list;
 }
 
-function ColorBox({ handleClick }) {
+function ColorBox({ handleClick, currentColor }) {
   const colorTab = TAB.find((tab) => tab.id === "color");
   const color = colorTab ? colorTab.color : [];
 
@@ -341,7 +339,9 @@ function ColorBox({ handleClick }) {
       onClick={() => handleClick(item.color)}
       style={{ backgroundColor: item.color }}
     >
-      <span>현재 선택된 색상 버튼</span>
+      <span className={currentColor === item.color ? "active" : ""}>
+        현재 선택된 색상 버튼
+      </span>
     </li>
   ));
   return list;
@@ -355,17 +355,13 @@ function FileInput({ name, value, onChange }) {
     onChange(name, fileValue);
   };
 
-  const handleClickClear = () => {
-    if (!inputFileRef.current) return;
-    inputFileRef.current.value = "";
-    onChange(name, null);
-  };
-
   useEffect(() => {
     if (!value) return;
     const nextPreview = URL.createObjectURL(value);
     setPreview(nextPreview);
-
+    if(value){
+      inputFileRef.current.classList.add('active')
+    }
     return () => {
       setPreview();
       URL.revokeObjectURL(nextPreview);
@@ -374,16 +370,13 @@ function FileInput({ name, value, onChange }) {
 
   return (
     <>
-      <ButtonContainer>
-        <ButtonPlus type="button">
-          {!preview ? <PlusIcon preview={preview ? "active" : ""} /> : ""}
-        </ButtonPlus>
-      </ButtonContainer>
+      <ButtonPlus>
+        <PlusIcon />
+      </ButtonPlus>
       <input
         type="file"
         accept="image/png, image/jpg"
         onChange={handleChange}
-        onClick={handleClickClear}
         ref={inputFileRef}
         style={{
           backgroundImage: `url(${preview})`,
@@ -397,9 +390,10 @@ function FileInput({ name, value, onChange }) {
 
 function ColorImageCasePage() {
   const [errorMessage, setErrorMessage] = useState(null);
-  const [focusout, setFocusout] = useState("");
   const [toggle, setToggle] = useState("color");
-  // const { currentColor, setNewColor } = useContext(ColorContext);
+  const [currentColor, setCurrentColor] = useState(`var(--orange2)`);
+  const [background, setBackground] = useState(`${img01}`);
+  const [focusout, setFocusout] = useState("");
   const [values, setValues] = useState({
     text: "",
     placeholder: "",
@@ -439,30 +433,50 @@ function ColorImageCasePage() {
 
   const handleClickTab = (item) => setToggle(item);
 
-  // const handleClick = (item) => setNewColor(item);
+  const handleClick = (item) => setCurrentColor(item);
+
+  const handleClickBackground = (item) => setBackground(item);
+
+  async function getTest(){
+    try{
+      const response = await fetch('https://rolling-api.vercel.app/background-images/');
+      const result = response.json();
+      console.log(result)
+    }catch(error){
+      console.error(error);
+    }
+  }
+
+  const test = async () => {
+    const { imageUrls } = await getTest();
+    console.log(imageUrls)
+  }
+  test();
   async function getRecipients() {
     try {
       const recipients = {
-        team: "6",
+        team: "2-6",
         name: values?.text,
         backgroundColor: "beige",
-        backgroudImageURL: "", 
+        backgroudImageURL: "https://picsum.photos/id/683/3840/2160",
       };
 
-      const response = await fetch("https://rolling-api.vercel.app/2-6/recipients/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(recipients),
-      });
-      console.log(response)
-  
-      if (!response.ok) throw new Error('Failed to fetch data');
+      const response = await fetch(
+        "https://rolling-api.vercel.app/2-6/recipients/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(recipients),
+        }
+      );
+
+      if (!response.ok) throw new Error("데이터를 불러오는데 실패했습니다");
     } catch (error) {
       console.error(error);
     }
-  };
+  }
 
   return (
     <ColorImageContainer>
@@ -485,19 +499,21 @@ function ColorImageCasePage() {
         <p>배경화면을 선택해 주세요.</p>
         <span>컬러를 선택하거나, 이미지를 선택할 수 있습니다.</span>
         <ButtonToggle>
-          <Tab handleClickTab={handleClickTab} toggle={toggle} />
+          <Tab handleClickTab={handleClickTab} $toggle={toggle} />
         </ButtonToggle>
         <TabContainer>
           {toggle === "color" && (
-            <ToggleContainer>
+            <ToggleContainer $toggle={toggle}>
               <ul>
-                {/* <ColorBox handleClick={handleClick} currentColor={currentColor} /> */}
-                <ColorBox />
+                <ColorBox
+                  handleClick={handleClick}
+                  currentColor={currentColor}
+                />
               </ul>
             </ToggleContainer>
           )}
           {toggle === "image" && (
-            <ToggleContainer>
+            <ToggleContainer $toggle={toggle}>
               <ul>
                 <li>
                   <FileInput
@@ -506,7 +522,10 @@ function ColorImageCasePage() {
                     onChange={handleChangeFile}
                   />
                 </li>
-                <ImgBox />
+                <ImgBox
+                  handleClickBackground={handleClickBackground}
+                  background={background}
+                />
               </ul>
             </ToggleContainer>
           )}
@@ -526,6 +545,3 @@ function ColorImageCasePage() {
   );
 }
 export default ColorImageCasePage;
-
-
-
