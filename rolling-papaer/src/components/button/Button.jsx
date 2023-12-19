@@ -12,48 +12,61 @@ import arrowDown from "../../static/arrow_down.svg";
 import edit from "../../static/edit.svg";
 import buttonPrev from "../../static/arrow_prev.svg";
 import buttonNext from "../../static/arrow_next.svg";
+import addDisabled from "../../static/add_disabled.svg";
+import add20Disabled from "../../static/add_20_disabled.svg";
+import deletedDisabled from "../../static/deleted_disabled.svg";
 
-const Icon = styled.i`
+export const Icon = styled.i`
   display: block;
   width: 2.4rem;
   height: 2.4rem;
   cursor: pointer;
 `;
 
-const PlusIcon = styled(Icon)`
+export const PlusIcon = styled(Icon)`
   background: url(${plus}) no-repeat;
 `;
 
-const CheckIcon = styled(Icon)`
+export const CheckIcon = styled(Icon)`
   background: url(${check}) no-repeat;
 `;
 
-const ShareIcon = styled(Icon)`
+export const ShareIcon = styled(Icon)`
   background: url(${share}) no-repeat;
 `;
 
-const AddIcon = styled(Icon)`
+export const AddIcon = styled(Icon)`
   position: ${({ $icon }) => $icon && "absolute"};
   left: 1.6rem;
   background: url(${add}) no-repeat;
 `;
 
-const DeletedIcon = styled(Icon)`
+export const AddDisabledIcon = styled(Icon)`
+  position: ${({ $icon }) => $icon && "absolute"};
+  left: 1.6rem;
+  background: url(${addDisabled}) no-repeat;
+`;
+
+export const DeletedIcon = styled(Icon)`
   background: url(${deleted}) no-repeat center;
 `;
 
-const ArrowDownIcon = styled(Icon)`
+export const DeletedDisabledIcon = styled(Icon)`
+  background: url(${deletedDisabled}) no-repeat center;
+`;
+
+export const ArrowDownIcon = styled(Icon)`
   background: url(${arrowDown}) no-repeat;
 `;
 
-const Share20Icon = styled(Icon)`
+export const Share20Icon = styled(Icon)`
   width: 2rem;
   height: 2rem;
   background: url(${share}) no-repeat;
   background-size: 100% 2rem;
 `;
 
-const Add20Icon = styled(Icon)`
+export const Add20Icon = styled(Icon)`
   position: ${({ $icon20 }) => $icon20 && "absolute"};
   left: 1.6rem;
   margin: 0.3rem 0 0;
@@ -63,7 +76,17 @@ const Add20Icon = styled(Icon)`
   background-size: 100% 2rem;
 `;
 
-const EditIcon = styled(Icon)`
+export const Add20DisabledIcon = styled(Icon)`
+  position: ${({ $icon20 }) => $icon20 && "absolute"};
+  left: 1.6rem;
+  margin: 0.3rem 0 0;
+  width: 2rem;
+  height: 2rem;
+  background: url(${add20Disabled}) no-repeat;
+  background-size: 100% 2rem;
+`;
+
+export const EditIcon = styled(Icon)`
   background: url(${edit}) no-repeat;
 `;
 
@@ -94,19 +117,19 @@ const ButtonPlus = styled.button`
 
   &:hover {
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.gray6}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray6}`};
   }
 
   &:active {
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.gray7}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray7}`};
   }
 
   &:focus {
     border: ${({ disabled }) =>
       disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray8}`};
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.gray7}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray7}`};
   }
 
   ${PlusIcon} {
@@ -131,27 +154,31 @@ const ButtonDeleted = styled.button`
     border: ${({ disabled }) =>
       disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.gray1}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray1}`};
   }
 
   &:active {
     border: ${({ disabled }) =>
-      disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
+      disabled
+        ? `${THEME_LIGHT_COLOR.gray3}`
+        : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.gray1}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray1}`};
   }
 
   &:focus {
     border: ${({ disabled }) =>
-      disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray5}`};
+      disabled
+        ? `${THEME_LIGHT_COLOR.gray3}`
+        : `1px solid ${THEME_LIGHT_COLOR.gray5}`};
     background-color: ${({ disabled }) =>
-      disabled ? "none" : `${THEME_LIGHT_COLOR.white}`};
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.white}`};
   }
 
-  ${DeletedIcon} {
+  ${DeletedDisabledIcon} {
     ${PositionCenter}
   }
-`;
+`
 
 const ButtonControl = styled.button`
   width: 4rem;
@@ -167,7 +194,7 @@ const ButtonToggle = styled.div`
   width: 24.4rem;
   border-radius: 0.6rem;
   text-align: center;
-  font-size: ${FONTS.FONT_16_REGULAR};
+  ${FONTS.FONT_16_REGULAR};
   color: ${THEME_LIGHT_COLOR.gray9};
   background-color: ${THEME_LIGHT_COLOR.gray1};
 
@@ -184,16 +211,36 @@ const ButtonToggle = styled.div`
     &.active {
       border: 2px solid ${THEME_LIGHT_COLOR.puple6};
       color: ${THEME_LIGHT_COLOR.puple7};
-      font-size: ${FONTS.FONT_16_BOLD};
+      ${FONTS.FONT_16_BOLD};
       background-color: ${THEME_LIGHT_COLOR.white};
     }
   }
 `;
 
-function Button() {
-  const [toggle, setToggle] = useState(false);
+function Tab({ handleClickTab, toggle }) {
+  const TAB = [
+    {
+      id: "color",
+      title: "컬러",
+    },
+    {
+      id: "image",
+      title: "이미지",
+    },
+  ];
+  
+  const list = TAB.map((tab) => (
+    <button type="button" key={tab.id} onClick={() => handleClickTab(tab.id)} className={tab.id === toggle ? 'active' : ''}>
+      {tab.title}
+    </button>
+  ));
+  return list;
+}
 
-  const handleClick = () => setToggle(!toggle);
+function Button() {
+  const [toggle, setToggle] = useState("color");
+
+  const handleClickTab = (target) => setToggle(target);
 
   return (
     <>
@@ -209,13 +256,18 @@ function Button() {
             $primary="primary"
             size="large"
             fontSize="fontSize18"
-            disabled="disabled"
+            disabled
           >
             Disabled
           </ButtonStyle>
         </div>
         <div>
-          <ButtonStyle $primary="primary" size="medium" fontSize="fontSize16">
+          <ButtonStyle
+            $primary="primary"
+            size="medium"
+            fontSize="fontSize16"
+            $padding="padding16"
+          >
             Enabled
           </ButtonStyle>
           <br />
@@ -224,13 +276,13 @@ function Button() {
             $primary="primary"
             size="medium"
             fontSize="fontSize16"
-            disabled="disabled"
+            $padding="padding16"
+            disabled
           >
             Disabled
           </ButtonStyle>
         </div>
       </div>
-
       <p style={{ fontSize: "2rem" }}>Secondary</p>
       <div>
         <ButtonStyle
@@ -238,6 +290,7 @@ function Button() {
           size="medium"
           fontSize="fontSize16"
           $borderRadius="borderRadius6"
+          $padding="padding16"
           $hover="secondary"
           $active="secondary"
           $focus="secondary"
@@ -250,7 +303,8 @@ function Button() {
           size="medium"
           fontSize="fontSize16"
           $borderRadius="borderRadius6"
-          disabled="disabled"
+          $padding="padding16"
+          disabled
         >
           Disabled
         </ButtonStyle>
@@ -262,6 +316,7 @@ function Button() {
           <ButtonStyle
             $outlined="outlined"
             fontSize="fontSize18"
+            $padding="padding16"
             size="large"
             $hover="outlined"
             $active="outlined"
@@ -271,7 +326,12 @@ function Button() {
           </ButtonStyle>
           <br />
           <br />
-          <ButtonStyle size="large" fontSize="fontSize18" disabled>
+          <ButtonStyle
+            size="large"
+            fontSize="fontSize18"
+            $padding="padding16"
+            disabled
+          >
             Disabled
           </ButtonStyle>
         </div>
@@ -279,6 +339,7 @@ function Button() {
           <ButtonStyle
             $outlined="outlined"
             fontSize="fontSize16"
+            $padding="padding16"
             $borderRadius="borderRadius6"
             size="medium"
             $hover="outlined"
@@ -292,6 +353,7 @@ function Button() {
           <ButtonStyle
             size="medium"
             fontSize="fontSize16"
+            $padding="padding16"
             $borderRadius="borderRadius6"
             disabled
           >
@@ -318,8 +380,10 @@ function Button() {
             size="medium"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $icon
             disabled
           >
+            <AddDisabledIcon $icon />
             Disabled
           </ButtonStyle>
         </div>
@@ -328,6 +392,7 @@ function Button() {
             $outlined="outlined"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $padding="padding16"
             size="small"
             $hover="outlined"
             $active="outlined"
@@ -341,6 +406,7 @@ function Button() {
             size="small"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $padding="padding16"
             disabled
           >
             Disabled
@@ -366,8 +432,10 @@ function Button() {
             size="small"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $icon
             disabled
           >
+            <AddDisabledIcon $icon />
             Disabled
           </ButtonStyle>
         </div>
@@ -376,6 +444,7 @@ function Button() {
             $outlined="outlined"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $padding="padding16"
             size="mini"
             $hover="outlined"
             $active="outlined"
@@ -389,6 +458,7 @@ function Button() {
             size="mini"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $padding="padding16"
             disabled
           >
             Disabled
@@ -414,13 +484,14 @@ function Button() {
             size="mini"
             fontSize="fontSize16"
             $borderRadius="borderRadius6"
+            $icon20
             disabled
           >
+            <Add20DisabledIcon $icon20 />
             Disabled
           </ButtonStyle>
         </div>
       </div>
-
       <p style={{ fontSize: "2rem" }}>Icon</p>
       <div
         style={{ backgroundColor: "#E2E2E2", width: "100px", height: "300px" }}
@@ -460,7 +531,7 @@ function Button() {
         <br />
         <br />
         <ButtonDeleted type="button" disabled>
-          <DeletedIcon />
+          <DeletedDisabledIcon />
         </ButtonDeleted>
       </div>
 
@@ -479,20 +550,7 @@ function Button() {
       <p style={{ fontSize: "2rem" }}>Toggle Button</p>
       <div>
         <ButtonToggle>
-          <button
-            type="button"
-            onClick={handleClick}
-            className={toggle ? "" : "active"}
-          >
-            컬러
-          </button>
-          <button
-            type="button"
-            onClick={handleClick}
-            className={toggle ? "active" : ""}
-          >
-            이미지
-          </button>
+          <Tab handleClickTab={handleClickTab} toggle={toggle} />
         </ButtonToggle>
       </div>
     </>
