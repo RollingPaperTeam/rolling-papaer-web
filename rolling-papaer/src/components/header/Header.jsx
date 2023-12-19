@@ -1,8 +1,7 @@
-function Header(){
-    return(
-        <nav>
-        </nav>
-    )
+import Nav from "./Nav";
+
+function Header({ children }) {
+  return <Nav>{children}</Nav>;
 }
 
 export default Header;

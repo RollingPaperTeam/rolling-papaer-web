@@ -1,9 +1,26 @@
+import Header from "../../components/header/Header";
 import CardSection from "./CardSection";
+import { Link } from "react-router-dom";
+import ButtonStyle from "../../components/button/ButtonStyle";
 
 function RollingPaperListPage() {
   return (
     <>
-      <nav></nav>
+      <Header>
+        <Link to="/post">
+          <ButtonStyle
+            $outlined="outlined"
+            fontSize="fontSize16"
+            $borderRadius="borderRadius6"
+            size="medium"
+            $hover="outlined"
+            $active="outlined"
+            $focus="outlined"
+          >
+            롤링 페이퍼 만들기
+          </ButtonStyle>
+        </Link>
+      </Header>
       <CardSection children="인기 롤링 페이퍼 TOP10🔥" limit="10" like="like" />
       <CardSection
         children="최근에 만든 롤링 페이퍼 TOP10⭐️️"
