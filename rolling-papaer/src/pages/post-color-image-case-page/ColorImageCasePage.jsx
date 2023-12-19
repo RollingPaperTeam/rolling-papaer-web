@@ -303,7 +303,7 @@ function ColorImageCasePage() {
     type: "",
   });
   const [filevalues, setFileValues] = useState({
-    imgFile: null,
+    image: null,
   });
   const [data, setData] = useState("https://i.ibb.co/9ZsWvRM/snowman.jpg");
 
@@ -378,6 +378,42 @@ function ColorImageCasePage() {
       console.error(error);
     }
   }
+
+  async function uploadFile() {
+    try {
+      const formData = new FormData();
+      formData.append('title', filevalues.image);
+
+      const response = await fetch('https://api.imgbb.com/1/upload?expiration=600&key=f0eab4aaf51dac78722c29588abb636f', {
+        method: "POST",
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded",
+        },
+        body: formData,
+      });
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // async function uploadFile() {
+  //   try {
+
+  //     const response = await fetch(
+  //       "https://rolling-api.vercel.app/2-6/recipients/1734/",
+  //       {
+  //         method: "DELETE",
+   
+  //       }
+  //     );
+
+  //     if (!response.ok) throw new Error("데이터를 불러오는데 실패했습니다");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   const TAB = [
     {
@@ -536,7 +572,7 @@ function ColorImageCasePage() {
         fontSize="fontSize18"
         style={{ width: "100%" }}
         disabled={focusout === "" && "disabled"}
-        onClick={getRecipients}
+        onClick={uploadFile}
       >
         생성하기
       </ButtonStyle>
