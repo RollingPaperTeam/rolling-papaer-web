@@ -12,6 +12,6 @@ function PrevBaseButton({ onClick, className }) {
 const PrevButton = styled(PrevBaseButton)`
   position: absolute;
   top: 19rem;
-  left: 8.6rem;
+  left: -2rem;
 `;
 export default PrevButton;
