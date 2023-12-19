@@ -31,14 +31,13 @@ const CardContentImgContainer = styled.div`
     border-radius: 5rem;
     border: 0.15rem solid var(--white);
   }
-  img:nth-of-type(2){
+  img:nth-of-type(2) {
     position: relative;
     right: 1.2rem;
   }
-  img:nth-of-type(3){
+  img:nth-of-type(3) {
     position: relative;
     right: 2.4rem;
-  }
   }
 `;
 const CardEmoji = styled.div`
