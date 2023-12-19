@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { FONTS } from "../../theme/font";
-import currentColor from "../../static/current_color.svg";
+import currentColor from "../../static/add.svg";
 import ButtonStyle from "../../components/button/ButtonStyle";
-import Button, { ButtonPlus, PlusIcon } from "../../components/button/Button";
+import { ButtonPlus, PlusIcon } from "../../components/button/Button";
 import img01 from "../../static/img01.jpg";
 import img02 from "../../static/img02.jpg";
 import img03 from "../../static/img03.png";
@@ -249,104 +249,6 @@ const ToggleContainer = styled.div`
   }
 `;
 
-const TAB = [
-  {
-    id: "color",
-    title: "컬러",
-    color: [
-      {
-        id: "orange",
-        color: `var(--orange2)`,
-      },
-      {
-        id: "purple",
-        color: `var(--purple2)`,
-      },
-      {
-        id: "blue",
-        color: `var(--blue2)`,
-      },
-      {
-        id: "green",
-        color: `var(--green2)`,
-      },
-    ],
-  },
-  {
-    id: "image",
-    title: "이미지",
-    image: [
-      {
-        id: "image1",
-        image: `${img01}`,
-      },
-      {
-        id: "image2",
-        image: `${img02}`,
-      },
-      {
-        id: "image3",
-        image: `${img03}`,
-      },
-      {
-        id: "image4",
-        image: `${img04}`,
-      },
-    ],
-  },
-];
-
-function Tab({ handleClickTab, $toggle }) {
-  const list = TAB.map((tab) => (
-    <button
-      type="button"
-      key={tab.id}
-      onClick={() => handleClickTab(tab.id)}
-      className={$toggle === tab.id ? "active" : ""}
-    >
-      {tab.title}
-    </button>
-  ));
-  return list;
-}
-
-function ImgBox({ handleClickBackground, background }) {
-  const imageTab = TAB.find((tab) => tab.id === "image");
-  const images = imageTab ? imageTab.image : [];
-
-  const list = images.map((item) => (
-    <li
-      key={item.id}
-      onClick={() => handleClickBackground(item.image)}
-      className={background === item.image ? "active" : ""}
-      style={{ backgroundImage: `url(${item.image})` }}
-    >
-      <span className={background === item.image ? "active" : ""}>
-        현재 선택된 이미지 버튼
-      </span>
-    </li>
-  ));
-  return list;
-}
-
-function ColorBox({ handleClick, currentColor }) {
-  const colorTab = TAB.find((tab) => tab.id === "color");
-  const color = colorTab ? colorTab.color : [];
-
-  const list = color.map((item) => (
-    <li
-      key={item.id}
-      onClick={() => handleClick(item.color)}
-      style={{ backgroundColor: item.color }}
-    >
-      <span className={currentColor === item.color ? "active" : ""}>
-        현재 선택된 색상 버튼
-      </span>
-    </li>
-  ));
-  return list;
-}
-
 function FileInput({ name, value, onChange }) {
   const [preview, setPreview] = useState(null);
   const inputFileRef = useRef(null);
@@ -359,9 +261,7 @@ function FileInput({ name, value, onChange }) {
     if (!value) return;
     const nextPreview = URL.createObjectURL(value);
     setPreview(nextPreview);
-    if(value){
-      inputFileRef.current.classList.add('active')
-    }
+
     return () => {
       setPreview();
       URL.revokeObjectURL(nextPreview);
@@ -392,7 +292,7 @@ function ColorImageCasePage() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [toggle, setToggle] = useState("color");
   const [currentColor, setCurrentColor] = useState(`var(--orange2)`);
-  const [background, setBackground] = useState(`${img01}`);
+  const [background, setBackground] = useState("https://i.ibb.co/9ZsWvRM/img01.jpg");
   const [focusout, setFocusout] = useState("");
   const [values, setValues] = useState({
     text: "",
@@ -402,7 +302,7 @@ function ColorImageCasePage() {
   const [filevalues, setFileValues] = useState({
     imgFile: null,
   });
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -437,28 +337,13 @@ function ColorImageCasePage() {
 
   const handleClickBackground = (item) => setBackground(item);
 
-  async function getTest(){
-    try{
-      const response = await fetch('https://rolling-api.vercel.app/background-images/');
-      const result = response.json();
-      console.log(result)
-    }catch(error){
-      console.error(error);
-    }
-  }
-
-  const test = async () => {
-    const { imageUrls } = await getTest();
-    console.log(imageUrls)
-  }
-  test();
   async function getRecipients() {
     try {
       const recipients = {
         team: "2-6",
         name: values?.text,
         backgroundColor: "beige",
-        backgroudImageURL: "https://picsum.photos/id/683/3840/2160",
+        backgroudImageURL: null,
       };
 
       const response = await fetch(
@@ -476,6 +361,104 @@ function ColorImageCasePage() {
     } catch (error) {
       console.error(error);
     }
+  }
+  
+  const TAB = [
+    {
+      id: "color",
+      title: "컬러",
+      color: [
+        {
+          id: "orange",
+          color: `var(--orange2)`,
+        },
+        {
+          id: "purple",
+          color: `var(--purple2)`,
+        },
+        {
+          id: "blue",
+          color: `var(--blue2)`,
+        },
+        {
+          id: "green",
+          color: `var(--green2)`,
+        },
+      ],
+    },
+    {
+      id: "image",
+      title: "이미지",
+      image: [
+        {
+          id: "image1",
+          image: "https://i.ibb.co/9ZsWvRM/img01.jpg"
+        },
+        {
+          id: "image2",
+          image: "https://i.ibb.co/t2hkxMy/img02.jpg",
+        },
+        {
+          id: "image3",
+          image: "https://i.ibb.co/J5F94TJ/img03.png",
+        },
+        {
+          id: "image4",
+          image: "https://i.ibb.co/xmpXZ5t/img04.jpg",
+        },
+      ],
+    },
+  ];
+  
+  function Tab({ handleClickTab, $toggle }) {
+    const list = TAB.map((tab) => (
+      <button
+        type="button"
+        key={tab.id}
+        onClick={() => handleClickTab(tab.id)}
+        className={$toggle === tab.id ? "active" : ""}
+      >
+        {tab.title}
+      </button>
+    ));
+    return list;
+  }
+  
+  function ImgBox({ handleClickBackground, background }) {
+    const imageTab = TAB.find((tab) => tab.id === "image");
+    const images = imageTab ? imageTab.image : [];
+  
+    const list = images.map((item) => (
+      <li
+        key={item.id}
+        onClick={() => handleClickBackground(item.image)}
+        className={background === item.image ? "active" : ""}
+        style={{ backgroundImage: `url(${item.image})` }}
+      >
+        <span className={background === item.image ? "active" : ""}>
+          현재 선택된 이미지 버튼
+        </span>
+      </li>
+    ));
+    return list;
+  }
+  
+  function ColorBox({ handleClick, currentColor }) {
+    const colorTab = TAB.find((tab) => tab.id === "color");
+    const color = colorTab ? colorTab.color : [];
+  
+    const list = color.map((item) => (
+      <li
+        key={item.id}
+        onClick={() => handleClick(item.color)}
+        style={{ backgroundColor: item.color }}
+      >
+        <span className={currentColor === item.color ? "active" : ""}>
+          현재 선택된 색상 버튼
+        </span>
+      </li>
+    ));
+    return list;
   }
 
   return (
