@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { useState } from "react";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
-import { FONTS } from "../../theme/font";
+import FONTS from "../../theme/font";
 import ButtonStyle from "./ButtonStyle";
 import plus from "../../static/plus.svg";
 import check from "../../static/check.svg";
@@ -90,11 +90,11 @@ export const EditIcon = styled(Icon)`
   background: url(${edit}) no-repeat;
 `;
 
-export const ButtonNextIcon = styled(Icon)`
+const ButtonNextIcon = styled(Icon)`
   background: url(${buttonNext}) no-repeat center;
 `;
 
-export const ButtonPrevIcon = styled(Icon)`
+const ButtonPrevIcon = styled(Icon)`
   background: url(${buttonPrev}) no-repeat center;
 `;
 
@@ -175,14 +175,10 @@ const ButtonDeleted = styled.button`
       disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.white}`};
   }
 
-  ${DeletedIcon} {
-    ${PositionCenter}
-  }
-
   ${DeletedDisabledIcon} {
     ${PositionCenter}
   }
-`;
+`
 
 const ButtonControl = styled.button`
   width: 4rem;
@@ -562,3 +558,4 @@ function Button() {
 }
 
 export default Button;
+export { ButtonControl, ButtonNextIcon, ButtonPrevIcon };

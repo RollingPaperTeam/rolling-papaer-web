@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
-import { FONTS } from "../../theme/font";
+import FONTS from "../../theme/font";
 
 const SIZE_STYLE = {
   large: {
@@ -201,8 +201,10 @@ const ButtonBase = styled.button`
 
 function ButtonStyle({ children, ...rest }) {
   return (
-    <ButtonBase type="button" {...rest}>{children}</ButtonBase>
-  )
+    <ButtonBase type="button" {...rest}>
+      {children}
+    </ButtonBase>
+  );
 }
 
 export default ButtonStyle;
