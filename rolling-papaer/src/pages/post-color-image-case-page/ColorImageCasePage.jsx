@@ -292,11 +292,10 @@ function FileInput({ name, value, onChange }) {
 function ColorImageCasePage() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [toggle, setToggle] = useState("color");
-  const [currentColor, setCurrentColor] = useState(`var(--orange2)`);
+  let [currentColor, setCurrentColor] = useState(`var(--orange2)`);
   const [background, setBackground] = useState(
     "https://i.ibb.co/9ZsWvRM/snowman.jpg"
   );
-  const [data, setData] = useState("");
   const [focusout, setFocusout] = useState("");
   const [values, setValues] = useState({
     text: "",
@@ -306,6 +305,7 @@ function ColorImageCasePage() {
   const [filevalues, setFileValues] = useState({
     imgFile: null,
   });
+  const [data, setData] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -342,14 +342,23 @@ function ColorImageCasePage() {
   const handleClickBackground = (item) => {
     setData(item);
     setBackground(item);
-  }
+  };
 
   async function getRecipients() {
     try {
+      if (currentColor === "var(--orange2)")
+        currentColor = currentColor.replace(/var\(--orange2\)/i, "beige");
+      if (currentColor === "var(--purple2)")
+        currentColor = currentColor.replace(/var\(--purple2\)/i, "purple");
+      if (currentColor === "var(--blue2)")
+        currentColor = currentColor.replace(/var\(--blue2\)/i, "blue");
+      if (currentColor === "var(--green2)")
+        currentColor = currentColor.replace(/var\(--green2\)/i, "green");
+      
       const recipients = {
         team: "2-6",
         name: values?.text,
-        backgroundColor: "beige",
+        backgroundColor: currentColor,
         backgroundImageURL: data,
       };
 
@@ -434,7 +443,7 @@ function ColorImageCasePage() {
   function ImgBox({ handleClickBackground, background }) {
     const imageTab = TAB.find((tab) => tab.id === "image");
     const images = imageTab ? imageTab.image : [];
-    
+
     const list = images.map((item) => (
       <li
         key={item.id}
