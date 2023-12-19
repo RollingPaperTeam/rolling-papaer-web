@@ -4,10 +4,10 @@ import { FONTS } from "../../theme/font";
 import currentColor from "../../static/add.svg";
 import ButtonStyle from "../../components/button/ButtonStyle";
 import { ButtonPlus, PlusIcon } from "../../components/button/Button";
-import img01 from "../../static/img01.jpg";
-import img02 from "../../static/img02.jpg";
-import img03 from "../../static/img03.png";
-import img04 from "../../static/img04.jpg";
+import snowman from "../../static/snowman.jpg";
+import santa from "../../static/santa.jpg";
+import rudolf from "../../static/rudolf.png";
+import house from "../../static/house.jpg";
 
 const ColorImageContainer = styled.section`
   padding: 5.7rem 0 33.6rem 0;
@@ -155,6 +155,7 @@ const ToggleContainer = styled.div`
     padding: 0;
     display: flex;
     gap: 1.6rem;
+    flex-wrap: wrap;
 
     @media screen and (min-width: 360px) and (max-width: 768px) {
       flex-wrap: wrap;
@@ -292,7 +293,10 @@ function ColorImageCasePage() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [toggle, setToggle] = useState("color");
   const [currentColor, setCurrentColor] = useState(`var(--orange2)`);
-  const [background, setBackground] = useState("https://i.ibb.co/9ZsWvRM/img01.jpg");
+  const [background, setBackground] = useState(
+    "https://i.ibb.co/9ZsWvRM/snowman.jpg"
+  );
+  const [data, setData] = useState("");
   const [focusout, setFocusout] = useState("");
   const [values, setValues] = useState({
     text: "",
@@ -302,7 +306,7 @@ function ColorImageCasePage() {
   const [filevalues, setFileValues] = useState({
     imgFile: null,
   });
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -335,7 +339,10 @@ function ColorImageCasePage() {
 
   const handleClick = (item) => setCurrentColor(item);
 
-  const handleClickBackground = (item) => setBackground(item);
+  const handleClickBackground = (item) => {
+    setData(item);
+    setBackground(item);
+  }
 
   async function getRecipients() {
     try {
@@ -343,7 +350,7 @@ function ColorImageCasePage() {
         team: "2-6",
         name: values?.text,
         backgroundColor: "beige",
-        backgroudImageURL: null,
+        backgroundImageURL: data,
       };
 
       const response = await fetch(
@@ -362,7 +369,7 @@ function ColorImageCasePage() {
       console.error(error);
     }
   }
-  
+
   const TAB = [
     {
       id: "color",
@@ -391,25 +398,25 @@ function ColorImageCasePage() {
       title: "이미지",
       image: [
         {
-          id: "image1",
-          image: "https://i.ibb.co/9ZsWvRM/img01.jpg"
+          id: "snowman",
+          image: "https://i.ibb.co/9ZsWvRM/snowman.jpg",
         },
         {
-          id: "image2",
-          image: "https://i.ibb.co/t2hkxMy/img02.jpg",
+          id: "santa",
+          image: "https://i.ibb.co/t2hkxMy/santa.jpg",
         },
         {
-          id: "image3",
-          image: "https://i.ibb.co/J5F94TJ/img03.png",
+          id: "rudolf",
+          image: "https://i.ibb.co/J5F94TJ/rudolf.png",
         },
         {
-          id: "image4",
-          image: "https://i.ibb.co/xmpXZ5t/img04.jpg",
+          id: "house",
+          image: "https://i.ibb.co/xmpXZ5t/house.jpg",
         },
       ],
     },
   ];
-  
+
   function Tab({ handleClickTab, $toggle }) {
     const list = TAB.map((tab) => (
       <button
@@ -423,11 +430,11 @@ function ColorImageCasePage() {
     ));
     return list;
   }
-  
+
   function ImgBox({ handleClickBackground, background }) {
     const imageTab = TAB.find((tab) => tab.id === "image");
     const images = imageTab ? imageTab.image : [];
-  
+    
     const list = images.map((item) => (
       <li
         key={item.id}
@@ -442,11 +449,11 @@ function ColorImageCasePage() {
     ));
     return list;
   }
-  
+
   function ColorBox({ handleClick, currentColor }) {
     const colorTab = TAB.find((tab) => tab.id === "color");
     const color = colorTab ? colorTab.color : [];
-  
+
     const list = color.map((item) => (
       <li
         key={item.id}
@@ -508,6 +515,7 @@ function ColorImageCasePage() {
                 <ImgBox
                   handleClickBackground={handleClickBackground}
                   background={background}
+                  data={data}
                 />
               </ul>
             </ToggleContainer>
