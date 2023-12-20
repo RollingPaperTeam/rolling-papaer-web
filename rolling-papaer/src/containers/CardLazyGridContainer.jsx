@@ -57,7 +57,7 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
   const [nextCardIndex, setNextCardIndex] = useState(0);
   const [hasNext, setHasNext] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const limit = maxCardsPerLine * 3;
+  const limit = maxCardsPerLine * 6;
   const loadingBlock = useRef();
 
   useEffect(() => {
