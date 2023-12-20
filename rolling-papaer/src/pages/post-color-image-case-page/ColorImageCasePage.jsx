@@ -1,13 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { FONTS } from "../../theme/font";
-import currentColor from "../../static/add.svg";
+import currentColor from "../../static/current_color.svg";
 import ButtonStyle from "../../components/button/ButtonStyle";
-import { ButtonPlus, PlusIcon } from "../../components/button/Button";
-import snowman from "../../static/snowman.jpg";
-import santa from "../../static/santa.jpg";
-import rudolf from "../../static/rudolf.png";
-import house from "../../static/house.jpg";
 
 const ColorImageContainer = styled.section`
   padding: 5.7rem 0 33.6rem 0;
@@ -190,47 +185,6 @@ const ToggleContainer = styled.div`
         opacity: 0.5;
         background-color: #fbfcfd;
       }
-
-      &:first-child {
-        position: relative;
-        border: 1px solid #00000014;
-
-        ${ButtonPlus} {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          width: 4.4rem;
-          height: 4.4rem;
-
-          ${PlusIcon} {
-            width: 2.2rem;
-            height: 2.2rem;
-            background-size: cover;
-          }
-        }
-
-        input {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          cursor: pointer;
-
-          &::before {
-            content: "";
-            display: block;
-            width: 100%;
-            height: 100%;
-            background-color: #fbfcfd1d;
-          }
-
-          &.active {
-            background: url(${currentColor}) no-repeat;
-          }
-        }
-      }
     }
   }
 
@@ -250,74 +204,24 @@ const ToggleContainer = styled.div`
   }
 `;
 
-function FileInput({ name, value, onChange }) {
-  const [preview, setPreview] = useState(null);
-  const inputFileRef = useRef(null);
-  const handleChange = (e) => {
-    const fileValue = e.target.files[0];
-    onChange(name, fileValue);
-  };
-
-  useEffect(() => {
-    if (!value) return;
-    const nextPreview = URL.createObjectURL(value);
-    setPreview(nextPreview);
-
-    return () => {
-      setPreview();
-      URL.revokeObjectURL(nextPreview);
-    };
-  }, [value]);
-
-  return (
-    <>
-      <ButtonPlus>
-        <PlusIcon />
-      </ButtonPlus>
-      <input
-        type="file"
-        accept="image/png, image/jpg"
-        onChange={handleChange}
-        ref={inputFileRef}
-        style={{
-          backgroundImage: `url(${preview})`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-      />
-    </>
-  );
-}
-
 function ColorImageCasePage() {
+  const BACKGROUND_DEFAULT = "https://i.ibb.co/9ZsWvRM/snowman.jpg";
   const [errorMessage, setErrorMessage] = useState(null);
   const [toggle, setToggle] = useState("color");
   let [currentColor, setCurrentColor] = useState(`var(--orange2)`);
-  const [background, setBackground] = useState(
-    "https://i.ibb.co/9ZsWvRM/snowman.jpg"
-  );
+  const [background, setBackground] = useState(BACKGROUND_DEFAULT);
   const [focusout, setFocusout] = useState("");
   const [values, setValues] = useState({
     text: "",
     placeholder: "",
     type: "",
   });
-  const [filevalues, setFileValues] = useState({
-    image: null,
-  });
-  const [data, setData] = useState("https://i.ibb.co/9ZsWvRM/snowman.jpg");
+  const [data, setData] = useState(BACKGROUND_DEFAULT);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     setValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
-  const handleChangeFile = (name, value) => {
-    setFileValues((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
@@ -378,42 +282,6 @@ function ColorImageCasePage() {
       console.error(error);
     }
   }
-
-  async function uploadFile() {
-    try {
-      const formData = new FormData();
-      formData.append('title', filevalues.image);
-
-      const response = await fetch('https://api.imgbb.com/1/upload?expiration=600&key=f0eab4aaf51dac78722c29588abb636f', {
-        method: "POST",
-        headers: {
-          "Content-type": "application/x-www-form-urlencoded",
-        },
-        body: formData,
-      });
-      const result = await response.json();
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // async function uploadFile() {
-  //   try {
-
-  //     const response = await fetch(
-  //       "https://rolling-api.vercel.app/2-6/recipients/1734/",
-  //       {
-  //         method: "DELETE",
-   
-  //       }
-  //     );
-
-  //     if (!response.ok) throw new Error("데이터를 불러오는데 실패했습니다");
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
   const TAB = [
     {
@@ -550,13 +418,6 @@ function ColorImageCasePage() {
           {toggle === "image" && (
             <ToggleContainer $toggle={toggle}>
               <ul>
-                <li>
-                  <FileInput
-                    name="imgFile"
-                    value={filevalues.imgFile}
-                    onChange={handleChangeFile}
-                  />
-                </li>
                 <ImgBox
                   handleClickBackground={handleClickBackground}
                   background={background}
@@ -572,7 +433,7 @@ function ColorImageCasePage() {
         fontSize="fontSize18"
         style={{ width: "100%" }}
         disabled={focusout === "" && "disabled"}
-        onClick={uploadFile}
+        onClick={getRecipients}
       >
         생성하기
       </ButtonStyle>
