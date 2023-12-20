@@ -9,7 +9,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 4.3rem;
 `;
-const ReactionBox = styled.div``;
 const Line = styled.span`
   display: block;
   width: 22.7rem;
