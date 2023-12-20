@@ -287,39 +287,39 @@ function PostMessagepage() {
   });
   const RELATIONSHIP_LIST = [
     {
-      id: "지인",
+      id: "acquaintance",
       list: "지인",
     },
     {
-      id: "가족",
+      id: "family",
       list: "가족",
     },
     {
-      id: "동료",
+      id: "coworker",
       list: "동료",
     },
     {
-      id: "친구",
+      id: "friend",
       list: "친구",
     },
   ];
 
   const FONT_LIST = [
     {
-      id: "지인",
-      list: "지인",
+      id: "Noto Sans",
+      list: "Noto Sans",
     },
     {
-      id: "가족",
-      list: "가족",
+      id: "Pretendard",
+      list: "Pretendard",
     },
     {
-      id: "동료",
-      list: "동료",
+      id: "나눔명조",
+      list: "나눔명조",
     },
     {
-      id: "친구",
-      list: "친구",
+      id: "나눔손글씨 손편지체",
+      list: "나눔손글씨 손편지체",
     },
   ];
 
@@ -349,16 +349,20 @@ function PostMessagepage() {
     setProfile(item);
   };
 
-  async function getRecipients() {
+  async function getRecipientsMessages() {
     try {
       const recipients = {
         team: "2-6",
-        name: values?.text,
-        // backgroundColor: currentProfile,
+        recipientId: "",
+        sender: values?.text,
+        profileImageURL: currentProfile,
+        relationship: optionValue1,
+        content: "string",
+        font: optionValue2,
       };
 
       const response = await fetch(
-        "https://rolling-api.vercel.app/2-6/recipients/",
+        "https://rolling-api.vercel.app/2-6/recipients/1713/messages/",
         {
           method: "POST",
           headers: {
@@ -416,7 +420,7 @@ function PostMessagepage() {
       image: "https://i.ibb.co/bgjJsWS/winter-8445257-1280.jpg",
     },
   ];
-  console.log(currentProfile);
+
   function ProfileBox({ handleClick, currentProfile }) {
     const list = PROFILE_IMG.map((item) => (
       <li
@@ -433,7 +437,8 @@ function PostMessagepage() {
     return list;
   }
 
-  // const handleClick = (e) => e.currentTarget.classList.toggle("active");
+  const handleClickSelectBox = (e) =>
+    e.currentTarget.classList.toggle("active");
 
   const handleClickOption = (e) => {
     const currentRef = e.currentTarget.closest("div");
@@ -496,7 +501,7 @@ function PostMessagepage() {
       </SelectProfile>
       <RelationShip>
         <Title>상대와의 관계</Title>
-        <SelectBox ref={selectRef1} onClick={handleClick}>
+        <SelectBox ref={selectRef1} onClick={handleClickSelectBox}>
           <label>{optionValue1 || "지인"}</label>
           <ul>
             <RelationShipOption onClick={handleClickOption} />
@@ -509,7 +514,7 @@ function PostMessagepage() {
       </TextEditor>
       <SelectFont>
         <Title>폰트 선택</Title>
-        <SelectBox ref={selectRef2} onClick={handleClick}>
+        <SelectBox ref={selectRef2} onClick={handleClickSelectBox}>
           <label>{optionValue2 || "Noto Sans"}</label>
           <ul>
             <FontOption onClick={handleClickOption} />
@@ -522,7 +527,7 @@ function PostMessagepage() {
         fontSize="fontSize18"
         style={{ width: "100%" }}
         disabled={focusout === "" && "disabled"}
-        onClick={getRecipients}
+        onClick={getRecipientsMessages}
       >
         생성하기
       </ButtonStyle>
