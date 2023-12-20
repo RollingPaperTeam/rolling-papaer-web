@@ -2,6 +2,7 @@ import styled from "styled-components";
 import FONTS from "../../theme/font";
 import CardBox from "./CardBox";
 import RecentProfile from "./RecentProfile";
+import EmojiBadgeList from "../badge/EmojiBadgeList";
 const Wrapper = styled.div`
   padding: 3rem 2.4rem 2rem;
   display: flex;
@@ -14,6 +15,7 @@ const Line = styled.span`
   width: 22.7rem;
   height: 0.1rem;
   background: rgba(0, 0, 0, 0.12);
+  margin-bottom: 1.6rem;
 `;
 const CardContents = styled.div`
   display: flex;
@@ -101,9 +103,7 @@ function CardList({ cardData }) {
               <ReactionBox>
                 <Line></Line>
                 <CardEmoji>
-                  <p>d</p>
-                  <p>d</p>
-                  <p>d</p>
+                  <EmojiBadgeList emojiList={result.topReactions} />
                 </CardEmoji>
               </ReactionBox>
             </Wrapper>
