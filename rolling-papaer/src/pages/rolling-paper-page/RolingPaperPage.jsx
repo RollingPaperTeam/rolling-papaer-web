@@ -56,7 +56,6 @@ function RollingPaperPage() {
       threshold: 1,
     });
 
-    console.log(header.current);
     if (header.current) {
       observer.observe(header.current);
     }
@@ -75,7 +74,7 @@ function RollingPaperPage() {
     <>
       <RollingPaperPageBlock>
         <HeaderVisibilitySensor ref={header}>
-          <StyledHeader ref={header} />
+          <StyledHeader />
         </HeaderVisibilitySensor>
 
         <main>

@@ -61,7 +61,6 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
   const loadingBlock = useRef();
 
   useEffect(() => {
-    console.log("isLoading 상태: ", isLoading);
   }, [isLoading]);
 
   const getCards = useCallback(
@@ -75,7 +74,7 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
           currentIndex,
           limit
         );
-        setCardDataList((prevDataList) => [...prevDataList, ...newCardData]);
+        setCardDataList([...cardDataList, ...newCardData]);
         setHasNext(hasMore);
         setNextCardIndex(currentIndex + currentLimit);
       } catch (e) {
@@ -84,7 +83,7 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
         setIsLoading(false);
       }
     },
-    [isLoading, hasNext]
+    [cardDataList,isLoading, hasNext]
   );
 
   // 만약 내가 감지한 div가 보이면 getCard 하도록 함 (무한스크롤링)
@@ -100,7 +99,6 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
 
   useEffect(() => {
     //TODO: 실제 데이터 가져오기
-    console.log("useEffect1");
     getCards(nextCardIndex, limit);
   }, []);
 
@@ -110,7 +108,6 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
     });
 
     if (loadingBlock.current) {
-      console.log(loadingBlock.current);
       observer.observe(loadingBlock.current);
     }
 
@@ -129,7 +126,7 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
         })}
       </CardLazyGridBlock>
       {isLoading && <LoadingAnimator src={loadingImg} alt={"Loading"} />}
-      {hasNext && !isLoading && (
+      {(hasNext && !isLoading) && (
         <LoaderObserver ref={loadingBlock}></LoaderObserver>
       )}
     </CardLazyGridContainerBlock>
