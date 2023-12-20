@@ -2,10 +2,10 @@ import styled from "styled-components";
 import FONTS from "../theme/font";
 import content1 from "../static/content1.png";
 import content2 from "../static/content2.png";
+import LinkButton from "../components/button/LinkButton";
 
 const Main = styled(BaseMain)`
   display: flex;
-  gap: 3rem;
   flex-direction: column;
   margin: 0 auto;
 `;
@@ -20,7 +20,7 @@ const Section = styled.section`
   align-items: center;
 `;
 const SecondSection = styled(Section)`
-  margin: 0 auto;
+  margin: 6rem auto 0;
   align-items: flex-start;
   gap: 0;
   padding: 6rem 19.2rem 6rem 0;
@@ -99,6 +99,7 @@ function BaseMain({ className }) {
           <h3>롤링 페이퍼에 이모지를 추가할 수 있어요.</h3>
         </TextField>
       </SecondSection>
+      <LinkButton to="/list">구경해보기</LinkButton>
     </main>
   );
 }
