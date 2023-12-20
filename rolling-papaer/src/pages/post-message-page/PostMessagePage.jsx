@@ -1,9 +1,8 @@
 import { useState, useRef } from "react";
 import styled, { css } from "styled-components";
 import { FONTS } from "../../theme/font";
-import currentProfile from "../../static/add.svg";
-import person from "../../static/person.svg";
-import img from "../../static/img.jpg";
+import currentProfile from "../../static/current_color.svg";
+import profileimg from "../../static/profile.svg";
 import ButtonStyle from "../../components/button/ButtonStyle";
 // import TextEditor from '../../components/textfield/TextEditor'
 
@@ -87,6 +86,7 @@ const SelectProfile = styled.div`
   img {
     float: left;
     margin: 0 3.2rem 0 0;
+    cursor: pointer;
   }
 
   span {
@@ -102,7 +102,7 @@ const SelectProfile = styled.div`
     display: flex;
     gap: 0.4rem;
 
-    @media screen and (min-width: 360px) and (max-width: 768px) {
+    @media screen and (min-width: 360px) and (max-width: 600px) {
       flex-wrap: wrap;
       width: 20.8rem;
       gap: 0.2rem;
@@ -110,6 +110,7 @@ const SelectProfile = styled.div`
     }
 
     li {
+      position: relative;
       width: 5.6rem;
       height: 5.6rem;
       cursor: pointer;
@@ -119,16 +120,54 @@ const SelectProfile = styled.div`
         height: 4rem;
       }
 
+      &.active::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        background-color: #fbfcfd;
+      }
+
       img {
         float: none;
         margin: 0;
         width: 5.6rem;
         height: 5.6rem;
         border-radius: 10rem;
+        object-fit: cover;
 
         @media screen and (min-width: 360px) and (max-width: 768px) {
           width: 4rem;
           height: 4rem;
+        }
+      }
+
+      span {
+        overflow: hidden;
+        display: block;
+        text-indent: 100%;
+        white-space: nowrap;
+
+        &.active {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 3rem;
+          height: 3rem;
+          margin: 0;
+          cursor: pointer;
+          background: url(${currentProfile}) no-repeat;
+          background-size: cover;
+
+          @media screen and (max-width: 768px) {
+            width: 2.4rem;
+            height: 2.4rem;
+          }
         }
       }
     }
@@ -235,6 +274,8 @@ const SelectFont = styled.div`
 function PostMessagepage() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [focusout, setFocusout] = useState("");
+  const [currentProfile, setCurrentProfile] = useState("");
+  const [profile, setProfile] = useState("");
   const selectRef1 = useRef(null);
   const selectRef2 = useRef(null);
   const [optionValue1, setOptionValue1] = useState("");
@@ -303,14 +344,17 @@ function PostMessagepage() {
     }
   };
 
-  // const handleClick = (item) => setCurrentProfile(item);
+  const handleClick = (item) => {
+    setCurrentProfile(item);
+    setProfile(item);
+  };
 
   async function getRecipients() {
     try {
       const recipients = {
         team: "2-6",
         name: values?.text,
-        backgroundColor: currentProfile,
+        // backgroundColor: currentProfile,
       };
 
       const response = await fetch(
@@ -330,62 +374,66 @@ function PostMessagepage() {
     }
   }
 
-  const profileImg = [
+  const PROFILE_IMG = [
     {
-      id: "1",
-      image: `${img}`,
+      id: "cookies",
+      image: "https://i.ibb.co/Df5Jb21/royal-icing-cookies-5952523-1280.jpg",
     },
     {
-      id: "2",
-      image: `${img}`,
+      id: "santa",
+      image: "https://i.ibb.co/zFbQ1r2/ai-generated-8444285-1280.png",
     },
     {
-      id: "3",
-      image: `${img}`,
+      id: "cat",
+      image: "https://i.ibb.co/k37WcfW/ai-generated-8438023-1280.jpg",
     },
     {
-      id: "4",
-      image: `${img}`,
+      id: "turtle",
+      image: "https://i.ibb.co/vqm443V/green-sea-turtle-8199770-1280.jpg",
     },
     {
-      id: "5",
-      image: `${img}`,
+      id: "snowman",
+      image: "https://i.ibb.co/gm3k9ty/ai-generated-8455415-1280.jpg",
     },
     {
-      id: "6",
-      image: `${img}`,
+      id: "snowflake",
+      image: "https://i.ibb.co/TvLtXH1/snowflake-1823942-1280.jpg",
     },
     {
-      id: "7",
-      image: `${img}`,
+      id: "dolphin",
+      image: "https://i.ibb.co/Wf3TTn0/dolphin-203875-1280.jpg",
     },
     {
-      id: "8",
-      image: `${img}`,
+      id: "tree",
+      image: "https://i.ibb.co/yWGqTFP/ai-generated-8453829-1280.png",
     },
     {
-      id: "9",
-      image: `${img}`,
+      id: "aurora",
+      image: "https://i.ibb.co/9rS9pFF/northern-lights-1197755-1280.jpg",
     },
     {
-      id: "10",
-      image: `${img}`,
+      id: "winter",
+      image: "https://i.ibb.co/bgjJsWS/winter-8445257-1280.jpg",
     },
   ];
-
+  console.log(currentProfile);
   function ProfileBox({ handleClick, currentProfile }) {
-    const list = profileImg.map((item) => (
-      <li key={item.id} onClick={() => handleClick(item.image)}>
-        <img src={item.image} alt="" />
-        <span className={currentProfile === item.color ? "active" : ""}>
-          {/* 현재 선택된 색상 버튼 */}
+    const list = PROFILE_IMG.map((item) => (
+      <li
+        key={item.id}
+        onClick={() => handleClick(item.image)}
+        className={profile === item.image ? "active" : ""}
+      >
+        <img src={item.image} alt="프로필 이미지" />
+        <span className={currentProfile === item.image ? "active" : ""}>
+          현재 선택된 프로필 이미지 버튼
         </span>
       </li>
     ));
     return list;
   }
 
-  const handleClick = (e) => e.currentTarget.classList.toggle("active");
+  // const handleClick = (e) => e.currentTarget.classList.toggle("active");
 
   const handleClickOption = (e) => {
     const currentRef = e.currentTarget.closest("div");
@@ -434,13 +482,14 @@ function PostMessagepage() {
       </div>
       <SelectProfile>
         <Title>프로필 이미지</Title>
-        <img src={person} alt="프로필 이미지" />
+        <img src={profileimg} alt="프로필 이미지" />
         <div>
           <span>프로필 이미지를 선택해주세요!</span>
           <ul>
             <ProfileBox
               handleClick={handleClick}
               currentProfile={currentProfile}
+              profile={profile}
             />
           </ul>
         </div>
