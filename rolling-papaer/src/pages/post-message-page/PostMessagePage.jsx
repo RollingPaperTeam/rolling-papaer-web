@@ -278,8 +278,8 @@ function PostMessagepage() {
   const [profile, setProfile] = useState("");
   const selectRef1 = useRef(null);
   const selectRef2 = useRef(null);
-  const [optionValue1, setOptionValue1] = useState("");
-  const [optionValue2, setOptionValue2] = useState("");
+  const [relationShipOption, setRelationShipOption] = useState("");
+  const [fontOption, setFontOption] = useState("");
   const [values, setValues] = useState({
     text: "",
     placeholder: "",
@@ -356,9 +356,9 @@ function PostMessagepage() {
         recipientId: "",
         sender: values?.text,
         profileImageURL: currentProfile,
-        relationship: optionValue1,
+        relationship: relationShipOption,
         content: "string",
-        font: optionValue2,
+        font: fontOption,
       };
 
       const response = await fetch(
@@ -444,9 +444,9 @@ function PostMessagepage() {
     const currentRef = e.currentTarget.closest("div");
     if (currentRef.classList.contains("active")) {
       if (currentRef === selectRef1.current)
-        setOptionValue1(e.target.textContent);
+        setRelationShipOption(e.target.textContent);
       if (currentRef === selectRef2.current)
-        setOptionValue2(e.target.textContent);
+        setFontOption(e.target.textContent);
     }
   };
 
@@ -502,7 +502,7 @@ function PostMessagepage() {
       <RelationShip>
         <Title>상대와의 관계</Title>
         <SelectBox ref={selectRef1} onClick={handleClickSelectBox}>
-          <label>{optionValue1 || "지인"}</label>
+          <label>{relationShipOption || "지인"}</label>
           <ul>
             <RelationShipOption onClick={handleClickOption} />
           </ul>
@@ -515,7 +515,7 @@ function PostMessagepage() {
       <SelectFont>
         <Title>폰트 선택</Title>
         <SelectBox ref={selectRef2} onClick={handleClickSelectBox}>
-          <label>{optionValue2 || "Noto Sans"}</label>
+          <label>{fontOption || "Noto Sans"}</label>
           <ul>
             <FontOption onClick={handleClickOption} />
           </ul>
