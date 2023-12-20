@@ -81,7 +81,7 @@ function CardList({ cardData }) {
     <>
       {cardData.map((result) => {
         return (
-          <Link to={`${result.id}`} key={result.id}>
+          <Link to={`/post/${result.id}`} key={result.id}>
             <CardBox
               $backgroundColor={result.backgroundColor}
               $backgroundIMG={result.backgroundImageURL}
