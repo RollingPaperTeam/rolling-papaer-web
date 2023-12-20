@@ -17,6 +17,7 @@ const Nav = styled(BaseNav)`
   margin: 0 auto;
   display: flex;
   align-items: center;
+  background-color: var(--white);
 `;
 const Logo = styled.img`
   width: 10.6rem;

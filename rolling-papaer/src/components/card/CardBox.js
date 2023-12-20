@@ -25,7 +25,7 @@ const CardBox = styled.div`
      `}
 
   background-position: center;
-  background-size: 100% 26rem;
+  background-size: cover;
   border-radius: 1.6rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 0.2rem 1.2rem 0 rgba(0, 0, 0, 0.08);
