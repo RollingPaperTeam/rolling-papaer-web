@@ -1,10 +1,11 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useState, useRef } from "react";
+import styled, { css } from "styled-components";
 import { FONTS } from "../../theme/font";
 import currentProfile from "../../static/add.svg";
 import person from "../../static/person.svg";
+import img from "../../static/img.jpg";
 import ButtonStyle from "../../components/button/ButtonStyle";
-import test from "../../static/share.svg";
+// import TextEditor from '../../components/textfield/TextEditor'
 
 const MessageContainer = styled.section`
   padding: 5.7rem 0 33.6rem 0;
@@ -18,12 +19,18 @@ const MessageContainer = styled.section`
   }
 `;
 
+const margin = css`
+  margin: 0 0 5rem 0;
+`;
+
 const Title = styled.h2`
   ${FONTS.FONT_24_BOLD}
   margin: 0 0 1.2rem 0;
 `;
 
 const InputContainer = styled.div`
+  ${margin}
+
   input {
     outline: none;
     display: block;
@@ -75,43 +82,205 @@ const InputContainer = styled.div`
 
 const SelectProfile = styled.div`
   overflow: hidden;
-  margin: 5rem 0 0;
-
-  @media screen and (max-width: 1200px) {
-    margin: 5.4rem 0 0;
-  }
-
-  @media screen and (min-width: 360px) and (max-width: 768px) {
-    margin: 4.8rem 0 0;
-  }
+  ${margin}
 
   img {
     float: left;
-    padding: 0 3.2rem 0 0;
-  }
-
-  p {
-    ${FONTS.FONT_24_BOLD}
-    margin: 0 0 0.4rem 0;
+    margin: 0 3.2rem 0 0;
   }
 
   span {
-    display: block;
-    margin: 0 0 1.2rem 0;
+    margin: 0 0 1.2rem;
     ${FONTS.FONT_16_REGULAR}
     color: var(--gray5);
   }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0.4rem;
+
+    @media screen and (min-width: 360px) and (max-width: 768px) {
+      flex-wrap: wrap;
+      width: 20.8rem;
+      gap: 0.2rem;
+      justify-content: space-between;
+    }
+
+    li {
+      width: 5.6rem;
+      height: 5.6rem;
+      cursor: pointer;
+
+      @media screen and (min-width: 360px) and (max-width: 768px) {
+        width: 4rem;
+        height: 4rem;
+      }
+
+      img {
+        float: none;
+        margin: 0;
+        width: 5.6rem;
+        height: 5.6rem;
+        border-radius: 10rem;
+
+        @media screen and (min-width: 360px) and (max-width: 768px) {
+          width: 4rem;
+          height: 4rem;
+        }
+      }
+    }
+  }
+`;
+
+const SelectBox = styled.div`
+  max-width: 32rem;
+
+  &.active ul {
+    visibility: visible;
+    height: 20rem;
+  }
+  &.active label {
+    border: 1px solid var(--gray5);
+    &::before {
+      transform: translateY(-50%) rotate(-180deg);
+    }
+  }
+
+  label {
+    position: relative;
+    display: block;
+    width: 32rem;
+    padding: 1.2rem 1.6rem;
+    border-radius: 0.8rem;
+    border: 1px solid var(--gray3);
+    color: var(--gray5);
+    ${FONTS.FONT_16_REGULAR};
+    cursor: pointer;
+    background-color: ${({ disabled }) =>
+      disabled ? `var(--gray1)` : `var(--white);`};
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 1.7rem;
+      transform: translateY(-50%) rotate(0);
+      width: 1.6rem;
+      height: 1.6rem;
+      transition: transform 0.5s;
+      background: url() no-repeat center;
+      background-size: 100% 1.6rem;
+    }
+    &.error,
+    &.error:hover {
+      border: 1px solid var(--error);
+    }
+    &:hover {
+      color: var(--gray5);
+      border: 1px solid var(--gray3);
+    }
+  }
+
+  p {
+    margin: 0;
+    color: var(--error);
+    ${FONTS.FONT_12_REGULAR};
+  }
+
+  ul {
+    overflow: hidden;
+    visibility: hidden;
+    list-style-type: none;
+    margin: 0.8rem 0 0;
+    padding: 0;
+    width: 35rem;
+    height: 0;
+    border-radius: 0.8rem;
+    border: 1px solid var(--gray3);
+    transition: visibility 0.5s, height 0.5s;
+    box-shadow: 0 2px 12px 0 #00000014;
+    li {
+      color: var(--gray9);
+      padding: 1.2rem 1.6rem;
+      ${FONTS.FONT_16_REGULAR};
+      cursor: pointer;
+      &:hover {
+        background-color: var(--gray1);
+      }
+      &:first-child {
+        border-radius: 0.8rem 0.8rem 0 0;
+      }
+      &:last-child {
+        border-radius: 0 0 0.8rem 0.8rem;
+      }
+    }
+  }
+`;
+
+const RelationShip = styled.div`
+  ${margin}
+`;
+
+const TextEditor = styled.div`
+  ${margin}
+`;
+
+const SelectFont = styled.div`
+  margin: 0 0 6.2rem 0;
 `;
 
 function PostMessagepage() {
   const [errorMessage, setErrorMessage] = useState(null);
-  let [currentProfile, setCurrentProfile] = useState(`var(--orange2)`);
   const [focusout, setFocusout] = useState("");
+  const selectRef1 = useRef(null);
+  const selectRef2 = useRef(null);
+  const [optionValue1, setOptionValue1] = useState("");
+  const [optionValue2, setOptionValue2] = useState("");
   const [values, setValues] = useState({
     text: "",
     placeholder: "",
     type: "",
   });
+  const RELATIONSHIP_LIST = [
+    {
+      id: "지인",
+      list: "지인",
+    },
+    {
+      id: "가족",
+      list: "가족",
+    },
+    {
+      id: "동료",
+      list: "동료",
+    },
+    {
+      id: "친구",
+      list: "친구",
+    },
+  ];
+
+  const FONT_LIST = [
+    {
+      id: "지인",
+      list: "지인",
+    },
+    {
+      id: "가족",
+      list: "가족",
+    },
+    {
+      id: "동료",
+      list: "동료",
+    },
+    {
+      id: "친구",
+      list: "친구",
+    },
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -134,7 +303,7 @@ function PostMessagepage() {
     }
   };
 
-  const handleClick = (item) => setCurrentProfile(item);
+  // const handleClick = (item) => setCurrentProfile(item);
 
   async function getRecipients() {
     try {
@@ -164,7 +333,43 @@ function PostMessagepage() {
   const profileImg = [
     {
       id: "1",
-      image: `${test}`,
+      image: `${img}`,
+    },
+    {
+      id: "2",
+      image: `${img}`,
+    },
+    {
+      id: "3",
+      image: `${img}`,
+    },
+    {
+      id: "4",
+      image: `${img}`,
+    },
+    {
+      id: "5",
+      image: `${img}`,
+    },
+    {
+      id: "6",
+      image: `${img}`,
+    },
+    {
+      id: "7",
+      image: `${img}`,
+    },
+    {
+      id: "8",
+      image: `${img}`,
+    },
+    {
+      id: "9",
+      image: `${img}`,
+    },
+    {
+      id: "10",
+      image: `${img}`,
     },
   ];
 
@@ -173,8 +378,38 @@ function PostMessagepage() {
       <li key={item.id} onClick={() => handleClick(item.image)}>
         <img src={item.image} alt="" />
         <span className={currentProfile === item.color ? "active" : ""}>
-          현재 선택된 색상 버튼
+          {/* 현재 선택된 색상 버튼 */}
         </span>
+      </li>
+    ));
+    return list;
+  }
+
+  const handleClick = (e) => e.currentTarget.classList.toggle("active");
+
+  const handleClickOption = (e) => {
+    const currentRef = e.currentTarget.closest("div");
+    if (currentRef.classList.contains("active")) {
+      if (currentRef === selectRef1.current)
+        setOptionValue1(e.target.textContent);
+      if (currentRef === selectRef2.current)
+        setOptionValue2(e.target.textContent);
+    }
+  };
+
+  function RelationShipOption() {
+    const list = RELATIONSHIP_LIST.map((item) => (
+      <li key={item.id} onClick={handleClickOption}>
+        {item.list}
+      </li>
+    ));
+    return list;
+  }
+
+  function FontOption() {
+    const list = FONT_LIST.map((item) => (
+      <li key={item.id} onClick={handleClickOption}>
+        {item.list}
       </li>
     ));
     return list;
@@ -210,15 +445,28 @@ function PostMessagepage() {
           </ul>
         </div>
       </SelectProfile>
-      <div>
+      <RelationShip>
         <Title>상대와의 관계</Title>
-      </div>
-      <div>
+        <SelectBox ref={selectRef1} onClick={handleClick}>
+          <label>{optionValue1 || "지인"}</label>
+          <ul>
+            <RelationShipOption onClick={handleClickOption} />
+          </ul>
+        </SelectBox>
+      </RelationShip>
+      <TextEditor>
         <Title>내용을 입력해 주세요</Title>
-      </div>
-      <div>
+        <TextEditor />
+      </TextEditor>
+      <SelectFont>
         <Title>폰트 선택</Title>
-      </div>
+        <SelectBox ref={selectRef2} onClick={handleClick}>
+          <label>{optionValue2 || "Noto Sans"}</label>
+          <ul>
+            <FontOption onClick={handleClickOption} />
+          </ul>
+        </SelectBox>
+      </SelectFont>
       <ButtonStyle
         $primary="primary"
         size="large"
