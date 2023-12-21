@@ -117,8 +117,9 @@ const ButtonContainer = styled.div`
   text-align: center;
 `;
 
-function Modal({ sender, createdAt, content, setModalVisible }) {
+function Modal({ cardData, setModalVisible }) {
   const [$ModalOpen, setModalOpen] = useState(true);
+  const { sender, relationship, createdAt, content } = cardData;
   const modalContentRef = useRef();
 
   //TODO:  HOOK써서 밖으로 빼낼 수 있을 듯
@@ -178,7 +179,7 @@ function Modal({ sender, createdAt, content, setModalVisible }) {
               <From>
                 From. <span>{sender}</span>
               </From>
-              <RelationBadge />
+              <RelationBadge relation={relationship} />
             </div>
           </UserInfo>
           <Date>{createdAt}</Date>
