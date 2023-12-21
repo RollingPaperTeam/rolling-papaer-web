@@ -6,18 +6,18 @@ import FONTS from "../../theme/font";
 
 const ButtonField = styled.div`
   display: flex;
-  padding: ${({ to }) => (to === "/list" ? "4.8rem" : "6.8rem")} 0;
+  padding: ${({ to }) => (to === "/list" ? "4.8rem" : "6.4rem")} 0;
   align-items: center;
   justify-content: center;
 
   ${mediaQuery.tablet} {
     display: block;
     width: calc(100% - 4.8rem);
-    margin: 4.8rem auto;
+    margin: 13.2rem auto 0;
     padding: 2.4rem 0;
   }
   ${mediaQuery.mobile} {
-    margin-top: 8.8rem;
+    margin-top: 6.6rem;
     width: calc(100% - 4rem);
     padding: 2.4rem 2rem;
   }

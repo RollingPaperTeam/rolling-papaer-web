@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import styled from "styled-components";
 import EmojiBadge from "./EmojiBadge";
+import mediaQuery from "../../theme/mediaQuery";
 
 const EmojiBadgeListBlock = styled.article`
   width: fit-content;
@@ -8,6 +9,9 @@ const EmojiBadgeListBlock = styled.article`
 
   grid-template-columns: repeat(${(props) => props.$columnLength}, 1fr);
   gap: 8px;
+  ${mediaQuery.mobile} {
+    gap: 0.4rem;
+  }
 `;
 
 function EmojiBadgeList({
