@@ -5,6 +5,7 @@ import { getCardDataList } from "../api/apis";
 import loadingImg from "../static/loading.svg";
 import useAsync from "../hooks/NetworkHook";
 import { NavLink, useNavigate } from "react-router-dom";
+import Modal from "../components/modal/Modal";
 
 const LoadingAnimator = styled.img`
   margin-top: 50px;
@@ -64,7 +65,8 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
   //TODO: Error 관리
   const [isLoading, isError, wrappedFunction] = useAsync(getCardDataList);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedCardDataForModal, setSelectedCardDataForModal] = useState(null);
+  const [selectedCardDataForModal, setSelectedCardDataForModal] =
+    useState(null);
 
   const getCards = useCallback(
     async (nextCardIndex, limit) => {
@@ -121,21 +123,22 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
   return (
     <CardLazyGridContainerBlock>
       <CardLazyGridBlock $columnNum={maxCardsPerLine}>
+        <Card onClick={handleNullDataCardOnClick} />
+        {cardDataList.map((cardData) => {
+          return (
+            <Card
+            key={cardData.id}
+            cardData={cardData}
+            onClick={handleDataCardOnClick}
+            saveCardDataFunc={setSelectedCardDataForModal}
+            />
+            );
+          })}
       </CardLazyGridBlock>
       {isLoading && <LoadingAnimator src={loadingImg} alt={"Loading"} />}
       {hasNext && !isLoading && (
         <LoaderObserver ref={loadingBlock}></LoaderObserver>
-          <Card onClick={handleNullDataCardOnClick} />
-          {cardDataList.map((cardData) => {
-            return (
-              <Card
-                key={cardData.id}
-                cardData={cardData}
-                onClick={handleDataCardOnClick}
-                saveCardDataFunc={setSelectedCardDataForModal}
-              />
-            );
-          })}
+      )}
       {isModalVisible && (
         <Modal
           cardData={selectedCardDataForModal}
