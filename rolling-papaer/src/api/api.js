@@ -79,3 +79,32 @@ export async function getRecipientReactions(recipientId){
     throw e;
   }
 }
+
+export async function addRecipientReaction(recipientId, emoji){
+  const body = {
+    emoji,
+    type: "increase",
+  }
+  const apiPath = `${ROUTES.RECIPIENTS}${recipientId}/reactions/`;
+  try {
+    const response = await fetch(apiPath,{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        "데이터 전송에 실패 하였습니다.",
+        response.statusText
+      );
+    }
+    const result = await response.json();
+    return result;
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+}
