@@ -7,6 +7,7 @@ import CardContent from "./CardContent";
 import CardFooter from "./CardFooter";
 import { CardProvider } from "./CardProvider";
 import CardRelationBadge from "./CardRelationBadge";
+import CardProfileImg from "./CardProfileImg";
 
 const Divider = styled.div`
   width: ${({ width }) => width ?? `100%`};
@@ -35,6 +36,7 @@ function Card({ cardData }) {
         <CardBlock>
           <CardProfile>
             {/*//TODO: Profile컴포넌트*/}
+            <CardProfileImg />
             <CardProfileName name={"홍길동"} />
             <CardRelationBadge />
           </CardProfile>
