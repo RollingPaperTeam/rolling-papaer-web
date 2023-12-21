@@ -76,7 +76,8 @@ function Main() {
           <Route path="list" element={<RollingPaperListPage />} />
           <Route path="post">
             <Route index element={<PickReceiverPage />} />
-            <Route path=":id" element={<RollingPaperPage />}>
+            <Route path=":id">
+              <Route index  element={<RollingPaperPage />}/>
               <Route path="edit" element={<RollingPaperPage />} />
               <Route path="message" element={<InputMessageContentPage />} />
             </Route>
