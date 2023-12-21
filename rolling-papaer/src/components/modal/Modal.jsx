@@ -3,7 +3,7 @@ import FONTS from "../../theme/font";
 import RelationBadge from "../badge/RelationBadge";
 import ButtonStyle from "../button/ButtonStyle";
 import img from "../../static/person.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
@@ -11,13 +11,13 @@ const GlobalStyle = createGlobalStyle`
     &::before {
       content: '';
       display: block;
-      position: absolute;
+      position: fixed;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       transition: background-color 0.5s;
-      z-index: -1;
+      z-index: 9998;
       background-color: ${({ $ModalOpen }) =>
         $ModalOpen ? "#00000099" : "transparent"};
     }
@@ -25,18 +25,19 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const ModalContainer = styled.div`
-  visibility: ${({ $ModalOpen }) => $ModalOpen ? "visible" : "hidden"};
-  position: absolute;
+  visibility: ${({ $ModalOpen }) => ($ModalOpen ? "visible" : "hidden")};
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 60rem;
   padding: 4rem 4.5rem;
-  opacity: ${({ $ModalOpen }) => $ModalOpen ? "1" : "0"};
+  opacity: ${({ $ModalOpen }) => ($ModalOpen ? "1" : "0")};
   border-radius: 1.6rem;
   transition: visibility 0.5s;
   box-shadow: 0px 2px 12px 0px #00000014;
   background-color: var(--white);
+  z-index: 9999;
 `;
 
 const InfoContainer = styled.div`
@@ -113,16 +114,50 @@ const ButtonContainer = styled.div`
   text-align: center;
 `;
 
-function Modal() {
-  const [$ModalOpen, setModalOpen] = useState(false);
+function Modal({ sender, createdAt, content, setModalVisible }) {
+  const [$ModalOpen, setModalOpen] = useState(true);
 
-  const handleClickOpen = () => setModalOpen(true);
+  useEffect(() => {
+    const preventScroll = e => {
+      if (e.type === 'keydown' && e.keyCode === 32) {
+        e.preventDefault();
+      } else if (e.type === 'wheel' || e.type === 'touchmove') {
+        e.preventDefault();
+      }
+    };
+  
+    if ($ModalOpen) {
+      window.addEventListener('wheel', preventScroll, { passive: false });
+      window.addEventListener('touchmove', preventScroll, { passive: false });
+      window.addEventListener('keydown', preventScroll, { passive: false });
+    } else {
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventScroll);
+    }
+  
+    return () => {
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventScroll);
+    };
+  }, [$ModalOpen]);
+  
+  
 
-  const handleClickClose = () => setModalOpen(false);
+  const handleClickOpen = () => {
+    setModalVisible(true);
+    setModalOpen(true);
+  };
+
+  const handleClickClose = () => {
+    setModalVisible(false);
+    setModalOpen(false);
+  };
 
   return (
     <>
-      <GlobalStyle $ModalOpen={$ModalOpen}/>
+      <GlobalStyle $ModalOpen={$ModalOpen} />
       <ModalContainer $ModalOpen={$ModalOpen}>
         <InfoContainer>
           <UserInfo>
@@ -131,30 +166,15 @@ function Modal() {
             </div>
             <div>
               <From>
-                From. <span>김동훈</span>
+                From. <span>{sender}</span>
               </From>
               <RelationBadge />
             </div>
           </UserInfo>
-          <Date>2023.07.08</Date>
+          <Date>{createdAt}</Date>
         </InfoContainer>
         <Content>
-          <p>
-            코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두 조심 또
-            하세요! 코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두
-            조심 또 하세요!코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력
-            모두 조심 또 하세요!코로나가 또다시 기승을 부리는 요즘이네요. 건강,
-            체력 모두 조심 또 하세요!코로나가 또다시 기승을 부리는 요즘이네요.
-            건강, 체력 모두 조심 또 하세요!코로나가 또다시 기승을 부리는
-            요즘이네요. 건강, 체력 모두 조심 또 하세요!코로나가 또다시 기승을
-            부리는 요즘이네요. 건강, 체력 모두 조심 또 하세요! 코로나가 또다시
-            기승을 부리는 요즘이네요. 건강, 체력 모두 조심 또 하세요!코로나가
-            또다시 기승을 부리는 요즘이네요. 건강, 체력 모두 조심 또
-            하세요!코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두
-            조심 또 하세요!코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력
-            모두 조심 또 하세요!코로나가 또다시 기승을 부리는 요즘이네요. 건강,
-            체력 모두 조심 또 하세요!
-          </p>
+          <p>{content}</p>
         </Content>
         <ButtonContainer>
           <ButtonStyle
@@ -168,10 +188,6 @@ function Modal() {
           </ButtonStyle>
         </ButtonContainer>
       </ModalContainer>
-
-      <button type="button" onClick={handleClickOpen}>
-        버튼
-      </button>
     </>
   );
 }
