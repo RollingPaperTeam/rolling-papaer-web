@@ -105,7 +105,7 @@ const PositionCenter = css`
   transform: translate(-50%, -50%);
 `;
 
-const ButtonPlus = styled.button`
+export const ButtonPlus = styled.button`
   position: relative;
   border: none;
   width: 5.6rem;
