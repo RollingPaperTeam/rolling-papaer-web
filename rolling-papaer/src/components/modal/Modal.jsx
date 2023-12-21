@@ -6,6 +6,7 @@ import img from "../../static/person.svg";
 import { useEffect, useRef, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 import { createdAtToDate } from "../../utils/timeformatUtil";
+import mediaQuery from "../../theme/mediaQuery";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -39,6 +40,9 @@ const ModalContainer = styled.div`
   box-shadow: 0px 2px 12px 0px #00000014;
   background-color: var(--white);
   z-index: 9999;
+  ${mediaQuery.mobile} {
+    width: calc(100% - 4.8rem);
+  }
 `;
 
 const InfoContainer = styled.div`
@@ -78,7 +82,7 @@ const Date = styled.span`
 const Content = styled.div`
   position: relative;
   margin: 1.6rem 0 0;
-  
+
   &::before {
     content: "";
     display: block;
@@ -109,7 +113,7 @@ const Content = styled.div`
       background-color: var(--gray3);
     }
 
-  overscroll-behavior: contain;
+    overscroll-behavior: contain;
   }
 `;
 
@@ -126,11 +130,14 @@ function Modal({ cardData, setModalVisible }) {
   // modal 실행시 scroll을 불가능하게 하는 hook
   useEffect(() => {
     const preventScroll = (e) => {
-      if (modalContentRef.current && modalContentRef.current.contains(e.target)) {
+      if (
+        modalContentRef.current &&
+        modalContentRef.current.contains(e.target)
+      ) {
         // 모달 내부에서의 스크롤 이벤트는 버블링을 막습니다.
         return;
       }
-  
+
       // 키보드 이벤트 및 외부 스크롤 이벤트 방지
       if (
         e.type === "keydown" &&
@@ -141,12 +148,12 @@ function Modal({ cardData, setModalVisible }) {
         e.preventDefault();
       }
     };
-  
+
     // 이벤트 리스너 추가
     document.addEventListener("wheel", preventScroll, { passive: false });
     document.addEventListener("touchmove", preventScroll, { passive: false });
     document.addEventListener("keydown", preventScroll, { passive: false });
-  
+
     // 클린업 함수로 이벤트 리스너 제거
     return () => {
       document.removeEventListener("wheel", preventScroll);
@@ -154,7 +161,6 @@ function Modal({ cardData, setModalVisible }) {
       document.removeEventListener("keydown", preventScroll);
     };
   }, [$ModalOpen]);
-  
 
   const handleClickOpen = () => {
     setModalVisible(true);

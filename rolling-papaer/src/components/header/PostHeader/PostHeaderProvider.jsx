@@ -1,12 +1,30 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import useAsync from "../../../hooks/NetworkHook";
+import { getRecipient } from "../../../api/api";
 
 const PostHeaderContext = createContext();
 
-export function PostHeaderProvider({ defaultValue, children }) {
-  const [contextValue] = useState(defaultValue);
+export function PostHeaderProvider({
+  recipientId,
+  defaultValue = {},
+  children,
+}) {
+  const [contextValue, setContextValue] = useState(defaultValue);
+  const [isLoading, isError, getRecipientWrapped] = useAsync(getRecipient);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await getRecipientWrapped(recipientId);
+        setContextValue(result);
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, []);
 
   return (
-    <PostHeaderContext.Provider value={{ contextValue }}>
+    <PostHeaderContext.Provider value={{ contextValue, isLoading, isError }}>
       {children}
     </PostHeaderContext.Provider>
   );
