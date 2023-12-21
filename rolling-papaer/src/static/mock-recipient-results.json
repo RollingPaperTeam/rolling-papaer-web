@@ -1,0 +1,537 @@
+{
+  "count": 3,
+  "next": "https://rolling-api.vercel.app/2-6/recipients/996/messages/?limit=2&offset=2",
+  "previous": null,
+  "results": [
+    {
+        "id": 2897,
+        "recipientId": 996,
+        "sender": "DummySender49",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49Dummy message content 49",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2896,
+        "recipientId": 996,
+        "sender": "DummySender48",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 48",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2895,
+        "recipientId": 996,
+        "sender": "DummySender47",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 47",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2894,
+        "recipientId": 996,
+        "sender": "DummySender46",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 46",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2893,
+        "recipientId": 996,
+        "sender": "DummySender45",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 45",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2892,
+        "recipientId": 996,
+        "sender": "DummySender44",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 44",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2891,
+        "recipientId": 996,
+        "sender": "DummySender43",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 43",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2890,
+        "recipientId": 996,
+        "sender": "DummySender42",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 42",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2889,
+        "recipientId": 996,
+        "sender": "DummySender41",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 41",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2888,
+        "recipientId": 996,
+        "sender": "DummySender40",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 40",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2887,
+        "recipientId": 996,
+        "sender": "DummySender39",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 39",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2886,
+        "recipientId": 996,
+        "sender": "DummySender38",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 38",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2885,
+        "recipientId": 996,
+        "sender": "DummySender37",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 37",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2884,
+        "recipientId": 996,
+        "sender": "DummySender36",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 36",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2883,
+        "recipientId": 996,
+        "sender": "DummySender35",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 35",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2882,
+        "recipientId": 996,
+        "sender": "DummySender34",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 34",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2881,
+        "recipientId": 996,
+        "sender": "DummySender33",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 33",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2880,
+        "recipientId": 996,
+        "sender": "DummySender32",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 32",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2879,
+        "recipientId": 996,
+        "sender": "DummySender31",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 31",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2878,
+        "recipientId": 996,
+        "sender": "DummySender30",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 30",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2877,
+        "recipientId": 996,
+        "sender": "DummySender29",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 29",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2876,
+        "recipientId": 996,
+        "sender": "DummySender28",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 28",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2875,
+        "recipientId": 996,
+        "sender": "DummySender27",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 27",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2874,
+        "recipientId": 996,
+        "sender": "DummySender26",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 26",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2873,
+        "recipientId": 996,
+        "sender": "DummySender25",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 25",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2872,
+        "recipientId": 996,
+        "sender": "DummySender24",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 24",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2871,
+        "recipientId": 996,
+        "sender": "DummySender23",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 23",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2870,
+        "recipientId": 996,
+        "sender": "DummySender22",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 22",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2869,
+        "recipientId": 996,
+        "sender": "DummySender21",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 21",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2868,
+        "recipientId": 996,
+        "sender": "DummySender20",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 20",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2867,
+        "recipientId": 996,
+        "sender": "DummySender19",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 19",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2866,
+        "recipientId": 996,
+        "sender": "DummySender18",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 18",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2865,
+        "recipientId": 996,
+        "sender": "DummySender17",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 17",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2864,
+        "recipientId": 996,
+        "sender": "DummySender16",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 16",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2863,
+        "recipientId": 996,
+        "sender": "DummySender15",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 15",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2862,
+        "recipientId": 996,
+        "sender": "DummySender14",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 14",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2861,
+        "recipientId": 996,
+        "sender": "DummySender13",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 13",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2860,
+        "recipientId": 996,
+        "sender": "DummySender12",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 12",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2859,
+        "recipientId": 996,
+        "sender": "DummySender11",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 11",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2858,
+        "recipientId": 996,
+        "sender": "DummySender10",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 10",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2857,
+        "recipientId": 996,
+        "sender": "DummySender9",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 9",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2856,
+        "recipientId": 996,
+        "sender": "DummySender8",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 8",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2855,
+        "recipientId": 996,
+        "sender": "DummySender7",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 7",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2854,
+        "recipientId": 996,
+        "sender": "DummySender6",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 6",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2853,
+        "recipientId": 996,
+        "sender": "DummySender5",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 5",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2852,
+        "recipientId": 996,
+        "sender": "DummySender4",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 4",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2851,
+        "recipientId": 996,
+        "sender": "DummySender3",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 3",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2850,
+        "recipientId": 996,
+        "sender": "DummySender2",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 2",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2849,
+        "recipientId": 996,
+        "sender": "DummySender1",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 1",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2848,
+        "recipientId": 996,
+        "sender": "DummySender0",
+        "profileImageURL": "https://dummyimage.com/100.png/09f/fff",
+        "relationship": "동료",
+        "content": "Dummy message content 0",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2847,
+        "recipientId": 996,
+        "sender": "아지르",
+        "profileImageURL": "https://learn-codeit-kr-static.s3.ap-northeast-2.amazonaws.com/sprint-proj-image/default_avatar.png",
+        "relationship": "동료",
+        "content": "슈리마여 너의 황제가 돌아왔다",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:32.214963Z"
+      },
+      {
+        "id": 2846,
+        "recipientId": 996,
+        "sender": "제드",
+        "profileImageURL": "https://learn-codeit-kr-static.s3.ap-northeast-2.amazonaws.com/sprint-proj-image/default_avatar.png",
+        "relationship": "동료",
+        "content": "강해지고 싶다면 괜찮아, 그것이 중요한거니까",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:06:04.198557Z"
+      },
+      {
+        "id": 2845,
+        "recipientId": 996,
+        "sender": "상디",
+        "profileImageURL": "https://picsum.photos/id/571/100/100",
+        "relationship": "동료",
+        "content": "강해지고 싶다면 괜찮아, 그것이 중요한거니까",
+        "font": "Pretendard",
+        "createdAt": "2023-12-14T09:05:34.061678Z"
+      }
+  ]
+}

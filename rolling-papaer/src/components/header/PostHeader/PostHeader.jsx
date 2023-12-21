@@ -7,7 +7,7 @@ import {
 import PostHeaderItems from "./PostHeaderItems";
 import { THEME_LIGHT_COLOR } from "../../../theme/color";
 
-const PostHeaderBlock = styled.header`
+const PostHeaderBlock = styled.section`
   width: 100%;
   height: 68px;
 
@@ -15,7 +15,8 @@ const PostHeaderBlock = styled.header`
 
   display: flex;
   justify-content: space-between;
-  align-items: center;
+
+  background-color: var(--white);
 `;
 
 const testPostSummaryData = {
@@ -58,7 +59,7 @@ function PostHeader({ postSummaryData = testPostSummaryData }) {
   return (
     <PostHeaderProvider defaultValue={postSummaryData}>
       <PostHeaderBlock>
-        <ReceiverName/>
+        <ReceiverName />
         <PostHeaderItems>
           <div>//TODO:몇명이 작성했어요</div>
           <div>//TODO:이모지 보기 | 추가하기</div>
