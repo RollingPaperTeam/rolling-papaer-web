@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "../../components/header/Header";
 import { useCallback, useEffect, useRef, useState } from "react";
 import FONTS from "../../theme/font";
+import { Helmet } from "react-helmet";
 
 const ScrollToTopButton = styled.button`
   width: 80px;
@@ -105,6 +106,9 @@ function RollingPaperPage() {
 
   return (
     <>
+    <Helmet>
+      <title>생성된 롤링페이퍼</title>
+    </Helmet>
       <RollingPaperPageBlock>
         <HeaderVisibilitySensor ref={header}>
           <StyledHeader />

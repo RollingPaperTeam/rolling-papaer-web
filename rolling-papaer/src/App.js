@@ -4,7 +4,7 @@ import "normalize.css";
 function App() {
   return (
     <>
-        <Outlet />
+      <Outlet />
     </>
   );
 }
