@@ -4,6 +4,8 @@ import Card from "../components/card/Card";
 import { getCardDataList } from "../api/apis";
 import loadingImg from "../static/loading.svg";
 import useAsync from "../hooks/NetworkHook";
+import { NavLink, useNavigate } from "react-router-dom";
+import Modal from "../components/modal/Modal";
 
 const LoadingAnimator = styled.img`
   margin-top: 50px;
@@ -54,6 +56,7 @@ const CardLazyGridBlock = styled.div`
 `;
 
 function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
+  const nav = useNavigate();
   const [cardDataList, setCardDataList] = useState([]);
   const [nextCardIndex, setNextCardIndex] = useState(0);
   const [hasNext, setHasNext] = useState(true);
@@ -61,6 +64,9 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
   const loadingBlock = useRef();
   //TODO: Error 관리
   const [isLoading, isError, wrappedFunction] = useAsync(getCardDataList);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedCardDataForModal, setSelectedCardDataForModal] =
+    useState(null);
 
   const getCards = useCallback(
     async (nextCardIndex, limit) => {
@@ -104,18 +110,40 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
     };
   }, [handleInfiniteLoadingObserver]);
 
+  const handleNullDataCardOnClick = () => {
+    nav("message");
+  };
+
+  const handleDataCardOnClick = () => {
+    //TODO: 모달 실행
+    setIsModalVisible(true);
+  };
+
   //TODO: Card에 onClick 이벤트 넣어야 함
   return (
     <CardLazyGridContainerBlock>
       <CardLazyGridBlock $columnNum={maxCardsPerLine}>
-        <Card />
+        <Card onClick={handleNullDataCardOnClick} />
         {cardDataList.map((cardData) => {
-          return <Card key={cardData.id} cardData={cardData} />;
-        })}
+          return (
+            <Card
+            key={cardData.id}
+            cardData={cardData}
+            onClick={handleDataCardOnClick}
+            saveCardDataFunc={setSelectedCardDataForModal}
+            />
+            );
+          })}
       </CardLazyGridBlock>
       {isLoading && <LoadingAnimator src={loadingImg} alt={"Loading"} />}
       {hasNext && !isLoading && (
         <LoaderObserver ref={loadingBlock}></LoaderObserver>
+      )}
+      {isModalVisible && (
+        <Modal
+          cardData={selectedCardDataForModal}
+          setModalVisible={setIsModalVisible}
+        />
       )}
     </CardLazyGridContainerBlock>
   );
