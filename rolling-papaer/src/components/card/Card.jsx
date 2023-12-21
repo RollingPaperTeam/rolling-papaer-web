@@ -54,11 +54,19 @@ const CenteredButtonPlus= styled(ButtonPlus)`
   transform: translateY(-50%) translateX(-50%);
 `;
 
-function Card({ cardData, onClick }) {
+function Card({ cardData, onClick, saveCardDataFunc = (cardData) => {} }) {
+
+  const cardBlockOnClickHandler = () => {
+    if (cardData) {
+      saveCardDataFunc(cardData);
+    }
+    onClick();
+  };
+
   if (cardData) {
     return (
       <CardProvider defaultValue={cardData}>
-        <CardBlock onClick={onClick}>
+        <CardBlock onClick={cardBlockOnClickHandler}>
           <CardProfile>
             {/*//TODO: Profile컴포넌트*/}
             <CardProfileName name={"홍길동"} />
@@ -72,7 +80,7 @@ function Card({ cardData, onClick }) {
     );
   } else {
     return (
-      <CardBlock onClick={onClick}>
+      <CardBlock onClick={cardBlockOnClickHandler}>
         <CenteredButtonPlus type="button">
           <PlusIcon />
         </CenteredButtonPlus>
