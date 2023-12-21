@@ -26,6 +26,24 @@ const CardBlock = styled.article`
   ${Divider} {
     margin: 15px 0px 16px;
   }
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--gray3);
+    animation: sizePulsate ease-in-out 1s infinite;
+  }
+
+  @keyframes sizePulsate {
+    0% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.02, 1.02);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
 `;
 
 function Card({ cardData, onClick }) {
