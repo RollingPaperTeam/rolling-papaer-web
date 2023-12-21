@@ -6,6 +6,7 @@ import loadingImg from "../static/loading.svg";
 import useAsync from "../hooks/NetworkHook";
 import { useNavigate } from "react-router-dom";
 import Modal from "../components/modal/Modal";
+import mediaQuery from "../theme/mediaQuery";
 
 const LoadingAnimator = styled.img`
   margin-top: 50px;
@@ -50,10 +51,18 @@ const CardLazyGridContainerBlock = styled.section`
 `;
 
 const CardLazyGridBlock = styled.div`
-  width: fit-content;
   display: grid;
+  max-width: fit-content;
   grid-template-columns: ${({ $columnNum }) => `repeat(${$columnNum},1fr)`};
   gap: 24px;
+  width: calc(100% - 48px);
+  ${mediaQuery.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  ${mediaQuery.mobile} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 function CardLazyGridContainer({ recipientId, maxCardsPerLine = 3 }) {
