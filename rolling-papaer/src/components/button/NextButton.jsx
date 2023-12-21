@@ -1,3 +1,4 @@
+import mediaQuery from "../../theme/mediaQuery";
 import { ButtonControl, ButtonNextIcon } from "./Button";
 import styled from "styled-components";
 function NextBaseButton({ onClick, onDoubleClick, className }) {
@@ -15,9 +16,12 @@ function NextBaseButton({ onClick, onDoubleClick, className }) {
 
 const NextButton = styled(NextBaseButton)`
   position: absolute;
-  top: 19rem;
-  right: -2rem;
+  top: 50%;
+  right: -2%;
   z-index: 1;
+  ${mediaQuery.tablet} {
+    display: none;
+  }
 `;
 
 export default NextButton;
