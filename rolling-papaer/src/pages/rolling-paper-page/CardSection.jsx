@@ -54,6 +54,12 @@ function BaseSection({ children, limit, like, className }) {
   const handleMinusClick = () => {
     setCardIndex(cardIndex - 1);
   };
+  const handleMinusDoubleClick = () => {
+    setCardIndex(0);
+  };
+  const handlePlusDoubleClick = () => {
+    setCardIndex(dataLength - 4);
+  };
   return (
     <Section>
       <div className={className}>
@@ -61,8 +67,18 @@ function BaseSection({ children, limit, like, className }) {
         <CardContainer $cardIndex={cardIndex}>
           {cardData && <CardList cardData={cardData} />}
         </CardContainer>
-        {cardIndex > 0 && <PrevButton onClick={handleMinusClick} />}
-        {dataLength - cardIndex > 4 && <NextButton onClick={handlePlusClick} />}
+        {cardIndex > 0 && (
+          <PrevButton
+            onClick={handleMinusClick}
+            onDoubleClick={handleMinusDoubleClick}
+          />
+        )}
+        {dataLength - cardIndex > 4 && (
+          <NextButton
+            onClick={handlePlusClick}
+            onDoubleClick={handlePlusDoubleClick}
+          />
+        )}
       </div>
     </Section>
   );

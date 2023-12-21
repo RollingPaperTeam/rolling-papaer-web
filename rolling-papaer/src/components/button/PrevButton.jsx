@@ -1,9 +1,14 @@
 import { ButtonControl, ButtonPrevIcon } from "./Button";
 import styled from "styled-components";
 
-function PrevBaseButton({ onClick, className }) {
+function PrevBaseButton({ onClick, className, onDoubleClick }) {
   return (
-    <ButtonControl type="button" onClick={onClick} className={className}>
+    <ButtonControl
+      type="button"
+      onClick={onClick}
+      onDoubleClick={onDoubleClick}
+      className={className}
+    >
       <ButtonPrevIcon />
     </ButtonControl>
   );

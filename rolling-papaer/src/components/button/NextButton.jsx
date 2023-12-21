@@ -1,8 +1,13 @@
 import { ButtonControl, ButtonNextIcon } from "./Button";
 import styled from "styled-components";
-function NextBaseButton({ onClick, className }) {
+function NextBaseButton({ onClick, onDoubleClick, className }) {
   return (
-    <ButtonControl type="button" onClick={onClick} className={className}>
+    <ButtonControl
+      type="button"
+      onClick={onClick}
+      onDoubleClick={onDoubleClick}
+      className={className}
+    >
       <ButtonNextIcon />
     </ButtonControl>
   );
