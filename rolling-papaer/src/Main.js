@@ -75,11 +75,11 @@ function Main() {
           <Route index element={<MainPage />} />
           <Route path="list" element={<RollingPaperListPage />} />
           <Route path="post">
-            <Route index element={<PickReceiverPage />} />
+            <Route index element={<InputMessageContentPage />} />
             <Route path=":id">
               <Route index  element={<RollingPaperPage />}/>
               <Route path="edit" element={<RollingPaperPage />} />
-              <Route path="message" element={<InputMessageContentPage />} />
+              <Route path="message" element={<PickReceiverPage />} />
             </Route>
           </Route>
         </Route>
