@@ -1,0 +1,32 @@
+import { useEffect, useState } from 'react';
+import { CardContentImgContainer, RecentCount, RecentPerson } from './CardList';
+import RecentProfile from "./RecentProfile";
+import styled from 'styled-components';
+
+const CountPersonContainer = styled.div`
+  display: ${({ direction }) => (direction ? "flex" : "block")};
+`
+
+function CountPerson({ result }) {
+  const [direction, setDirection] = useState(false);
+
+  useEffect(() => {
+    setDirection();
+  },[])
+
+  return (
+    <CountPersonContainer direction={direction}>
+      <CardContentImgContainer>
+        <RecentProfile result={result} />
+        {result.messageCount - 3 > 0 && (
+          <RecentCount>{`+${result.messageCount - 3}`}</RecentCount>
+        )}
+      </CardContentImgContainer>
+      <RecentPerson color={result.backgroundImageURL}>
+        {result.messageCount}명이 작성했어요!
+      </RecentPerson>
+    </CountPersonContainer>
+  );
+}
+
+export default CountPerson;
