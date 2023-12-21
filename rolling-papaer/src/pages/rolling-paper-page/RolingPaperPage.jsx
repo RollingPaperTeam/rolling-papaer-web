@@ -4,18 +4,51 @@ import CardLazyGridContainer from "../../containers/CardLazyGridContainer";
 import styled from "styled-components";
 import Header from "../../components/header/Header";
 import { useCallback, useEffect, useRef, useState } from "react";
+import FONTS from "../../theme/font";
 
 const ScrollToTopButton = styled.button`
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 9999px;
 
   position: fixed;
   right: 50px;
   bottom: 50px;
 
+  border: none;
+  background-color: var(--purple5);
+
+  box-shadow: 0 20px 20px var(--gray3);
+
+  p {
+    ${FONTS.FONT_18_BOLD}
+    color: var(--white);
+  }
+  animation: moveUpDown 1s ease-out infinite;
+
   &:hover {
-    background-color: white;
+    background-color: var(--white);
+    border: 3px solid var(--purple5);
+
+    box-shadow: none;
+
+    p {
+      color: var(--purple5);
+    }
+
+    animation: none;
+  }
+
+  @keyframes moveUpDown {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
 `;
 
@@ -82,7 +115,9 @@ function RollingPaperPage() {
         </main>
       </RollingPaperPageBlock>
       {isScrollToTopVisible && (
-        <ScrollToTopButton onClick={scrollToTop}>UP</ScrollToTopButton>
+        <ScrollToTopButton onClick={scrollToTop}>
+          <p>TOP</p>
+        </ScrollToTopButton>
       )}
     </>
   );
