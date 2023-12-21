@@ -19,27 +19,6 @@ const PostHeaderBlock = styled.section`
   background-color: var(--white);
 `;
 
-const testPostSummaryData = {
-  name: "강영훈",
-  messageCount: "12",
-  topReactions: [
-    {
-      id: 27,
-      emoji: "😀",
-      count: 14,
-    },
-    {
-      id: 31,
-      emoji: "🥹",
-      count: 11,
-    },
-    {
-      id: 31,
-      emoji: "🥹",
-      count: 11,
-    },
-  ],
-};
 
 const ReceiverNameBlock = styled.p`
   margin: 0;
@@ -55,9 +34,9 @@ function ReceiverName() {
   return <ReceiverNameBlock>To. {name}</ReceiverNameBlock>;
 }
 
-function PostHeader({ postSummaryData = testPostSummaryData }) {
+function PostHeader({recipientId}) {
   return (
-    <PostHeaderProvider defaultValue={postSummaryData}>
+    <PostHeaderProvider recipientId={recipientId}>
       <PostHeaderBlock>
         <ReceiverName />
         <PostHeaderItems>
