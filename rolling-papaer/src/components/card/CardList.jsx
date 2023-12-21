@@ -4,6 +4,8 @@ import CardBox from "./CardBox";
 import RecentProfile from "./RecentProfile";
 import { Link } from "react-router-dom";
 import EmojiBadgeList from "../badge/EmojiBadgeList";
+import CountPerson from "./CountPerson";
+
 const Wrapper = styled.div`
   padding: 3rem 2.4rem 2rem;
   display: flex;
@@ -22,7 +24,7 @@ const CardContents = styled.div`
   flex-direction: column;
   gap: 1.2rem;
 `;
-const CardContentImgContainer = styled.div`
+export const CardContentImgContainer = styled.div`
   display: flex;
   align-items: center;
   height: 2.8rem;
@@ -51,7 +53,7 @@ const CardEmoji = styled.div`
     display: inline;
   }
 `;
-const RecentCount = styled.div`
+export const RecentCount = styled.div`
   border-radius: 3rem;
   background: var(--white);
   display: flex;
@@ -71,7 +73,7 @@ const Name = styled.span`
   -webkit-line-clamp: 1;
   align-self: stretch;
 `;
-const RecentPerson = styled.p`
+export const RecentPerson = styled.p`
   ${FONTS.FONT_16_REGULAR}
   color:var(${({ color }) => (color ? `--gray2` : `--gray7`)});
   margin: 0;
@@ -92,15 +94,7 @@ function CardList({ cardData }) {
                   <Name color={result.backgroundImageURL}>
                     TO.{result.name}
                   </Name>
-                  <CardContentImgContainer>
-                    <RecentProfile result={result} />
-                    {result.messageCount - 3 > 0 && (
-                      <RecentCount>{`+${result.messageCount - 3}`}</RecentCount>
-                    )}
-                  </CardContentImgContainer>
-                  <RecentPerson color={result.backgroundImageURL}>
-                    {result.messageCount}명이 작성했어요!
-                  </RecentPerson>
+                  <CountPerson result={result}/>
                 </CardContents>
                 <div>
                   <Line></Line>
@@ -117,3 +111,4 @@ function CardList({ cardData }) {
   );
 }
 export default CardList;
+
