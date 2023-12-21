@@ -28,11 +28,11 @@ const CardBlock = styled.article`
   }
 `;
 
-function Card({ cardData }) {
+function Card({ cardData, onClick }) {
   if (cardData) {
     return (
       <CardProvider defaultValue={cardData}>
-        <CardBlock>
+        <CardBlock onClick={onClick}>
           <CardProfile>
             {/*//TODO: Profile컴포넌트*/}
             <CardProfileName name={"홍길동"} />
@@ -45,9 +45,7 @@ function Card({ cardData }) {
       </CardProvider>
     );
   } else {
-    return <CardBlock>
-      //TODO: 새 편지 추가
-    </CardBlock>;
+    return <CardBlock onClick={onClick}>//TODO: 새 편지 추가</CardBlock>;
   }
 }
 
