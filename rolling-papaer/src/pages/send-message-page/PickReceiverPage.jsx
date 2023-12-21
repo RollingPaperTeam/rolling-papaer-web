@@ -7,6 +7,7 @@ import MDEditor from "@uiw/react-md-editor";
 import ButtonStyle from "../../components/button/ButtonStyle";
 import { useParams } from "react-router-dom";
 import Header from "../../components/header/Header";
+import { Helmet } from "react-helmet";
 
 const MessageContainer = styled.section`
   position: relative;
@@ -371,6 +372,9 @@ function PickReceiverPage() {
 
   return (
     <>
+    <Helmet>
+      <title>롤링페이퍼에 메세지 보내기</title>
+    </Helmet>
       <Header />
       <MessageContainer>
         <div>
@@ -438,33 +442,41 @@ function TextEditor({
   handleClickFont,
 }) {
   return (
-    <EditorContainer>
-      <MDEditor
-        value={value}
-        height="260px"
-        onChange={onValueChange}
-        preview="edit"
-      />
-      <SelectFont>
-        <Title>폰트 선택</Title>
-        <SelectBox onClick={handleClickSelectBox}>
-          <label>{fontOption}</label>
-          <ul>
-            <FontOption value={fontOption} handleClickFont={handleClickFont} />
-          </ul>
-        </SelectBox>
-      </SelectFont>
-      <ButtonStyle
-        $primary="primary"
-        size="large"
-        fontSize="fontSize18"
-        disabled={value === "" ? "disabled" : ""}
-        onClick={onButtonClick}
-        style={{ width: "100%" }}
-      >
-        생성하기
-      </ButtonStyle>
-    </EditorContainer>
+    <>
+      <Helmet>
+        <title>롤링페이퍼에 메세지 보내기</title>
+      </Helmet>
+      <EditorContainer>
+        <MDEditor
+          value={value}
+          height="260px"
+          onChange={onValueChange}
+          preview="edit"
+        />
+        <SelectFont>
+          <Title>폰트 선택</Title>
+          <SelectBox onClick={handleClickSelectBox}>
+            <label>{fontOption}</label>
+            <ul>
+              <FontOption
+                value={fontOption}
+                handleClickFont={handleClickFont}
+              />
+            </ul>
+          </SelectBox>
+        </SelectFont>
+        <ButtonStyle
+          $primary="primary"
+          size="large"
+          fontSize="fontSize18"
+          disabled={value === "" ? "disabled" : ""}
+          onClick={onButtonClick}
+          style={{ width: "100%" }}
+        >
+          생성하기
+        </ButtonStyle>
+      </EditorContainer>
+    </>
   );
 }
 

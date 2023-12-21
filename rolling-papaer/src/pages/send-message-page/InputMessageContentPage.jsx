@@ -4,6 +4,7 @@ import FONTS from "../../theme/font";
 import currentColor from "../../static/current_color.svg";
 import ButtonStyle from "../../components/button/ButtonStyle";
 import Header from "../../components/header/Header";
+import { Helmet } from "react-helmet";
 
 const ColorImageContainer = styled.section`
   padding: 5.7rem 0 33.6rem 0;
@@ -384,6 +385,9 @@ function InputMessageContentPage() {
 
   return (
     <>
+    <Helmet>
+      <title>롤링페이퍼 만들기</title>
+    </Helmet>
       <Header />
       <ColorImageContainer>
         <Recipient>
