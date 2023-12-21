@@ -39,3 +39,25 @@ export async function getRecipient(recipientId) {
     throw e;
   }
 }
+export async function getRecipientMessages(recipientId, offset = 0, limit){
+  const query = new URLSearchParams({
+    offset,
+    limit,
+  }).toString();
+
+  const apiPath = `${ROUTES.RECIPIENTS}${recipientId}/messages/?${query}`;
+  try {
+    const response = await fetch(apiPath);
+    if (!response.ok) {
+      throw new Error(
+        "리스폰스 데이터를 받아오는데 실패 하였습니다.",
+        response.statusText
+      );
+    }
+    const result = await response.json();
+    return result;
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+}
