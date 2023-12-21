@@ -3,6 +3,7 @@ import purple from "../../static/bg-purple.png";
 import blue from "../../static/bg-blue.png";
 import beige from "../../static/bg-beige.png";
 import green from "../../static/bg-green.png";
+import mediaQuery from "../../theme/mediaQuery";
 
 const BackgroundColor = {
   purple: purple,
@@ -15,6 +16,10 @@ const BackgroundColor = {
 const CardBox = styled.div`
   width: 27.5rem;
   height: 26rem;
+  ${mediaQuery.mobile} {
+    width: 20.8rem;
+    height: 23.2rem;
+  }
 
   ${({ $backgroundIMG, $backgroundColor }) =>
     $backgroundIMG

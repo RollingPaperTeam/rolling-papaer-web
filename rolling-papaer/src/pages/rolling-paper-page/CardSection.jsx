@@ -6,26 +6,62 @@ import getRecipients from "../../api/api";
 import TRANSLATE_VALUE from "../../components/card/translateValue";
 import NextButton from "../../components/button/NextButton";
 import PrevButton from "../../components/button/PrevButton";
+import mediaQuery from "../../theme/mediaQuery";
 
 const Section = styled.section`
   width: 116rem;
-  position: relative;
-  margin: 5rem auto 0;
+  margin: 5rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  ${mediaQuery.tablet} {
+    width: calc(100% - 4.8rem);
+  }
 `;
 const Title = styled.h2`
   ${FONTS.FONT_24_BOLD}
+  margin: 0;
+  margin-bottom: 1.6rem;
 `;
 const CardSection = styled(BaseSection)`
-  width: 116rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  ${mediaQuery.tablet} {
+    width: 100%;
+    align-self: flex-start;
+  }
+`;
+
+const CardField = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  ${mediaQuery.tablet} {
+    width: 100%;
+    align-self: flex-start;
+  }
+`;
+const CardListField = styled.div`
+  max-width: 116rem;
   overflow: hidden;
+  ${mediaQuery.tablet} {
+    max-width: 120rem;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 const CardContainer = styled.div`
-  margin: 0 auto;
-  gap: 2rem;
-  width: 116rem;
-  height: 26rem;
+  width: 100%;
   display: flex;
-
+  gap: 2rem;
   transform: translate(
     ${({ $cardIndex }) => `${$cardIndex * TRANSLATE_VALUE}rem`}
   );
@@ -45,6 +81,7 @@ function BaseSection({ children, limit, like, className }) {
       console.error(error.message);
     }
   };
+
   useEffect(() => {
     dataLoad(limit, like);
   }, [limit, like]);
@@ -54,15 +91,36 @@ function BaseSection({ children, limit, like, className }) {
   const handleMinusClick = () => {
     setCardIndex(cardIndex - 1);
   };
+  const handleMinusDoubleClick = () => {
+    setCardIndex(0);
+  };
+  const handlePlusDoubleClick = () => {
+    setCardIndex(dataLength - 4);
+  };
+
   return (
     <Section>
       <div className={className}>
         <Title>{children}</Title>
-        <CardContainer $cardIndex={cardIndex}>
-          {cardData && <CardList cardData={cardData} />}
-        </CardContainer>
-        {cardIndex > 0 && <PrevButton onClick={handleMinusClick} />}
-        {dataLength - cardIndex > 4 && <NextButton onClick={handlePlusClick} />}
+        <CardField>
+          <CardListField>
+            <CardContainer $cardIndex={cardIndex}>
+              {cardData && <CardList cardData={cardData} />}
+            </CardContainer>
+          </CardListField>
+        </CardField>
+        {cardIndex > 0 && (
+          <PrevButton
+            onClick={handleMinusClick}
+            onDoubleClick={handleMinusDoubleClick}
+          />
+        )}
+        {dataLength - cardIndex > 4 && (
+          <NextButton
+            onClick={handlePlusClick}
+            onDoubleClick={handlePlusDoubleClick}
+          />
+        )}
       </div>
     </Section>
   );

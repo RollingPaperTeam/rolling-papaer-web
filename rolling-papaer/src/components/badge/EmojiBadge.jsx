@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
 import FONTS from "../../theme/font";
+import mediaQuery from "../../theme/mediaQuery";
 
 const EmojiBadgeBlock = styled.div`
   min-width: 63px;
@@ -17,9 +18,17 @@ const EmojiBadgeBlock = styled.div`
 
   ${FONTS.FONT_16_REGULAR}
 
-  span{
+  span {
     margin: 0;
     color: ${THEME_LIGHT_COLOR.white};
+    ${mediaQuery.mobile} {
+      ${FONTS.FONT_14_REGULAR}
+    }
+  }
+  ${mediaQuery.mobile} {
+    padding: 0.6rem 0.8rem;
+    justify-content: center;
+    min-width: 5.5rem;
   }
 `;
 
