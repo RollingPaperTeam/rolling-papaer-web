@@ -1,23 +1,23 @@
 import { Link } from "react-router-dom";
 import logo from "../../static/Logo.png";
 import styled from "styled-components";
+import mediaQuery from "../../theme/mediaQuery";
 
 const Nav = styled(BaseNav)`
   ${({ children }) =>
     children
       ? "justify-content: space-between"
       : "justify-content: flex-start"};
-
-  ${({ children }) =>
-    children
-      ? "padding: 1.1rem 35.6rem 1.3rem 35.7rem"
-      : "padding: 1.1rem 36rem 1.3rem"};
-
-  max-width: 192rem;
+  width: calc(100% - 4.8rem);
+  max-width: 120.7rem;
   margin: 0 auto;
   display: flex;
   align-items: center;
   background-color: var(--white);
+  height: 6.5rem;
+  ${mediaQuery.mobile} {
+    width: calc(100% - 4rem);
+  }
 `;
 const Logo = styled.img`
   width: 10.6rem;
