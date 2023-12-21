@@ -76,10 +76,9 @@ function RollingPaperPage() {
         <HeaderVisibilitySensor ref={header}>
           <StyledHeader />
         </HeaderVisibilitySensor>
-
         <main>
-          <PostHeader></PostHeader>
-          <CardLazyGridContainer postId={id} />
+          <PostHeader recipientId={id}></PostHeader>
+          <CardLazyGridContainer recipientId={id} />
         </main>
       </RollingPaperPageBlock>
       {isScrollToTopVisible && (
