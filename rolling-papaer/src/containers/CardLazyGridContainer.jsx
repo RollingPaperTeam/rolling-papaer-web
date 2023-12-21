@@ -4,7 +4,7 @@ import Card from "../components/card/Card";
 import { getRecipientMessages } from "../api/api";
 import loadingImg from "../static/loading.svg";
 import useAsync from "../hooks/NetworkHook";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Modal from "../components/modal/Modal";
 
 const LoadingAnimator = styled.img`
