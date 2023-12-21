@@ -3,8 +3,9 @@ import FONTS from "../../theme/font";
 import RelationBadge from "../badge/RelationBadge";
 import ButtonStyle from "../button/ButtonStyle";
 import img from "../../static/person.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createGlobalStyle } from "styled-components";
+import { createdAtToDate } from "../../utils/timeformatUtil";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -77,7 +78,7 @@ const Date = styled.span`
 const Content = styled.div`
   position: relative;
   margin: 1.6rem 0 0;
-
+  
   &::before {
     content: "";
     display: block;
@@ -107,6 +108,8 @@ const Content = styled.div`
       border-radius: 0.8rem;
       background-color: var(--gray3);
     }
+
+  overscroll-behavior: contain;
   }
 `;
 
@@ -116,33 +119,40 @@ const ButtonContainer = styled.div`
 
 function Modal({ sender, createdAt, content, setModalVisible }) {
   const [$ModalOpen, setModalOpen] = useState(true);
+  const modalContentRef = useRef();
 
+  //TODO:  HOOK써서 밖으로 빼낼 수 있을 듯
+  // modal 실행시 scroll을 불가능하게 하는 hook
   useEffect(() => {
-    const preventScroll = e => {
-      if (e.type === 'keydown' && e.keyCode === 32) {
+    const preventScroll = (e) => {
+      if (modalContentRef.current && modalContentRef.current.contains(e.target)) {
+        // 모달 내부에서의 스크롤 이벤트는 버블링을 막습니다.
+        return;
+      }
+  
+      // 키보드 이벤트 및 외부 스크롤 이벤트 방지
+      if (
+        e.type === "keydown" &&
+        (e.keyCode === 32 || e.keyCode === 40 || e.keyCode === 38)
+      ) {
         e.preventDefault();
-      } else if (e.type === 'wheel' || e.type === 'touchmove') {
+      } else if (e.type === "wheel" || e.type === "touchmove") {
         e.preventDefault();
       }
     };
   
-    if ($ModalOpen) {
-      window.addEventListener('wheel', preventScroll, { passive: false });
-      window.addEventListener('touchmove', preventScroll, { passive: false });
-      window.addEventListener('keydown', preventScroll, { passive: false });
-    } else {
-      window.removeEventListener('wheel', preventScroll);
-      window.removeEventListener('touchmove', preventScroll);
-      window.removeEventListener('keydown', preventScroll);
-    }
+    // 이벤트 리스너 추가
+    document.addEventListener("wheel", preventScroll, { passive: false });
+    document.addEventListener("touchmove", preventScroll, { passive: false });
+    document.addEventListener("keydown", preventScroll, { passive: false });
   
+    // 클린업 함수로 이벤트 리스너 제거
     return () => {
-      window.removeEventListener('wheel', preventScroll);
-      window.removeEventListener('touchmove', preventScroll);
-      window.removeEventListener('keydown', preventScroll);
+      document.removeEventListener("wheel", preventScroll);
+      document.removeEventListener("touchmove", preventScroll);
+      document.removeEventListener("keydown", preventScroll);
     };
   }, [$ModalOpen]);
-  
   
 
   const handleClickOpen = () => {
@@ -173,7 +183,7 @@ function Modal({ sender, createdAt, content, setModalVisible }) {
           </UserInfo>
           <Date>{createdAt}</Date>
         </InfoContainer>
-        <Content>
+        <Content ref={modalContentRef}>
           <p>{content}</p>
         </Content>
         <ButtonContainer>
