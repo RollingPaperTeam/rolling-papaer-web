@@ -4,6 +4,11 @@ import styled from "styled-components";
 import mediaQuery from "../../theme/mediaQuery";
 
 const Nav = styled(BaseNav)`
+  background-color: var(--white);
+`;
+//TODO: 백그라운드컬러 Nav영역에 번짐
+
+const NavContainer = styled.div`
   ${({ children }) =>
     children
       ? "justify-content: space-between"
@@ -39,10 +44,12 @@ function BaseNav({ className, children }) {
   return (
     <>
       <nav className={className}>
-        <Link to="/">
-          <Logo src={logo} alt="롤링페이퍼 로고" />
-        </Link>
-        <HeaderContent>{children}</HeaderContent>
+        <NavContainer>
+          <Link to="/">
+            <Logo src={logo} alt="롤링페이퍼 로고" />
+          </Link>
+          <HeaderContent>{children}</HeaderContent>
+        </NavContainer>
       </nav>
       <NavBorderLine />
     </>
