@@ -54,7 +54,7 @@ const CenteredButtonPlus= styled(ButtonPlus)`
   transform: translateY(-50%) translateX(-50%);
 `;
 
-function Card({ cardData }) {
+function Card({ cardData, onClick }) {
   if (cardData) {
     return (
       <CardProvider defaultValue={cardData}>
