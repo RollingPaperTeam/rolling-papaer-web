@@ -18,21 +18,21 @@ const GlobalStyle = createGlobalStyle`
       height: 100%;
       transition: background-color 0.5s;
       z-index: -1;
-      background-color: ${({ ModalOpen }) =>
-        ModalOpen ? "#00000099" : "transparent"};
+      background-color: ${({ $ModalOpen }) =>
+        $ModalOpen ? "#00000099" : "transparent"};
     }
   }
 `;
 
 const ModalContainer = styled.div`
-  visibility: ${({ ModalOpen }) => ModalOpen ? "visible" : "hidden"};
+  visibility: ${({ $ModalOpen }) => $ModalOpen ? "visible" : "hidden"};
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 60rem;
   padding: 4rem 4.5rem;
-  opacity: ${({ ModalOpen }) => ModalOpen ? "1" : "0"};
+  opacity: ${({ $ModalOpen }) => $ModalOpen ? "1" : "0"};
   border-radius: 1.6rem;
   transition: visibility 0.5s;
   box-shadow: 0px 2px 12px 0px #00000014;
@@ -114,20 +114,16 @@ const ButtonContainer = styled.div`
 `;
 
 function Modal() {
-  const [ModalOpen, setModalOpen] = useState(false);
+  const [$ModalOpen, setModalOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setModalOpen(true);
-  };
+  const handleClickOpen = () => setModalOpen(true);
 
-  const handleClickClose = () => {
-    setModalOpen(false);
-  };
+  const handleClickClose = () => setModalOpen(false);
 
   return (
     <>
-      <GlobalStyle ModalOpen={ModalOpen}/>
-      <ModalContainer ModalOpen={ModalOpen}>
+      <GlobalStyle $ModalOpen={$ModalOpen}/>
+      <ModalContainer $ModalOpen={$ModalOpen}>
         <InfoContainer>
           <UserInfo>
             <div>
