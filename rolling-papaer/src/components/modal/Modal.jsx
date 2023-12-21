@@ -182,7 +182,7 @@ function Modal({ cardData, setModalVisible }) {
               <RelationBadge relation={relationship} />
             </div>
           </UserInfo>
-          <Date>{createdAt}</Date>
+          <Date>{createdAtToDate(createdAt)}</Date>
         </InfoContainer>
         <Content ref={modalContentRef}>
           <p>{content}</p>
