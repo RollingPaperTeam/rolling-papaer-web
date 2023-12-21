@@ -6,6 +6,7 @@ import {
 } from "./PostHeaderProvider";
 import PostHeaderItems from "./PostHeaderItems";
 import { THEME_LIGHT_COLOR } from "../../../theme/color";
+import HeaderEmojiList from "./HeaderEmojiList";
 
 const PostHeaderBlock = styled.section`
   width: 100%;
@@ -41,7 +42,7 @@ function PostHeader({recipientId}) {
         <ReceiverName />
         <PostHeaderItems>
           <div>//TODO:몇명이 작성했어요</div>
-          <div>//TODO:이모지 보기 | 추가하기</div>
+          <HeaderEmojiList/>
           <div>//TODO:공유버튼</div>
         </PostHeaderItems>
       </PostHeaderBlock>
