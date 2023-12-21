@@ -6,6 +6,7 @@ import CardContent from "./CardContent";
 import CardFooter from "./CardFooter";
 import { CardProvider } from "./CardProvider";
 import CardRelationBadge from "./CardRelationBadge";
+import CardProfileImg from "./CardProfileImg";
 import { ButtonPlus, PlusIcon } from "../button/Button";
 
 const Divider = styled.div`
@@ -69,6 +70,7 @@ function Card({ cardData, onClick, saveCardDataFunc = (cardData) => {} }) {
         <CardBlock onClick={cardBlockOnClickHandler}>
           <CardProfile>
             {/*//TODO: Profile컴포넌트*/}
+            <CardProfileImg />
             <CardProfileName name={"홍길동"} />
             <CardRelationBadge />
           </CardProfile>
