@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Card from "../components/card/Card";
 import { getCardDataList } from "../api/apis";
 import loadingImg from "../static/loading.svg";
+import useAsync from "../hooks/NetworkHook";
 
 const LoadingAnimator = styled.img`
   margin-top: 50px;
@@ -56,34 +57,26 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
   const [cardDataList, setCardDataList] = useState([]);
   const [nextCardIndex, setNextCardIndex] = useState(0);
   const [hasNext, setHasNext] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
   const limit = maxCardsPerLine * 6;
   const loadingBlock = useRef();
-
-  useEffect(() => {
-  }, [isLoading]);
+  //TODO: Error 관리
+  const [isLoading, isError, wrappedFunction] = useAsync(getCardDataList);
 
   const getCards = useCallback(
-    async (currentIndex, currentLimit) => {
-      if (isLoading || !hasNext) return;
-
-      setIsLoading(true);
-      try {
-        const limit = currentIndex === 0 ? currentLimit - 1 : currentLimit;
-        const { newCardData, hasMore } = await getCardDataList(
-          currentIndex,
-          limit
-        );
-        setCardDataList([...cardDataList, ...newCardData]);
-        setHasNext(hasMore);
-        setNextCardIndex(currentIndex + currentLimit);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setIsLoading(false);
+    async (nextCardIndex, limit) => {
+      if (!hasNext) return;
+      const firstLimit = nextCardIndex === 0 ? limit - 1 : null;
+      const result = await wrappedFunction(nextCardIndex, firstLimit ?? limit);
+      if (!result) return;
+      const { newCardData, hasMore } = result;
+      if (hasMore) {
+        setNextCardIndex(nextCardIndex + limit);
+      } else {
+        setHasNext(false);
       }
+      setCardDataList((prevData) => [...prevData, ...newCardData]);
     },
-    [cardDataList,isLoading, hasNext]
+    [hasNext, wrappedFunction]
   );
 
   // 만약 내가 감지한 div가 보이면 getCard 하도록 함 (무한스크롤링)
@@ -96,11 +89,6 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
     },
     [getCards, nextCardIndex, limit]
   );
-
-  useEffect(() => {
-    //TODO: 실제 데이터 가져오기
-    getCards(nextCardIndex, limit);
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleInfiniteLoadingObserver, {
@@ -126,7 +114,7 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
         })}
       </CardLazyGridBlock>
       {isLoading && <LoadingAnimator src={loadingImg} alt={"Loading"} />}
-      {(hasNext && !isLoading) && (
+      {hasNext && !isLoading && (
         <LoaderObserver ref={loadingBlock}></LoaderObserver>
       )}
     </CardLazyGridContainerBlock>
