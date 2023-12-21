@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
 import CardProfile from "./CardProfile";
-import RelationBadge from "../badge/RelationBadge";
 import CardProfileName from "./CardProfileName";
 import CardContent from "./CardContent";
 import CardFooter from "./CardFooter";
@@ -28,6 +27,24 @@ const CardBlock = styled.article`
   ${Divider} {
     margin: 15px 0px 16px;
   }
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--gray3);
+    animation: sizePulsate ease-in-out 1s infinite;
+  }
+
+  @keyframes sizePulsate {
+    0% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.02, 1.02);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
 `;
 
 const CenteredButtonPlus= styled(ButtonPlus)`
@@ -41,7 +58,7 @@ function Card({ cardData }) {
   if (cardData) {
     return (
       <CardProvider defaultValue={cardData}>
-        <CardBlock>
+        <CardBlock onClick={onClick}>
           <CardProfile>
             {/*//TODO: Profile컴포넌트*/}
             <CardProfileName name={"홍길동"} />
@@ -55,7 +72,7 @@ function Card({ cardData }) {
     );
   } else {
     return (
-      <CardBlock>
+      <CardBlock onClick={onClick}>
         <CenteredButtonPlus type="button">
           <PlusIcon />
         </CenteredButtonPlus>
