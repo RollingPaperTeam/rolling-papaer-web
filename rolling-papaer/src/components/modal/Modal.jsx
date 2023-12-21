@@ -3,7 +3,7 @@ import FONTS from "../../theme/font";
 import RelationBadge from "../badge/RelationBadge";
 import ButtonStyle from "../button/ButtonStyle";
 import img from "../../static/person.svg";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
