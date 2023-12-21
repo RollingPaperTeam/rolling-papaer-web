@@ -1,12 +1,14 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import styled, { css } from "styled-components";
 import { FONTS } from "../../theme/font";
-import currentProfile from "../../static/current_color.svg";
-import profileimg from "../../static/profile.svg";
+import currentProfileImg from "../../static/current_color.svg";
+import open from "../../static/arrow_open.svg";
+import MDEditor from "@uiw/react-md-editor";
 import ButtonStyle from "../../components/button/ButtonStyle";
-// import TextEditor from '../../components/textfield/TextEditor'
+import { useParams } from "react-router-dom";
 
 const MessageContainer = styled.section`
+  position: relative;
   padding: 5.7rem 0 33.6rem 0;
   width: 72rem;
   margin: 0 auto;
@@ -19,7 +21,7 @@ const MessageContainer = styled.section`
 `;
 
 const margin = css`
-  margin: 0 0 5rem 0;
+  margin: 5rem 0 0 0;
 `;
 
 const Title = styled.h2`
@@ -28,8 +30,6 @@ const Title = styled.h2`
 `;
 
 const InputContainer = styled.div`
-  ${margin}
-
   input {
     outline: none;
     display: block;
@@ -86,6 +86,10 @@ const SelectProfile = styled.div`
   img {
     float: left;
     margin: 0 3.2rem 0 0;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 10rem;
+    object-fit: cover;
     cursor: pointer;
   }
 
@@ -137,8 +141,6 @@ const SelectProfile = styled.div`
         margin: 0;
         width: 5.6rem;
         height: 5.6rem;
-        border-radius: 10rem;
-        object-fit: cover;
 
         @media screen and (min-width: 360px) and (max-width: 768px) {
           width: 4rem;
@@ -161,7 +163,7 @@ const SelectProfile = styled.div`
           height: 3rem;
           margin: 0;
           cursor: pointer;
-          background: url(${currentProfile}) no-repeat;
+          background: url(${currentProfileImg}) no-repeat;
           background-size: cover;
 
           @media screen and (max-width: 768px) {
@@ -183,6 +185,7 @@ const SelectBox = styled.div`
   }
   &.active label {
     border: 1px solid var(--gray5);
+
     &::before {
       transform: translateY(-50%) rotate(-180deg);
     }
@@ -210,7 +213,7 @@ const SelectBox = styled.div`
       width: 1.6rem;
       height: 1.6rem;
       transition: transform 0.5s;
-      background: url() no-repeat center;
+      background: url(${open}) no-repeat center;
       background-size: 100% 1.6rem;
     }
     &.error,
@@ -235,7 +238,6 @@ const SelectBox = styled.div`
     list-style-type: none;
     margin: 0.8rem 0 0;
     padding: 0;
-    width: 35rem;
     height: 0;
     border-radius: 0.8rem;
     border: 1px solid var(--gray3);
@@ -263,68 +265,49 @@ const RelationShip = styled.div`
   ${margin}
 `;
 
-const TextEditor = styled.div`
+const Content = styled.div`
   ${margin}
 `;
 
 const SelectFont = styled.div`
-  margin: 0 0 6.2rem 0;
+  margin: 5rem 0 6.2rem 0;
+`;
+
+const EditorContainer = styled.div`
+  .w-md-editor-toolbar {
+    padding: 1.3rem 1.5rem;
+    background-color: var(--gray2);
+  }
+
+  .w-md-editor-content {
+    padding: 0 1rem;
+  }
+
+  .w-md-editor-text-pre > code,
+  .w-md-editor-text-input {
+    ${FONTS.FONT_16_REGULAR}
+    line-height: 24px !important;
+  }
 `;
 
 function PostMessagepage() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [focusout, setFocusout] = useState("");
-  const [currentProfile, setCurrentProfile] = useState("");
-  const [profile, setProfile] = useState("");
-  const selectRef1 = useRef(null);
-  const selectRef2 = useRef(null);
-  const [relationShipOption, setRelationShipOption] = useState("");
-  const [fontOption, setFontOption] = useState("");
+  const [currentProfile, setCurrentProfile] = useState(
+    "https://i.ibb.co/cNby866/profile.png"
+  );
+  const [relationShipOption, setRelationShipOption] = useState("지인");
+  const [fontOption, setFontOption] = useState("NotoSans");
   const [values, setValues] = useState({
     text: "",
     placeholder: "",
     type: "",
   });
-  const RELATIONSHIP_LIST = [
-    {
-      id: "acquaintance",
-      list: "지인",
-    },
-    {
-      id: "family",
-      list: "가족",
-    },
-    {
-      id: "coworker",
-      list: "동료",
-    },
-    {
-      id: "friend",
-      list: "친구",
-    },
-  ];
-
-  const FONT_LIST = [
-    {
-      id: "Noto Sans",
-      list: "Noto Sans",
-    },
-    {
-      id: "Pretendard",
-      list: "Pretendard",
-    },
-    {
-      id: "나눔명조",
-      list: "나눔명조",
-    },
-    {
-      id: "나눔손글씨 손편지체",
-      list: "나눔손글씨 손편지체",
-    },
-  ];
+  const [value, setValue] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
 
     setValues((prevValues) => ({
       ...prevValues,
@@ -344,25 +327,33 @@ function PostMessagepage() {
     }
   };
 
-  const handleClick = (item) => {
-    setCurrentProfile(item);
-    setProfile(item);
-  };
+  const handleClick = (item) => setCurrentProfile(item);
 
-  async function getRecipientsMessages() {
+  const handleClickSelectBox = (e) =>
+    e.currentTarget.classList.toggle("active");
+
+  const handleClickRelationShip = (e) =>
+    setRelationShipOption(e.target.getAttribute("data-value"));
+
+  const handleClickFont = (e) =>
+    setFontOption(e.target.getAttribute("data-value"));
+
+  const { id } = useParams();
+
+  async function getPostMessages() {
     try {
       const recipients = {
         team: "2-6",
-        recipientId: "",
+        recipientId: `${id}`,
         sender: values?.text,
         profileImageURL: currentProfile,
         relationship: relationShipOption,
-        content: "string",
+        content: value,
         font: fontOption,
       };
 
       const response = await fetch(
-        "https://rolling-api.vercel.app/2-6/recipients/1713/messages/",
+        `https://rolling-api.vercel.app/2-6/recipients/${id}/messages/`,
         {
           method: "POST",
           headers: {
@@ -378,6 +369,103 @@ function PostMessagepage() {
     }
   }
 
+  return (
+    <MessageContainer>
+      <div>
+        <Title>From.</Title>
+        <InputContainer>
+          <input
+            type="text"
+            value={values.text}
+            placeholder="이름을 입력해 주세요."
+            onChange={handleChange}
+            name="text"
+            onBlur={handleFocusout}
+            focusout={focusout}
+          />
+          {errorMessage && <p>{errorMessage}</p>}
+        </InputContainer>
+      </div>
+      <SelectProfile>
+        <Title>프로필 이미지</Title>
+        <img src={currentProfile} alt="프로필 이미지" />
+        <div>
+          <span>프로필 이미지를 선택해주세요!</span>
+          <ul>
+            <ProfileBox
+              handleClick={handleClick}
+              currentProfile={currentProfile}
+            />
+          </ul>
+        </div>
+      </SelectProfile>
+      <RelationShip>
+        <Title>상대와의 관계</Title>
+        <SelectBox onClick={handleClickSelectBox}>
+          <label>{relationShipOption}</label>
+          <ul>
+            <RelationShipOption
+              value={relationShipOption}
+              handleClickRelationShip={handleClickRelationShip}
+            />
+          </ul>
+        </SelectBox>
+      </RelationShip>
+      <Content>
+        <Title>내용을 입력해 주세요</Title>
+        <TextEditor
+          value={value}
+          onValueChange={setValue}
+          onButtonClick={getPostMessages}
+          handleClickFont={handleClickFont}
+          handleClickSelectBox={handleClickSelectBox}
+          fontOption={fontOption}
+        />
+      </Content>
+    </MessageContainer>
+  );
+}
+
+function TextEditor({
+  value,
+  onValueChange,
+  onButtonClick,
+  handleClickSelectBox,
+  fontOption,
+  handleClickFont,
+}) {
+  return (
+    <EditorContainer>
+      <MDEditor
+        value={value}
+        height="260px"
+        onChange={onValueChange}
+        preview="edit"
+      />
+      <SelectFont>
+        <Title>폰트 선택</Title>
+        <SelectBox onClick={handleClickSelectBox}>
+          <label>{fontOption}</label>
+          <ul>
+            <FontOption value={fontOption} handleClickFont={handleClickFont} />
+          </ul>
+        </SelectBox>
+      </SelectFont>
+      <ButtonStyle
+        $primary="primary"
+        size="large"
+        fontSize="fontSize18"
+        disabled={value === "" ? "disabled" : ""}
+        onClick={onButtonClick}
+        style={{ width: "100%" }}
+      >
+        생성하기
+      </ButtonStyle>
+    </EditorContainer>
+  );
+}
+
+function ProfileBox({ handleClick, currentProfile }) {
   const PROFILE_IMG = [
     {
       id: "cookies",
@@ -421,117 +509,75 @@ function PostMessagepage() {
     },
   ];
 
-  function ProfileBox({ handleClick, currentProfile }) {
-    const list = PROFILE_IMG.map((item) => (
-      <li
-        key={item.id}
-        onClick={() => handleClick(item.image)}
-        className={profile === item.image ? "active" : ""}
-      >
-        <img src={item.image} alt="프로필 이미지" />
-        <span className={currentProfile === item.image ? "active" : ""}>
-          현재 선택된 프로필 이미지 버튼
-        </span>
-      </li>
-    ));
-    return list;
-  }
-
-  const handleClickSelectBox = (e) =>
-    e.currentTarget.classList.toggle("active");
-
-  const handleClickOption = (e) => {
-    const currentRef = e.currentTarget.closest("div");
-    if (currentRef.classList.contains("active")) {
-      if (currentRef === selectRef1.current)
-        setRelationShipOption(e.target.textContent);
-      if (currentRef === selectRef2.current)
-        setFontOption(e.target.textContent);
-    }
-  };
-
-  function RelationShipOption() {
-    const list = RELATIONSHIP_LIST.map((item) => (
-      <li key={item.id} onClick={handleClickOption}>
-        {item.list}
-      </li>
-    ));
-    return list;
-  }
-
-  function FontOption() {
-    const list = FONT_LIST.map((item) => (
-      <li key={item.id} onClick={handleClickOption}>
-        {item.list}
-      </li>
-    ));
-    return list;
-  }
-
-  return (
-    <MessageContainer>
-      <div>
-        <Title>From.</Title>
-        <InputContainer>
-          <input
-            type="text"
-            value={values.text}
-            placeholder="이름을 입력해 주세요."
-            onChange={handleChange}
-            name="text"
-            onBlur={handleFocusout}
-            focusout={focusout}
-          />
-          {errorMessage && <p>{errorMessage}</p>}
-        </InputContainer>
-      </div>
-      <SelectProfile>
-        <Title>프로필 이미지</Title>
-        <img src={profileimg} alt="프로필 이미지" />
-        <div>
-          <span>프로필 이미지를 선택해주세요!</span>
-          <ul>
-            <ProfileBox
-              handleClick={handleClick}
-              currentProfile={currentProfile}
-              profile={profile}
-            />
-          </ul>
-        </div>
-      </SelectProfile>
-      <RelationShip>
-        <Title>상대와의 관계</Title>
-        <SelectBox ref={selectRef1} onClick={handleClickSelectBox}>
-          <label>{relationShipOption || "지인"}</label>
-          <ul>
-            <RelationShipOption onClick={handleClickOption} />
-          </ul>
-        </SelectBox>
-      </RelationShip>
-      <TextEditor>
-        <Title>내용을 입력해 주세요</Title>
-        <TextEditor />
-      </TextEditor>
-      <SelectFont>
-        <Title>폰트 선택</Title>
-        <SelectBox ref={selectRef2} onClick={handleClickSelectBox}>
-          <label>{fontOption || "Noto Sans"}</label>
-          <ul>
-            <FontOption onClick={handleClickOption} />
-          </ul>
-        </SelectBox>
-      </SelectFont>
-      <ButtonStyle
-        $primary="primary"
-        size="large"
-        fontSize="fontSize18"
-        style={{ width: "100%" }}
-        disabled={focusout === "" && "disabled"}
-        onClick={getRecipientsMessages}
-      >
-        생성하기
-      </ButtonStyle>
-    </MessageContainer>
-  );
+  const list = PROFILE_IMG.map((item) => (
+    <li
+      key={item.id}
+      onClick={() => handleClick(item.image)}
+      className={currentProfile === item.image ? "active" : ""}
+    >
+      <img src={item.image} alt="프로필 이미지" />
+      <span className={currentProfile === item.image ? "active" : ""}>
+        현재 선택된 프로필 이미지 버튼
+      </span>
+    </li>
+  ));
+  return list;
 }
+
+function FontOption({ handleClickFont }) {
+  const FONT_LIST = [
+    {
+      id: "NotoSans",
+      value: "NotoSans",
+    },
+    {
+      id: "Pretendard",
+      value: "Pretendard",
+    },
+    {
+      id: "NanumMyeongjo",
+      value: "나눔명조",
+    },
+    {
+      id: "NanumSongeulssiSonpyeonjiche",
+      value: "나눔손글씨 손편지체",
+    },
+  ];
+
+  const value = FONT_LIST.map((item) => (
+    <li key={item.id} data-value={item.value} onClick={handleClickFont}>
+      {item.value}
+    </li>
+  ));
+  return value;
+}
+
+function RelationShipOption({ handleClickRelationShip }) {
+  const RELATIONSHIP_LIST = [
+    {
+      id: "acquaintance",
+      value: "지인",
+    },
+    {
+      id: "family",
+      value: "가족",
+    },
+    {
+      id: "coworker",
+      value: "동료",
+    },
+    {
+      id: "friend",
+      value: "친구",
+    },
+  ];
+
+  const value = RELATIONSHIP_LIST.map((item) => (
+    <li key={item.id} data-value={item.value} onClick={handleClickRelationShip}>
+      {item.value}
+    </li>
+  ));
+  return value;
+}
+
 export default PostMessagepage;
