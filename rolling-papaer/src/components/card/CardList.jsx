@@ -4,11 +4,15 @@ import CardBox from "./CardBox";
 import RecentProfile from "./RecentProfile";
 import { Link } from "react-router-dom";
 import EmojiBadgeList from "../badge/EmojiBadgeList";
+import mediaQuery from "../../theme/mediaQuery";
 const Wrapper = styled.div`
-  padding: 3rem 2.4rem 2rem;
+  padding: 3rem 2.3rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 4.3rem;
+  ${mediaQuery.mobile} {
+    gap: 3.3rem;
+  }
 `;
 const Line = styled.span`
   display: block;
@@ -16,6 +20,9 @@ const Line = styled.span`
   height: 0.1rem;
   background: rgba(0, 0, 0, 0.12);
   margin-bottom: 1.6rem;
+  ${mediaQuery.mobile} {
+    width: 16.2rem;
+  }
 `;
 const CardContents = styled.div`
   display: flex;
@@ -46,6 +53,7 @@ const CardEmoji = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 0.8rem;
+  justify-content: center;
 
   p {
     display: inline;
@@ -70,11 +78,17 @@ const Name = styled.span`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   align-self: stretch;
+  ${mediaQuery.mobile} {
+    ${FONTS.FONT_18_BOLD}
+  }
 `;
 const RecentPerson = styled.p`
   ${FONTS.FONT_16_REGULAR}
   color:var(${({ color }) => (color ? `--gray2` : `--gray7`)});
   margin: 0;
+  ${mediaQuery.mobile} {
+    ${FONTS.FONT_14_REGULAR}
+  }
 `;
 
 function CardList({ cardData }) {
