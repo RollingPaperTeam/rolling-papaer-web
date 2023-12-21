@@ -63,6 +63,8 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
   const loadingBlock = useRef();
   //TODO: Error 관리
   const [isLoading, isError, wrappedFunction] = useAsync(getCardDataList);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedCardDataForModal, setSelectedCardDataForModal] = useState(null);
 
   const getCards = useCallback(
     async (nextCardIndex, limit) => {
@@ -108,20 +110,37 @@ function CardLazyGridContainer({ postId, maxCardsPerLine = 3 }) {
 
   const handleNullDataCardOnClick = () => {
     nav("message");
-  }
+  };
+
+  const handleDataCardOnClick = () => {
+    //TODO: 모달 실행
+    setIsModalVisible(true);
+  };
 
   //TODO: Card에 onClick 이벤트 넣어야 함
   return (
     <CardLazyGridContainerBlock>
       <CardLazyGridBlock $columnNum={maxCardsPerLine}>
-        <Card onClick={handleNullDataCardOnClick} />
-        {cardDataList.map((cardData) => {
-          return <Card key={cardData.id} cardData={cardData} />;
-        })}
       </CardLazyGridBlock>
       {isLoading && <LoadingAnimator src={loadingImg} alt={"Loading"} />}
       {hasNext && !isLoading && (
         <LoaderObserver ref={loadingBlock}></LoaderObserver>
+          <Card onClick={handleNullDataCardOnClick} />
+          {cardDataList.map((cardData) => {
+            return (
+              <Card
+                key={cardData.id}
+                cardData={cardData}
+                onClick={handleDataCardOnClick}
+                saveCardDataFunc={setSelectedCardDataForModal}
+              />
+            );
+          })}
+      {isModalVisible && (
+        <Modal
+          cardData={selectedCardDataForModal}
+          setModalVisible={setIsModalVisible}
+        />
       )}
     </CardLazyGridContainerBlock>
   );
