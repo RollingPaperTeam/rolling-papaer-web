@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { THEME_LIGHT_COLOR } from "../../theme/color";
 import CardProfile from "./CardProfile";
-import RelationBadge from "../badge/RelationBadge";
 import CardProfileName from "./CardProfileName";
 import CardContent from "./CardContent";
 import CardFooter from "./CardFooter";
