@@ -24,7 +24,7 @@ const RollingPaperPageBlock = styled.div`
 `;
 
 const HeaderVisibilitySensor = styled.div`
-  width: fit-content;
+  width: 100%;
   height: fit-content;
 `;
 
