@@ -38,16 +38,6 @@ const CardLazyGridContainerBlock = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-
-  &::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--gray2); //TODO: data를 받아와서, 해당 색을
-    z-index: -9999;
-  }
 `;
 
 const CardLazyGridBlock = styled.div`
