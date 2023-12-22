@@ -7,12 +7,7 @@ const CountPersonContainer = styled.div`
   display: ${({ direction }) => (direction ? "flex" : "block")};
 `
 
-function CountPerson({ result }) {
-  const [direction, setDirection] = useState(false);
-
-  useEffect(() => {
-    setDirection();
-  },[])
+function CountPerson({ result, direction = false }) {
 
   return (
     <CountPersonContainer direction={direction}>
