@@ -10,6 +10,17 @@ import HeaderEmojiList from "./HeaderEmojiList";
 import EmojiPickerButton from "../../button/EmojiPickerButton";
 import useAsync from "../../../hooks/NetworkHook";
 import { addRecipientReaction } from "../../../api/api";
+import CountPerson from "../../card/CountPerson";
+import { ButtonShared, ShareIcon } from "../../button/Button";
+
+
+const BackgroundColor = {
+  purple: `--purple2`,
+  blue: `--blue2`,
+  beige: '--orange2',
+  green: `--green2`,
+  default: `--purple2`,
+};
 
 const PostHeaderBlock = styled.section`
   width: 100%;
@@ -21,7 +32,44 @@ const PostHeaderBlock = styled.section`
   justify-content: space-between;
 
   background-color: var(--white);
+
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+    ${({ $backgroundImgUrl, $backgroundColor }) => {
+      return $backgroundImgUrl
+        ? `background: linear-gradient(
+        rgba(0, 0, 0, 0.5), /* 반투명 검정색 */
+        rgba(0, 0, 0, 0.5)
+        ), url(${$backgroundImgUrl});`
+        : $backgroundColor
+        ? `background-color: var(${BackgroundColor[$backgroundColor]});`
+        : `background-color:var(--gray2);`;
+    }}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    //TODO: data를 받아와서, 해당 색을
+    z-index: -9999;
+  }
 `;
+
+function PostHeaderBlockContent({ children }) {
+  const { backgroundImageURL, backgroundColor } = usePostHeaderContextValue();
+
+  return (
+    <PostHeaderBlock
+      $backgroundImgUrl={backgroundImageURL}
+      $backgroundColor={backgroundColor}
+    >
+      {children}
+    </PostHeaderBlock>
+  );
+}
 
 const ReceiverNameBlock = styled.p`
   margin: 0;
@@ -37,26 +85,39 @@ function ReceiverName() {
   return <ReceiverNameBlock>To. {name}</ReceiverNameBlock>;
 }
 
+function CountPersonWrapper(){
+  const contextValue = usePostHeaderContextValue();
+
+  return(<CountPerson result={contextValue} direction></CountPerson>)
+}
+
+
 function PostHeader({ recipientId }) {
-  const [isLoading, isError, addRecipientReactionWrapped ] = useAsync(addRecipientReaction);
+  const [isLoading, isError, addRecipientReactionWrapped] =
+    useAsync(addRecipientReaction);
 
   const addEmojihandler = async (emoji) => {
-    if(isLoading) return;
-    const response = await addRecipientReactionWrapped(recipientId, emoji.emoji);
-    if(!response) return;
-  }
-  
+    if (isLoading) return;
+    const response = await addRecipientReactionWrapped(
+      recipientId,
+      emoji.emoji
+    );
+    if (!response) return;
+  };
+
   return (
     <PostHeaderProvider recipientId={recipientId}>
-      <PostHeaderBlock>
+      <PostHeaderBlockContent>
         <ReceiverName />
         <PostHeaderItems>
-          <div>//TODO:몇명이 작성했어요</div>
+          <CountPersonWrapper/>
           <HeaderEmojiList />
-          <EmojiPickerButton onEmojiClick={addEmojihandler}/>
-          <div>//TODO:공유버튼</div>
+          <EmojiPickerButton onEmojiClick={addEmojihandler} />
+          <ButtonShared type="button">
+            <ShareIcon />
+          </ButtonShared>
         </PostHeaderItems>
-      </PostHeaderBlock>
+      </PostHeaderBlockContent>
     </PostHeaderProvider>
   );
 }
