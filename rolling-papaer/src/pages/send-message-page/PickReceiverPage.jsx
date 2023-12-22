@@ -5,7 +5,7 @@ import currentProfileImg from "../../static/current_color.svg";
 import open from "../../static/arrow_open.svg";
 import MDEditor from "@uiw/react-md-editor";
 import ButtonStyle from "../../components/button/ButtonStyle";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../components/header/Header";
 import { Helmet } from "react-helmet";
 
@@ -293,6 +293,7 @@ const EditorContainer = styled.div`
 `;
 
 function PickReceiverPage() {
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
   const [focusout, setFocusout] = useState("");
   const [currentProfile, setCurrentProfile] = useState(
@@ -341,6 +342,11 @@ function PickReceiverPage() {
 
   const { id } = useParams();
 
+  const createButtonClickHandler = async() => {
+    const {recipientId} = await getPostMessages();
+    navigate(`/post/${recipientId}/`)
+  }
+
   async function getPostMessages() {
     try {
       const recipients = {
@@ -365,6 +371,9 @@ function PickReceiverPage() {
       );
 
       if (!response.ok) throw new Error("데이터를 불러오는데 실패했습니다");
+        
+      const result  = await response.json();
+      return result;
     } catch (error) {
       console.error(error);
     }
@@ -422,7 +431,7 @@ function PickReceiverPage() {
           <TextEditor
             value={value}
             onValueChange={setValue}
-            onButtonClick={getPostMessages}
+            onButtonClick={createButtonClickHandler}
             handleClickFont={handleClickFont}
             handleClickSelectBox={handleClickSelectBox}
             fontOption={fontOption}
@@ -543,7 +552,7 @@ function FontOption({ handleClickFont }) {
   const FONT_LIST = [
     {
       id: "NotoSans",
-      value: "NotoSans",
+      value: "Noto Sans",
     },
     {
       id: "Pretendard",

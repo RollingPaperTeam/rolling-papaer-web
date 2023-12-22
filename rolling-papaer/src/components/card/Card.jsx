@@ -8,12 +8,14 @@ import { CardProvider } from "./CardProvider";
 import CardRelationBadge from "./CardRelationBadge";
 import CardProfileImg from "./CardProfileImg";
 import { ButtonPlus, PlusIcon } from "../button/Button";
+import CardDeleted from "./CardDeleted";
+import { useEffect, useState } from "react";
 
 const Divider = styled.div`
-  width: ${({ width }) => width ?? `100%`};
+  width: ${({ $width }) => $width ?? `100%`};
   height: 1px;
-  background-color: ${({ backgroundColor }) =>
-    backgroundColor ?? THEME_LIGHT_COLOR.gray1};
+  background-color: ${({ $backgroundColor }) =>
+    $backgroundColor ?? THEME_LIGHT_COLOR.gray1};
 `;
 
 const CardBlock = styled.article`
@@ -21,9 +23,9 @@ const CardBlock = styled.article`
   height: 280px;
   padding: 28px 24px 24px;
   position: relative;
-  background-color: ${THEME_LIGHT_COLOR.white};
+  background-color: var(--white);
   border-radius: 16px;
-  box-shadow: 0px 2px 12px ${THEME_LIGHT_COLOR.gray1};
+  box-shadow: 0px 2px 12px var(--gray1);
 
   ${Divider} {
     margin: 15px 0px 16px;
@@ -48,7 +50,7 @@ const CardBlock = styled.article`
   }
 `;
 
-const CenteredButtonPlus= styled(ButtonPlus)`
+const CenteredButtonPlus = styled(ButtonPlus)`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -56,7 +58,6 @@ const CenteredButtonPlus= styled(ButtonPlus)`
 `;
 
 function Card({ cardData, onClick, saveCardDataFunc = (cardData) => {} }) {
-
   const cardBlockOnClickHandler = () => {
     if (cardData) {
       saveCardDataFunc(cardData);
@@ -64,15 +65,22 @@ function Card({ cardData, onClick, saveCardDataFunc = (cardData) => {} }) {
     onClick();
   };
 
-  if (cardData) {
+  const [editable, setEditable] = useState(false);
+
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    setEditable(true);
+  };
+
+  if (cardData && !editable) {
     return (
       <CardProvider defaultValue={cardData}>
-        <CardBlock onClick={cardBlockOnClickHandler}>
+        <CardBlock onClick={cardBlockOnClickHandler} >
           <CardProfile>
-            {/*//TODO: Profile컴포넌트*/}
             <CardProfileImg />
-            <CardProfileName name={"홍길동"} />
+            <CardProfileName />
             <CardRelationBadge />
+            <CardDeleted onClick={handleDeleteClick}/>
           </CardProfile>
           <Divider />
           <CardContent />
@@ -80,7 +88,7 @@ function Card({ cardData, onClick, saveCardDataFunc = (cardData) => {} }) {
         </CardBlock>
       </CardProvider>
     );
-  } else {
+  } else if(!editable){
     return (
       <CardBlock onClick={cardBlockOnClickHandler}>
         <CenteredButtonPlus type="button">
