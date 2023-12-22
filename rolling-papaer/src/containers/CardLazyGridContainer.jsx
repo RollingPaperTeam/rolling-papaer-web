@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Card from "../components/card/Card";
-import { getRecipientMessages } from "../api/api";
+import { deleteRecipientMessage, getRecipientMessages } from "../api/api";
 import loadingImg from "../static/loading.svg";
 import useAsync from "../hooks/NetworkHook";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Modal from "../components/modal/Modal";
 import mediaQuery from "../theme/mediaQuery";
 
@@ -56,6 +56,8 @@ const CardLazyGridBlock = styled.div`
 `;
 
 function CardLazyGridContainer({ recipientId, maxCardsPerLine = 3 }) {
+  const location = useLocation();
+  const [editable, setEditable] = useState(false);
   const nav = useNavigate();
   const [cardDataList, setCardDataList] = useState([]);
   const [nextCardIndex, setNextCardIndex] = useState(0);
@@ -65,6 +67,8 @@ function CardLazyGridContainer({ recipientId, maxCardsPerLine = 3 }) {
   //TODO: Error 관리
   const [isLoading, isError, getRecipientMessagesWrapped] =
     useAsync(getRecipientMessages);
+  const [isDeleteLoading, isDeleteError, deleteRecipientMessageWrapped] =
+    useAsync(deleteRecipientMessage);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCardDataForModal, setSelectedCardDataForModal] =
     useState(null);
@@ -128,16 +132,30 @@ function CardLazyGridContainer({ recipientId, maxCardsPerLine = 3 }) {
     };
   }, [handleInfiniteLoadingObserver]);
 
+  useEffect(() => {
+    if (location.pathname.includes("/edit")) {
+      setEditable(true);
+    } else {
+      setEditable(false);
+    }
+  }, [location]);
+
   const handleNullDataCardOnClick = () => {
     nav("message");
   };
 
   const handleDataCardOnClick = () => {
-    //TODO: 모달 실행
     setIsModalVisible(true);
   };
 
-  //TODO: Card에 onClick 이벤트 넣어야 함
+  const handleCardDeleteClick = async (id) => {
+    await deleteRecipientMessageWrapped(id);
+
+    setCardDataList((prevDataList) =>
+      prevDataList.filter((card) => card.id !== id)
+    );
+  };
+
   return (
     <>
       <CardLazyGridContainerBlock>
@@ -150,6 +168,8 @@ function CardLazyGridContainer({ recipientId, maxCardsPerLine = 3 }) {
                 cardData={cardData}
                 onClick={handleDataCardOnClick}
                 saveCardDataFunc={setSelectedCardDataForModal}
+                editable={editable}
+                onDeleteClick={handleCardDeleteClick}
               />
             );
           })}
