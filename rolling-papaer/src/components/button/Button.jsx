@@ -137,7 +137,7 @@ export const ButtonPlus = styled.button`
   }
 `;
 
-const ButtonDeleted = styled.button`
+export const ButtonDeleted = styled.button`
   position: relative;
   width: 3.6rem;
   height: 3.6rem;
