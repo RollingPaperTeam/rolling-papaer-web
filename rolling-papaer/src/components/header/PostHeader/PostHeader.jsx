@@ -40,16 +40,19 @@ const PostHeaderBlock = styled.section`
     width: 100%;
     height: 100%;
 
-    background-position: center;
-    background-size: cover;
     ${({ $backgroundImgUrl, $backgroundColor }) => {
       return $backgroundImgUrl
-        ? `background-image: url(${$backgroundImgUrl});
-        `
+        ? `background: linear-gradient(
+        rgba(0, 0, 0, 0.5), /* 반투명 검정색 */
+        rgba(0, 0, 0, 0.5)
+        ), url(${$backgroundImgUrl});`
         : $backgroundColor
         ? `background-color: var(${BackgroundColor[$backgroundColor]});`
         : `background-color:var(--gray2);`;
     }}
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     //TODO: data를 받아와서, 해당 색을
     z-index: -9999;
   }
