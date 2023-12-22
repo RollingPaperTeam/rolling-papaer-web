@@ -28,7 +28,7 @@ const HeaderEmojiListBlock = styled.section`
   ${ArrowDownIcon} {
     ${({ $arrowDirectionFlip }) =>
       $arrowDirectionFlip
-        ? `  animation: moveUpDown ease-in-out 1s infinite;
+        ? `  animation: moveDownUpReverse ease-in-out 1s infinite;
 `
         : `  animation: moveDownUp ease-in-out 1s infinite;
 `}
@@ -44,7 +44,7 @@ const HeaderEmojiListBlock = styled.section`
     }
   }
 
-  @keyframes moveUpDown {
+  @keyframes moveDownUpReverse {
     0%,
     100% {
       transform: translateY(-2px) rotateZ(180deg);

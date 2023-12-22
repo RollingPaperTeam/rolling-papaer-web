@@ -7,6 +7,10 @@ import {
 import PostHeaderItems from "./PostHeaderItems";
 import { THEME_LIGHT_COLOR } from "../../../theme/color";
 import HeaderEmojiList from "./HeaderEmojiList";
+import EmojiPickerButton from "../../button/EmojiPickerButton";
+import useAsync from "../../../hooks/NetworkHook";
+import { addRecipientReaction } from "../../../api/api";
+import { ButtonShared, ShareIcon } from "../../button/Button";
 
 const PostHeaderBlock = styled.section`
   width: 100%;
@@ -19,7 +23,6 @@ const PostHeaderBlock = styled.section`
 
   background-color: var(--white);
 `;
-
 
 const ReceiverNameBlock = styled.p`
   margin: 0;
@@ -35,15 +38,30 @@ function ReceiverName() {
   return <ReceiverNameBlock>To. {name}</ReceiverNameBlock>;
 }
 
-function PostHeader({recipientId}) {
+function PostHeader({ recipientId }) {
+  const [isLoading, isError, addRecipientReactionWrapped] =
+    useAsync(addRecipientReaction);
+
+  const addEmojihandler = async (emoji) => {
+    if (isLoading) return;
+    const response = await addRecipientReactionWrapped(
+      recipientId,
+      emoji.emoji
+    );
+    if (!response) return;
+  };
+
   return (
     <PostHeaderProvider recipientId={recipientId}>
       <PostHeaderBlock>
         <ReceiverName />
         <PostHeaderItems>
           <div>//TODO:몇명이 작성했어요</div>
-          <HeaderEmojiList/>
-          <div>//TODO:공유버튼</div>
+          <HeaderEmojiList />
+          <EmojiPickerButton onEmojiClick={addEmojihandler} />
+          <ButtonShared type="button">
+            <ShareIcon />
+          </ButtonShared>
         </PostHeaderItems>
       </PostHeaderBlock>
     </PostHeaderProvider>
