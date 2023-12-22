@@ -5,6 +5,7 @@ import currentColor from "../../static/current_color.svg";
 import ButtonStyle from "../../components/button/ButtonStyle";
 import Header from "../../components/header/Header";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router";
 
 const ColorImageContainer = styled.section`
   padding: 5.7rem 0 33.6rem 0;
@@ -207,6 +208,7 @@ const ToggleContainer = styled.div`
 `;
 
 function InputMessageContentPage() {
+  const navigate = useNavigate();
   const BACKGROUND_DEFAULT = "https://i.ibb.co/9ZsWvRM/snowman.jpg";
   const [errorMessage, setErrorMessage] = useState(null);
   const [toggle, setToggle] = useState("color");
@@ -250,6 +252,11 @@ function InputMessageContentPage() {
     setBackground(item);
   };
 
+  const createButtonHandle = async () => {
+      const {id} = await getRecipients();
+      navigate(`${id}`);
+  }
+
   async function getRecipients() {
     try {
       if (currentColor === "var(--orange2)")
@@ -280,6 +287,10 @@ function InputMessageContentPage() {
       );
 
       if (!response.ok) throw new Error("데이터를 불러오는데 실패했습니다");
+
+      const result = await response.json();
+      return result;
+
     } catch (error) {
       console.error(error);
     }
@@ -440,7 +451,7 @@ function InputMessageContentPage() {
           fontSize="fontSize18"
           style={{ width: "100%" }}
           disabled={focusout === "" && "disabled"}
-          onClick={getRecipients}
+          onClick={createButtonHandle}
         >
           생성하기
         </ButtonStyle>
