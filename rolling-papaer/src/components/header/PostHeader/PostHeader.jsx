@@ -11,6 +11,7 @@ import EmojiPickerButton from "../../button/EmojiPickerButton";
 import useAsync from "../../../hooks/NetworkHook";
 import { addRecipientReaction } from "../../../api/api";
 import CountPerson from "../../card/CountPerson";
+import { ButtonShared, ShareIcon } from "../../button/Button";
 
 
 const BackgroundColor = {
@@ -109,7 +110,9 @@ function PostHeader({ recipientId }) {
           <CountPersonWrapper/>
           <HeaderEmojiList />
           <EmojiPickerButton onEmojiClick={addEmojihandler} />
-          <div>//TODO:공유버튼</div>
+          <ButtonShared type="button">
+            <ShareIcon />
+          </ButtonShared>
         </PostHeaderItems>
       </PostHeaderBlockContent>
     </PostHeaderProvider>
