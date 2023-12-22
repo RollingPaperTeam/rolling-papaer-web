@@ -61,6 +61,25 @@ export async function getRecipientMessages(recipientId, offset = 0, limit){
     throw e;
   }
 }
+
+export async function deleteRecipientMessage( id){
+  const apiPath = `${ROUTES.MESSAGES}/${id}/`;
+  try {
+    const response = await fetch(apiPath,{
+      method:"DELETE",
+    });
+    if (!response.ok) {
+      throw new Error(
+        "리스폰스 데이터를 삭제하는 데 실패 하였습니다.",
+        response.statusText
+      );
+    }
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+}
+
 export async function getRecipientReactions(recipientId){
 
   const apiPath = `${ROUTES.RECIPIENTS}${recipientId}/reactions/`;
