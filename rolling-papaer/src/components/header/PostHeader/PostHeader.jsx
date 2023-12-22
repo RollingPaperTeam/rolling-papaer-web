@@ -10,6 +10,7 @@ import HeaderEmojiList from "./HeaderEmojiList";
 import EmojiPickerButton from "../../button/EmojiPickerButton";
 import useAsync from "../../../hooks/NetworkHook";
 import { addRecipientReaction } from "../../../api/api";
+import CountPerson from "../../card/CountPerson";
 
 
 const BackgroundColor = {
@@ -80,6 +81,13 @@ function ReceiverName() {
   return <ReceiverNameBlock>To. {name}</ReceiverNameBlock>;
 }
 
+function CountPersonWrapper(){
+  const contextValue = usePostHeaderContextValue();
+
+  return(<CountPerson result={contextValue} direction></CountPerson>)
+}
+
+
 function PostHeader({ recipientId }) {
   const [isLoading, isError, addRecipientReactionWrapped] =
     useAsync(addRecipientReaction);
@@ -98,7 +106,7 @@ function PostHeader({ recipientId }) {
       <PostHeaderBlockContent>
         <ReceiverName />
         <PostHeaderItems>
-          <div>//TODO:몇명이 작성했어요</div>
+          <CountPersonWrapper/>
           <HeaderEmojiList />
           <EmojiPickerButton onEmojiClick={addEmojihandler} />
           <div>//TODO:공유버튼</div>
