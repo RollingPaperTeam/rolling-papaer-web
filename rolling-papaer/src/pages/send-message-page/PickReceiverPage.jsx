@@ -531,7 +531,7 @@ function FontOption({ handleClickFont }) {
   const FONT_LIST = [
     {
       id: "NotoSans",
-      value: "NotoSans",
+      value: "Noto Sans",
     },
     {
       id: "Pretendard",
