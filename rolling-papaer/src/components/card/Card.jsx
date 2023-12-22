@@ -8,6 +8,8 @@ import { CardProvider } from "./CardProvider";
 import CardRelationBadge from "./CardRelationBadge";
 import CardProfileImg from "./CardProfileImg";
 import { ButtonPlus, PlusIcon } from "../button/Button";
+import CardDeleted from "./CardDeleted";
+import { useEffect, useState } from "react";
 
 const Divider = styled.div`
   width: ${({ $width }) => $width ?? `100%`};
@@ -48,7 +50,7 @@ const CardBlock = styled.article`
   }
 `;
 
-const CenteredButtonPlus= styled(ButtonPlus)`
+const CenteredButtonPlus = styled(ButtonPlus)`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -56,7 +58,6 @@ const CenteredButtonPlus= styled(ButtonPlus)`
 `;
 
 function Card({ cardData, onClick, saveCardDataFunc = (cardData) => {} }) {
-
   const cardBlockOnClickHandler = () => {
     if (cardData) {
       saveCardDataFunc(cardData);
@@ -64,14 +65,22 @@ function Card({ cardData, onClick, saveCardDataFunc = (cardData) => {} }) {
     onClick();
   };
 
-  if (cardData) {
+  const [editable, setEditable] = useState(false);
+
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    setEditable(true);
+  };
+
+  if (cardData && !editable) {
     return (
       <CardProvider defaultValue={cardData}>
-        <CardBlock onClick={cardBlockOnClickHandler}>
+        <CardBlock onClick={cardBlockOnClickHandler} >
           <CardProfile>
             <CardProfileImg />
             <CardProfileName />
             <CardRelationBadge />
+            <CardDeleted onClick={handleDeleteClick}/>
           </CardProfile>
           <Divider />
           <CardContent />
@@ -79,7 +88,7 @@ function Card({ cardData, onClick, saveCardDataFunc = (cardData) => {} }) {
         </CardBlock>
       </CardProvider>
     );
-  } else {
+  } else if(!editable){
     return (
       <CardBlock onClick={cardBlockOnClickHandler}>
         <CenteredButtonPlus type="button">
