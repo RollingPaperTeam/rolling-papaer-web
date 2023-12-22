@@ -57,7 +57,12 @@ const CenteredButtonPlus = styled(ButtonPlus)`
   transform: translateY(-50%) translateX(-50%);
 `;
 
-function Card({ cardData, onClick, saveCardDataFunc = (cardData) => {} }) {
+function Card({
+  cardData,
+  editable,
+  onClick,
+  saveCardDataFunc = (cardData) => {},
+}) {
   const cardBlockOnClickHandler = () => {
     if (cardData) {
       saveCardDataFunc(cardData);
@@ -65,22 +70,19 @@ function Card({ cardData, onClick, saveCardDataFunc = (cardData) => {} }) {
     onClick();
   };
 
-  const [editable, setEditable] = useState(false);
-
   const handleDeleteClick = (e) => {
     e.stopPropagation();
-    setEditable(true);
   };
 
-  if (cardData && !editable) {
+  if (cardData) {
     return (
       <CardProvider defaultValue={cardData}>
-        <CardBlock onClick={cardBlockOnClickHandler} >
+        <CardBlock onClick={cardBlockOnClickHandler}>
           <CardProfile>
             <CardProfileImg />
             <CardProfileName />
             <CardRelationBadge />
-            <CardDeleted onClick={handleDeleteClick}/>
+            {editable && <CardDeleted onClick={handleDeleteClick} />}
           </CardProfile>
           <Divider />
           <CardContent />
@@ -88,7 +90,7 @@ function Card({ cardData, onClick, saveCardDataFunc = (cardData) => {} }) {
         </CardBlock>
       </CardProvider>
     );
-  } else if(!editable){
+  } else {
     return (
       <CardBlock onClick={cardBlockOnClickHandler}>
         <CenteredButtonPlus type="button">
