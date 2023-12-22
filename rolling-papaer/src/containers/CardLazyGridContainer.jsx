@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Card from "../components/card/Card";
-import { getRecipientMessages } from "../api/api";
+import { deleteRecipientMessage, getRecipientMessages } from "../api/api";
 import loadingImg from "../static/loading.svg";
 import useAsync from "../hooks/NetworkHook";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -67,6 +67,8 @@ function CardLazyGridContainer({ recipientId, maxCardsPerLine = 3 }) {
   //TODO: Error 관리
   const [isLoading, isError, getRecipientMessagesWrapped] =
     useAsync(getRecipientMessages);
+  const [isDeleteLoading, isDeleteError, deleteRecipientMessageWrapped] =
+    useAsync(deleteRecipientMessage);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCardDataForModal, setSelectedCardDataForModal] =
     useState(null);
@@ -146,6 +148,14 @@ function CardLazyGridContainer({ recipientId, maxCardsPerLine = 3 }) {
     setIsModalVisible(true);
   };
 
+  const handleCardDeleteClick = async (id) => {
+    await deleteRecipientMessageWrapped(id);
+
+    setCardDataList((prevDataList) =>
+      prevDataList.filter((card) => card.id !== id)
+    );
+  };
+
   return (
     <>
       <CardLazyGridContainerBlock>
@@ -159,6 +169,7 @@ function CardLazyGridContainer({ recipientId, maxCardsPerLine = 3 }) {
                 onClick={handleDataCardOnClick}
                 saveCardDataFunc={setSelectedCardDataForModal}
                 editable={editable}
+                onDeleteClick={handleCardDeleteClick}
               />
             );
           })}

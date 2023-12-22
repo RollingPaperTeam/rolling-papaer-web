@@ -61,6 +61,7 @@ function Card({
   cardData,
   editable,
   onClick,
+  onDeleteClick,
   saveCardDataFunc = (cardData) => {},
 }) {
   const cardBlockOnClickHandler = () => {
@@ -72,6 +73,7 @@ function Card({
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
+    cardData && onDeleteClick(cardData.id);
   };
 
   if (cardData) {
