@@ -50,10 +50,11 @@ function BaseNav({ className, children }) {
           </Link>
           <HeaderContent>{children}</HeaderContent>
         </NavContainer>
+        <NavBorderLine />
       </nav>
-      <NavBorderLine />
     </>
   );
 }
 
 export default Nav;
+export { NavBorderLine };

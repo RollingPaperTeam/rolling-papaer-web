@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "../../components/header/Header";
 import { useCallback, useEffect, useRef, useState } from "react";
 import FONTS from "../../theme/font";
+import mediaQuery from "../../theme/mediaQuery";
 
 const ScrollToTopButton = styled.button`
   width: 80px;
@@ -66,6 +67,9 @@ const StyledHeader = styled(Header)`
   position: sticky;
   top: 0;
   z-index: 1;
+  ${mediaQuery.mobile} {
+    display: none;
+  }
 `;
 
 function RollingPaperPage() {
