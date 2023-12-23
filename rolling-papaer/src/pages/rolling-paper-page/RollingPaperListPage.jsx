@@ -3,10 +3,14 @@ import CardSection from "./CardSection";
 import { Link } from "react-router-dom";
 import ButtonStyle from "../../components/button/ButtonStyle";
 import LinkButton from "../../components/button/LinkButton";
+import { Helmet } from "react-helmet";
 
 function RollingPaperListPage() {
   return (
     <>
+      <Helmet>
+        <title>롤링페이퍼 목록</title>
+      </Helmet>
       <Header>
         <Link to="/post">
           <ButtonStyle

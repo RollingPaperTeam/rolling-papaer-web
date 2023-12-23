@@ -16,6 +16,19 @@ const AllEmojiListBlock = styled.section`
   z-index: 1;
   border: 1px solid var(--gray3);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
+
+  animation: fadeInMoveDown ease-in 1 0.5s;
+
+  @keyframes fadeInMoveDown {
+    from{
+      margin-top: 0px;
+      opacity: 0;
+    }
+    to{
+      margin-top: 7px;
+      opacity: 1;
+    }
+  }
 `;
 
 const HeaderEmojiListBlock = styled.section`
@@ -28,7 +41,7 @@ const HeaderEmojiListBlock = styled.section`
   ${ArrowDownIcon} {
     ${({ $arrowDirectionFlip }) =>
       $arrowDirectionFlip
-        ? `  animation: moveUpDown ease-in-out 1s infinite;
+        ? `  animation: moveDownUpReverse ease-in-out 1s infinite;
 `
         : `  animation: moveDownUp ease-in-out 1s infinite;
 `}
@@ -44,7 +57,7 @@ const HeaderEmojiListBlock = styled.section`
     }
   }
 
-  @keyframes moveUpDown {
+  @keyframes moveDownUpReverse {
     0%,
     100% {
       transform: translateY(-2px) rotateZ(180deg);

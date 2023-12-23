@@ -14,6 +14,7 @@ const CardContentBlock = styled.div`
     color: ${THEME_LIGHT_COLOR.gray6};
 
     ${FONTS.FONT_18_REGULAR}
+    font-family: ${({$font}) => $font};
     word-wrap: break-word;
     word-break: keep-all;
     overflow: hidden;
@@ -25,10 +26,10 @@ const CardContentBlock = styled.div`
 `;
 
 function CardContent() {
-  const { content } = useCardContextValue();
+  const { content, font } = useCardContextValue();
 
   return (
-    <CardContentBlock>
+    <CardContentBlock $font = {font}>
       <p>{content}</p>
     </CardContentBlock>
   );
