@@ -1,14 +1,18 @@
-import { useEffect, useState } from 'react';
-import { CardContentImgContainer, RecentCount, RecentPerson } from './CardList';
+import { useEffect, useState } from "react";
+import { CardContentImgContainer, RecentCount, RecentPerson } from "./CardList";
 import RecentProfile from "./RecentProfile";
-import styled from 'styled-components';
+import styled from "styled-components";
+import mediaQuery from "../../theme/mediaQuery";
 
 const CountPersonContainer = styled.div`
   display: ${({ direction }) => (direction ? "flex" : "block")};
-`
+
+  ${mediaQuery.tablet} {
+    display: none;
+  }
+`;
 
 function CountPerson({ result, direction = false }) {
-
   return (
     <CountPersonContainer direction={direction}>
       <CardContentImgContainer>

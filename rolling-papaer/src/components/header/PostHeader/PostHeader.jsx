@@ -7,17 +7,18 @@ import {
 import PostHeaderItems from "./PostHeaderItems";
 import { THEME_LIGHT_COLOR } from "../../../theme/color";
 import HeaderEmojiList from "./HeaderEmojiList";
+import mediaQuery from "../../../theme/mediaQuery";
+import { NavBorderLine } from "../Nav";
 import EmojiPickerButton from "../../button/EmojiPickerButton";
 import useAsync from "../../../hooks/NetworkHook";
 import { addRecipientReaction } from "../../../api/api";
 import CountPerson from "../../card/CountPerson";
 import { ButtonShared, ShareIcon } from "../../button/Button";
 
-
 const BackgroundColor = {
   purple: `--purple2`,
   blue: `--blue2`,
-  beige: '--orange2',
+  beige: "--orange2",
   green: `--green2`,
   default: `--purple2`,
 };
@@ -32,6 +33,12 @@ const PostHeaderBlock = styled.section`
   justify-content: space-between;
 
   background-color: var(--white);
+
+  ${mediaQuery.mobile} {
+    flex-direction: column;
+    height: fit-content;
+    gap: 24px;
+  }
 
   &::before {
     content: "";
@@ -79,18 +86,25 @@ const ReceiverNameBlock = styled.p`
   letter-spacing: -0.028rem;
 `;
 
+const BorderLine = styled(NavBorderLine)`
+  display: none;
+
+  ${mediaQuery.mobile} {
+    display: block;
+  }
+`;
+
 function ReceiverName() {
   const { name } = usePostHeaderContextValue();
 
   return <ReceiverNameBlock>To. {name}</ReceiverNameBlock>;
 }
 
-function CountPersonWrapper(){
+function CountPersonWrapper() {
   const contextValue = usePostHeaderContextValue();
 
-  return(<CountPerson result={contextValue} direction></CountPerson>)
+  return <CountPerson result={contextValue} direction></CountPerson>;
 }
-
 
 function PostHeader({ recipientId }) {
   const [isLoading, isError, addRecipientReactionWrapped] =
@@ -109,8 +123,9 @@ function PostHeader({ recipientId }) {
     <PostHeaderProvider recipientId={recipientId}>
       <PostHeaderBlockContent>
         <ReceiverName />
+        <BorderLine />
         <PostHeaderItems>
-          <CountPersonWrapper/>
+          <CountPersonWrapper />
           <HeaderEmojiList />
           <EmojiPickerButton onEmojiClick={addEmojihandler} />
           <ButtonShared type="button">
