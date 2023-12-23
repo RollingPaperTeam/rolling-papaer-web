@@ -9,6 +9,7 @@ const PostHeaderItemsBlock = styled.div`
   gap: 56px;
   ${mediaQuery.mobile} {
     justify-content: flex-start;
+    gap: 30px;
   }
 
   .post-header-item {
