@@ -1,5 +1,5 @@
 function RecentProfile({ result }) {
-  const list = result.recentMessages.map((image) => {
+  const list = result.recentMessages?.map((image) => {
     return (
       <img key={image.id} src={image.profileImageURL} alt={image.sender} />
     );

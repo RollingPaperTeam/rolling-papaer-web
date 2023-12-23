@@ -137,7 +137,7 @@ export const ButtonPlus = styled.button`
   }
 `;
 
-const ButtonDeleted = styled.button`
+export const ButtonDeleted = styled.button`
   position: relative;
   width: 3.6rem;
   height: 3.6rem;
@@ -176,6 +176,49 @@ const ButtonDeleted = styled.button`
   }
 
   ${DeletedDisabledIcon} {
+    ${PositionCenter}
+  }
+`
+
+export const ButtonShared = styled.button`
+  position: relative;
+  width: 3.6rem;
+  height: 3.6rem;
+  border: 1px solid ${THEME_LIGHT_COLOR.gray3};
+  border-radius: 0.6rem;
+  cursor: pointer;
+  background-color: ${THEME_LIGHT_COLOR.white};
+
+  &:disabled {
+    background-color: ${THEME_LIGHT_COLOR.gray3};
+  }
+
+  &:hover {
+    border: ${({ disabled }) =>
+      disabled ? "none" : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
+    background-color: ${({ disabled }) =>
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray1}`};
+  }
+
+  &:active {
+    border: ${({ disabled }) =>
+      disabled
+        ? `${THEME_LIGHT_COLOR.gray3}`
+        : `1px solid ${THEME_LIGHT_COLOR.gray3}`};
+    background-color: ${({ disabled }) =>
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.gray1}`};
+  }
+
+  &:focus {
+    border: ${({ disabled }) =>
+      disabled
+        ? `${THEME_LIGHT_COLOR.gray3}`
+        : `1px solid ${THEME_LIGHT_COLOR.gray5}`};
+    background-color: ${({ disabled }) =>
+      disabled ? `${THEME_LIGHT_COLOR.gray3}` : `${THEME_LIGHT_COLOR.white}`};
+  }
+
+  ${ShareIcon} {
     ${PositionCenter}
   }
 `
